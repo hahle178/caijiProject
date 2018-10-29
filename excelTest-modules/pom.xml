@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<!--单例工程架构-->
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.chrtc.excelTest</groupId>
+	<artifactId>excelTest</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>excelTest</name>
+	<description></description>
+
+    <parent>
+        <groupId>com.chrtc.ezdev</groupId>
+        <artifactId>ezdev-common-parent</artifactId>
+        <version>2.2.2-SNAPSHOT</version>
+        <relativePath />
+    </parent>
+
+    <url>http://www.chrhc.com/</url>
+
+    <organization>
+        <name>excelTest</name>
+        <url>http://www.chrtc.cn/</url>
+    </organization>
+
+    <properties>
+        <excelTest.version>0.0.1-SNAPSHOT</excelTest.version>
+    <ezdev.system.version>1.0.2-SNAPSHOT</ezdev.system.version>
+    <java.version>1.8</java.version>
+
+    </properties>
+
+    <!-- 配置仓库地址 -->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Team Nexus Repository</name>
+            <url>http://192.168.1.70:8081/repository/maven-public/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+
+    </repositories>
+
+    <!-- 配置部署地址 -->
+
+    <dependencyManagement>
+        <dependencies>
+
+            <dependency>
+                <groupId>com.chrtc.excelTest</groupId>
+                <artifactId>excelTest-excelTest</artifactId>
+                <version>${excelTest.version}</version>
+            </dependency>
+
+
+        </dependencies>
+    </dependencyManagement>
+
+    <!-- 依赖项定义 -->
+    <dependencies>
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-common-base</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-common-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-common-mybatis</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-system-starter-monolithic</artifactId>
+            <version>${ezdev.system.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-common-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-attach-common</artifactId>
+            <version>2.2.2-SNAPSHOT</version>
+        </dependency>
+
+        <!-- java poi -->
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-scratchpad</artifactId>
+            <version>3.17</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>openxml4j</artifactId>
+            <version>1.0-beta</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/dom4j/dom4j -->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+        <!-- with pentaho-kettle -->
+        <dependency>
+            <groupId>pentaho-kettle</groupId>
+            <artifactId>kettle-core</artifactId>
+            <version>8.0.0.0-28</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-kettle</groupId>
+            <artifactId>kettle-engine</artifactId>
+            <version>8.0.0.0-28</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho-kettle</groupId>
+            <artifactId>kettle-dbdialog</artifactId>
+            <version>8.0.0.0-28</version>
+        </dependency>
+        <!-- with quartz -->
+        <dependency>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-vfs2</artifactId>
+            <version>2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>pentaho</groupId>
+            <artifactId>metastore</artifactId>
+            <version>8.0.0.0-28</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.4</version>
+        </dependency>
+
+        <!--引入解析csv的jar   -->
+        <dependency>
+            <groupId>net.sourceforge.javacsv</groupId>
+            <artifactId>javacsv</artifactId>
+            <version>2.0</version>
+        </dependency>
+
+
+
+        <!-- 未来的单体的权限引入 -->
+        <!-- TEST end -->
+    </dependencies>
+
+
+	<profiles>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<modules>
+
+				<module>excelTest-excelTest</module>
+			</modules>
+		</profile>
+	</profiles>
+</project>

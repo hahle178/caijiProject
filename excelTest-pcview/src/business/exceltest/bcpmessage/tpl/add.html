@@ -1,0 +1,76 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+    bcpMessage添加
+        <small>添加新bcpMessage</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12" style="min-width:520px">
+                <div class="box box-warning  ">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">表单提交</h3>
+                    </div>
+                    <!-- /.box-header -->
+
+                        <form id="{{mcid}}_submitForm" role="form">
+                            <div class="box-body ">
+                            <!-- hidden input -->
+<input type="hidden" name="versionNum"  class="form-control" >
+
+                            <!-- text input -->
+                        <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><i class="fa"></i>&nbsp;文件路径</label>
+<input type="text" name="path"  class="form-control" placeholder="请输入文件路径" />
+                                        <span class="help-block"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label><i class="fa"></i>&nbsp;记录行数</label>
+<input type="text" name="count"  class="form-control" placeholder="请输入记录行数" />
+                                        <span class="help-block"></span>
+                                    </div>
+                        </div>
+                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label><i class="fa"></i>&nbsp;文件名称</label>
+<input type="text" name="name"  class="form-control" placeholder="请输入文件名称" />
+                                                <span class="help-block"></span>
+                                            </div>
+                            </div>
+                            </div>
+
+                            <div class="box-footer">
+                                <button e-event="href:/{{path}}/submit?type=post&url=/excelTest/exceltest/bcpmessage" class="btn btn-success"   id="process_{{mcid}}_btn" type="button"  title="提交"
+                                        e-permission="exceltest_bcpmessage_submit1">
+                                	<i class="fa fa-arrow-up"></i>&nbsp;提交
+								</button>
+                                <button e-event="href:/{{path}}/goBack" class="btn btn-primary " id="back_{{mcid}}_btn" type="button" title="返回">
+								    <i class="fa fa-undo"></i>&nbsp;返回
+								</button>
+                            </div>
+
+                        </form>
+
+                    <!-- /.box-body -->
+                </div>
+
+            <!-- /.box -->
+            <div class="row" id="{{mcid}}_pager">
+
+            </div>
+        </div>
+        <!-- /.col -->
+
+    </div>
+
+
+    <!-- Your Page Content Here -->
+
+</section>
+<!-- /.content -->

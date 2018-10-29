@@ -1,0 +1,24 @@
+<tr role="row" class="odd" id="{{id}}" >
+    {{each list item i}}
+            <td  >
+                <input type="hidden" name="fieldName"  value="{{item.fieldName}}" />
+                <input type="hidden" name="fieldEng"  value="{{item.fieldEng}}" />
+                <input type="hidden" name="fieldRemark"  value="{{item.fieldRemark}}" />
+                <input type="hidden" name="fieldLength"  value="{{item.fieldLength}}" />
+                <input type="hidden" name="fieldHeadName"  value="{{item.fieldHeadName}}" />
+                <input type="hidden" name="fieldOption"  value="{{item.fieldOption}}" />
+
+                <input type="text" name="fieldValue"  class=" form-control" datatype="s1-{{item.fieldLength}}" placeholder="请输入{{item.fieldName}}" />
+                <span class="help-block"></span>
+            </td>
+    {{/each}}
+    <input type="hidden" name="fieldSize"  value="{{list.length}}" />
+    <td>
+        <div class="form-group">
+            <!--<button type="button"  class="btn btn-primary form-control" ><i class="fa fa-remove"></i>&nbsp;删除</button>-->
+            <button e-event="href:/{{path}}/delField?id={{id}}"   class="btn btn-primary form-control"  type="button" title="删除">
+                <i class="fa fa-remove"></i>&nbsp;删除
+            </button>
+        </div>
+    </td>
+</tr>

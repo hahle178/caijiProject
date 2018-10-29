@@ -1,0 +1,69 @@
+<div class="col-sm-12">
+    <div class="Tables_wrapper form-inline dt-bootstrap no-footer">
+        <div class="row">
+            <div class="col-sm-6"></div>
+            <div class="col-sm-6"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer"
+                       role="grid" aria-describedby="example2_info">
+                    <thead>
+                    <tr role="row">
+                                    <th class="sorting" sort="path">
+                                        文件路径
+                                    </th>
+                                    <th class="sorting" sort="name">
+                                        文件名称
+                                    </th>
+                                    <th class="sorting" sort="count">
+                                        记录行数
+                                    </th>
+                        <th class="">
+
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{if data.totalSize==0}}
+                    <tr>
+                            <td class="lefttd" colspan="3">没有数据</td>
+                    </tr>
+                    {{else}}
+                    {{each data.content  item i}}
+                    <tr role="row" class="odd">
+                                            <td  >{{item.path}}</td>
+
+
+                                            <td  >{{item.name}}</td>
+
+
+                                            <td  >{{item.count}}</td>
+
+
+                        <td align="center">
+                            <button e-router="href:/{{path}}/edit?url=/excelTest/exceltest/bcpmessage/{{item.id}}"
+                                    e-permission="exceltest_bcpmessage_edit"
+                                    type="button" class="btn btn-default"><i class="fa fa-pencil-square"></i> 修改
+                            </button>
+                            <button e-event="href:/{{path}}/dialog?dialog=confirm&type=delete&url=/excelTest/exceltest/bcpmessage/{{item.id}}"
+                                    type="button" e-permission="exceltest_bcpmessage_delete"
+                                    class="btn btn-default"><i class="fa fa-times"></i>删除
+                            </button>
+                            <button e-router="href:/{{path}}/details?url=/excelTest/exceltest/bcpmessage/{{item.id}}&tpl=detail"
+                                    e-permission="exceltest_bcpmessage_details"
+                                    type="button" class="btn btn-default"><i class="fa fa-search"></i> 查看
+                            </button>
+                        </td>
+                    </tr>
+                    {{/each}}
+                    {{/if}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" id="{{mcid}}_pager">
+
+        </div>
+    </div>
+</div>

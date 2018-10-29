@@ -1,0 +1,75 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        自定义字段并录入记录
+        <small>自定义字段并录入记录</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+
+    <div class="row">
+        <div class="col-xs-12" style="min-width:520px">
+            <div class="box box-warning  ">
+                <div class="box-header with-border">
+                    <h3 class="box-title">表单提交</h3>
+                </div>
+                <!-- /.box-header -->
+
+                <form id="{{mcid}}_submitForm" role="form">
+                    <input type="hidden"  class="fieldHeadName" name="fieldHeadName"  value="" />
+                    <div class="box-body ">
+                        <!--<div class="col-md-3">
+                            <div class="form-group">
+                                <label><i class="fa"></i>&nbsp;请选择已存在的表头</label>
+                                <e-select class="form-control"  name="gwType"  e-option-value="code"
+                                          e-option-text="value" e-url="/excelTest/exceltest/bcpmessage/ajaxGetBcpName" e-value='sc'
+                                          e-type="get"
+                                            >
+                                </e-select>
+                            </div>
+                        </div>-->
+                    </div>
+
+
+                    <div class="box-body ">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label><i class="fa"></i>&nbsp;自定义字段的属性</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box-body ">
+                        <div class="col-md-3">
+                        <button e-event="href:/{{path}}/addField" class="btn btn-success" type="button"  title="增加字段列"
+                                e-permission="exceltest_bcpmessage_submit1">
+                            <i class="fa fa-search-plus"></i>&nbsp;增加字段列
+                        </button>
+                        </div>
+                    </div>
+
+                    <div  class = "addField">
+
+                    </div>
+                    <div class="box-footer">
+                        <button e-event="href:/{{path}}/headSubmit?type=post&url=/excelTest/exceltest/bcpmessage/defineHead&tpl=fieldInput&contentType=application/x-www-form-urlencoded;charset=UTF-8" class="btn btn-success"   id="process_{{mcid}}_btn" type="button"  title="提交"
+                                e-permission="exceltest_bcpmessage_submit1">
+                            <i class="fa fa-arrow-up"></i>&nbsp;提交
+                        </button>
+                        <!--<button e-event="href:/{{path}}/goBack" class="btn btn-primary " id="back_{{mcid}}_btn" type="button" title="返回">
+                            <i class="fa fa-undo"></i>&nbsp;返回
+                        </button>-->
+                    </div>
+                </form>
+                <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- Your Page Content Here -->
+</section>
+<!-- /.content -->

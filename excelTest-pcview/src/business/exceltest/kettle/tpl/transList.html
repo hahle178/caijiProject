@@ -1,0 +1,14 @@
+
+{{each  data item i}}
+    <tr  id="{{item.id}}">
+        <td >{{item.transName}}</td>
+        <td >{{item.transPath}}</td>
+        <td> <button e-event="href:/{{path}}/startTrans?transPath={{item.transPath}}&url=/excelTest/exceltest/ktrans/runTrans" class="btn  btn-xs form-delete" type="button"  title="启动">
+            <i class="fa fa-trash"></i>&nbsp;启动
+        </button>
+         <button e-event="href:/{{path}}/deleteRow?id={{item.id}}&name={{item.transPath}}" class="btn  btn-xs form-delete" type="button"  title="删除">
+            <i class="fa fa-trash"></i>&nbsp;删除
+        </button>
+        </td>
+    </tr>
+{{/each}}

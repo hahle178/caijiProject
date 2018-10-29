@@ -1,0 +1,53 @@
+<div  class="box-body">
+    <form id="{{mcid}}_searchForm">
+        {{each  data.content item i}}
+            {{if i == 0}}
+                {{each item.fieldHeadName value index}}
+                      <input type="hidden" name="fieldHeadName"  class="form-control" value="{{value}}" >
+                {{/each}}
+            {{/if}}
+        {{/each}}
+        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer"
+               role="grid" aria-describedby="example2_info">
+            <thead>
+            <tr role="row" class="odd" >
+                    {{each  data.content item i}}
+                        {{if i == 0}}
+                           {{each item.fieldName value index}}
+                                <td>
+                                    <h4>{{value}}</h4>
+                                    <span class="help-block"></span>
+                                </td>
+                            {{/each}}
+                        {{/if}}
+
+                    {{/each}}
+            </tr>
+            </thead>
+            <tbody class="addRow">
+                {{each data.content item i}}
+                    <tr role="row" class="odd" >
+                        {{each item.fieldValue value index}}
+                            <td>
+                                <input type="text" name="fieldValue"  style="border-style:none"  readonly="readonly"  class=" form-control"  value="{{value}}"  />
+                                <span class="help-block"></span>
+                            </td>
+                        {{/each}}
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+
+        <div class="row" id="{{mcid}}_pager">
+
+        </div>
+    </form>
+</div>
+
+<!--
+<script>
+    $(function () {
+        $("[name='fieldHeadName']").val($(".selectHead").val());
+    });
+</script>-->

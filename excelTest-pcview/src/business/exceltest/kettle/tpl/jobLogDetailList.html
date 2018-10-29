@@ -1,0 +1,17 @@
+
+
+<input type="hidden"  class="logFilePath" name="jobPath"  value="{{data.content[0].recordJob}}" />
+{{each  data.content item i}}
+    <tr  >
+        <td >{{i+1}}</td>
+        <td >{{item.recordJob}}</td>
+        <td >{{item.startTime}}</td>
+        <td >{{item.stopTime}}</td>
+        <td >{{item.recordStatus==1?"成功":"失败"}}</td>
+
+        <td> <button e-event="href:/{{path}}/recordLogDetail?logFilePath={{item.logFilePath}}&url=/excelTest/exceltest/kjob/recordLogDetail" class="btn  btn-xs form-delete" type="button"  title="查看详细">
+            <i class="fa"></i>&nbsp;查看执行日志
+        </button>
+        </td>
+    </tr>
+{{/each}}

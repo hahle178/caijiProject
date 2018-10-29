@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/excelTest.iml" filepath="$PROJECT_DIR$/excelTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/excelTest-excelTest/excelTest-excelTest.iml" filepath="$PROJECT_DIR$/excelTest-excelTest/excelTest-excelTest.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,66 @@
+@CHARSET "UTF-8";
+.uploaderDelete{
+    background: url(button-error-30.png) ;
+    height:30px;
+    width:30px;
+    display:block;
+}
+.uploader-div-button {
+    background-color: #ad5842;
+    background-image: none;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 0;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+    width: 100px;
+    height:30px;
+    line-height:30px;
+    z-index:2;
+    margin-left:5px;
+}
+.uploader-input {
+  text-align: left; 
+    width: 150px;
+    /* margin-left: 5px;
+    margin-bottom: 10px; */
+    /* height: 30px; */
+    height: 34px;
+    padding: 6px 12px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    /* border-radius: 4px; */
+}
+.upload-inside div{
+   /* display:inline; 
+   float:left;  */
+}
+.upload-img-inside div{
+    display:inline;
+    float:left;
+    position:relative; 
+    width:42px;
+    height:42px;
+}
+.uploader-img-button{
+    background-image:url(img42x42.png);
+    width:42px;
+    height:42px;
+     position:absolute;
+    z-index:1;
+    top:0px;
+    left:0px 
+}
+.uploader-img-inputFile{
+    width:42px;
+    height:42px;
+    float:left;
+    position:relative;
+    z-index:2 
+}

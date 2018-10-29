@@ -1,0 +1,14 @@
+@CHARSET "UTF-8";
+.uploaderDelete{
+    background: url(button-error-30.png) ;
+    height:30px;
+    width:30px;
+    display:block;
+}
+.uploader-input {
+    text-align: left;
+    width: 150px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+    height: 30px;
+}

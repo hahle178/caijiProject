@@ -1,0 +1,601 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrtc.excelTest.excelTest.mapper.kettle.KjobMapper">
+    <resultMap id="BaseResultMap" type="com.chrtc.excelTest.excelTest.domain.kettle.Kjob" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="create_name" property="createName" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="DATE" />
+        <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="update_date" property="updateDate" jdbcType="DATE" />
+        <result column="version_num" property="versionNum" jdbcType="INTEGER" />
+        <result column="sys_org_code" property="sysOrgCode" jdbcType="VARCHAR" />
+        <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+        <result column="obligate_a" property="obligateA" jdbcType="VARCHAR" />
+        <result column="obligate_b" property="obligateB" jdbcType="VARCHAR" />
+        <result column="obligate_c" property="obligateC" jdbcType="VARCHAR" />
+        <result column="obligate_d" property="obligateD" jdbcType="VARCHAR" />
+        <result column="obligate_e" property="obligateE" jdbcType="VARCHAR" />
+        <result column="job_id" property="jobId" jdbcType="VARCHAR" />
+        <result column="job_name" property="jobName" jdbcType="VARCHAR" />
+        <result column="job_description" property="jobDescription" jdbcType="VARCHAR" />
+        <result column="job_type" property="jobType" jdbcType="VARCHAR" />
+        <result column="job_path" property="jobPath" jdbcType="VARCHAR" />
+        <result column="job_repository_id" property="jobRepositoryId" jdbcType="VARCHAR" />
+        <result column="job_quartz" property="jobQuartz" jdbcType="VARCHAR" />
+        <result column="job_record" property="jobRecord" jdbcType="VARCHAR" />
+        <result column="job_log_level" property="jobLogLevel" jdbcType="VARCHAR" />
+        <result column="job_status" property="jobStatus" jdbcType="VARCHAR" />
+        <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+        <result column="add_user" property="addUser" jdbcType="VARCHAR" />
+        <result column="edit_time" property="editTime" jdbcType="VARCHAR" />
+        <result column="edit_user" property="editUser" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                 and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                 and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                    #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}  
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                  and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                     #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+    id,create_name,create_by,create_date,update_name,update_by,update_date,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,job_id,job_name,job_description,job_type,job_path,job_repository_id,job_quartz,job_record,job_log_level,job_status,add_time,add_user,edit_time,edit_user
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KjobExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from k_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from  k_job
+       where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from k_job
+     where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KjobExample" >
+        delete from k_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.Kjob" >
+        insert into k_job (
+    id,create_name,create_by,create_date,update_name,update_by,update_date,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,job_id,job_name,job_description,job_type,job_path,job_repository_id,job_quartz,job_record,job_log_level,job_status,add_time,add_user,edit_time,edit_user        )
+        values (
+    #{id,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{updateName,jdbcType=VARCHAR},#{updateBy,jdbcType=VARCHAR},#{updateDate,jdbcType=DATE},#{versionNum,jdbcType=INTEGER},#{sysOrgCode,jdbcType=VARCHAR},#{delFlag,jdbcType=VARCHAR},#{obligateA,jdbcType=VARCHAR},#{obligateB,jdbcType=VARCHAR},#{obligateC,jdbcType=VARCHAR},#{obligateD,jdbcType=VARCHAR},#{obligateE,jdbcType=VARCHAR},#{jobId,jdbcType=VARCHAR},#{jobName,jdbcType=VARCHAR},#{jobDescription,jdbcType=VARCHAR},#{jobType,jdbcType=VARCHAR},#{jobPath,jdbcType=VARCHAR},#{jobRepositoryId,jdbcType=VARCHAR},#{jobQuartz,jdbcType=VARCHAR},#{jobRecord,jdbcType=VARCHAR},#{jobLogLevel,jdbcType=VARCHAR},#{jobStatus,jdbcType=VARCHAR},#{addTime,jdbcType=VARCHAR},#{addUser,jdbcType=VARCHAR},#{editTime,jdbcType=VARCHAR},#{editUser,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.Kjob">
+        insert into k_job
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                id,
+                </if>
+                <if test="createName != null">
+                create_name,
+                </if>
+                <if test="createBy != null">
+                create_by,
+                </if>
+                <if test="createDate != null">
+                create_date,
+                </if>
+                <if test="updateName != null">
+                update_name,
+                </if>
+                <if test="updateBy != null">
+                update_by,
+                </if>
+                <if test="updateDate != null">
+                update_date,
+                </if>
+                <if test="versionNum != null">
+                version_num,
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code,
+                </if>
+                <if test="delFlag != null">
+                del_flag,
+                </if>
+                <if test="obligateA != null">
+                obligate_a,
+                </if>
+                <if test="obligateB != null">
+                obligate_b,
+                </if>
+                <if test="obligateC != null">
+                obligate_c,
+                </if>
+                <if test="obligateD != null">
+                obligate_d,
+                </if>
+                <if test="obligateE != null">
+                obligate_e,
+                </if>
+                <if test="jobId != null">
+                job_id,
+                </if>
+                <if test="jobName != null">
+                job_name,
+                </if>
+                <if test="jobDescription != null">
+                job_description,
+                </if>
+                <if test="jobType != null">
+                job_type,
+                </if>
+                <if test="jobPath != null">
+                job_path,
+                </if>
+                <if test="jobRepositoryId != null">
+                job_repository_id,
+                </if>
+                <if test="jobQuartz != null">
+                job_quartz,
+                </if>
+                <if test="jobRecord != null">
+                job_record,
+                </if>
+                <if test="jobLogLevel != null">
+                job_log_level,
+                </if>
+                <if test="jobStatus != null">
+                job_status,
+                </if>
+                <if test="addTime != null">
+                add_time,
+                </if>
+                <if test="addUser != null">
+                add_user,
+                </if>
+                <if test="editTime != null">
+                edit_time,
+                </if>
+                <if test="editUser != null">
+                edit_user,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateName != null">
+                #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateDate != null">
+                #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="versionNum != null">
+                #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="jobId != null">
+                #{jobId,jdbcType=VARCHAR},
+                </if>
+                <if test="jobName != null">
+                #{jobName,jdbcType=VARCHAR},
+                </if>
+                <if test="jobDescription != null">
+                #{jobDescription,jdbcType=VARCHAR},
+                </if>
+                <if test="jobType != null">
+                #{jobType,jdbcType=VARCHAR},
+                </if>
+                <if test="jobPath != null">
+                #{jobPath,jdbcType=VARCHAR},
+                </if>
+                <if test="jobRepositoryId != null">
+                #{jobRepositoryId,jdbcType=VARCHAR},
+                </if>
+                <if test="jobQuartz != null">
+                #{jobQuartz,jdbcType=VARCHAR},
+                </if>
+                <if test="jobRecord != null">
+                #{jobRecord,jdbcType=VARCHAR},
+                </if>
+                <if test="jobLogLevel != null">
+                #{jobLogLevel,jdbcType=VARCHAR},
+                </if>
+                <if test="jobStatus != null">
+                #{jobStatus,jdbcType=VARCHAR},
+                </if>
+                <if test="addTime != null">
+                #{addTime,jdbcType=VARCHAR},
+                </if>
+                <if test="addUser != null">
+                #{addUser,jdbcType=VARCHAR},
+                </if>
+                <if test="editTime != null">
+                #{editTime,jdbcType=VARCHAR},
+                </if>
+                <if test="editUser != null">
+                #{editUser,jdbcType=VARCHAR},
+                </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KjobExample" resultType="java.lang.Integer" >
+        select count(*) from k_job
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update k_job
+        <set >
+            <if test="id != null">
+            id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="createName != null">
+            create_name = #{createName,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+            create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+            create_date = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="updateName != null">
+            update_name = #{updateName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+            update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateDate != null">
+            update_date = #{updateDate,jdbcType=DATE},
+            </if>
+            <if test="versionNum != null">
+            version_num = #{versionNum,jdbcType=INTEGER},
+            </if>
+            <if test="sysOrgCode != null">
+            sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+            del_flag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateA != null">
+            obligate_a = #{obligateA,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateB != null">
+            obligate_b = #{obligateB,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateC != null">
+            obligate_c = #{obligateC,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateD != null">
+            obligate_d = #{obligateD,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateE != null">
+            obligate_e = #{obligateE,jdbcType=VARCHAR},
+            </if>
+            <if test="jobId != null">
+            job_id = #{jobId,jdbcType=VARCHAR},
+            </if>
+            <if test="jobName != null">
+            job_name = #{jobName,jdbcType=VARCHAR},
+            </if>
+            <if test="jobDescription != null">
+            job_description = #{jobDescription,jdbcType=VARCHAR},
+            </if>
+            <if test="jobType != null">
+            job_type = #{jobType,jdbcType=VARCHAR},
+            </if>
+            <if test="jobPath != null">
+            job_path = #{jobPath,jdbcType=VARCHAR},
+            </if>
+            <if test="jobRepositoryId != null">
+            job_repository_id = #{jobRepositoryId,jdbcType=VARCHAR},
+            </if>
+            <if test="jobQuartz != null">
+            job_quartz = #{jobQuartz,jdbcType=VARCHAR},
+            </if>
+            <if test="jobRecord != null">
+            job_record = #{jobRecord,jdbcType=VARCHAR},
+            </if>
+            <if test="jobLogLevel != null">
+            job_log_level = #{jobLogLevel,jdbcType=VARCHAR},
+            </if>
+            <if test="jobStatus != null">
+            job_status = #{jobStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+            add_time = #{addTime,jdbcType=VARCHAR},
+            </if>
+            <if test="addUser != null">
+            add_user = #{addUser,jdbcType=VARCHAR},
+            </if>
+            <if test="editTime != null">
+            edit_time = #{editTime,jdbcType=VARCHAR},
+            </if>
+            <if test="editUser != null">
+            edit_user = #{editUser,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update k_job
+        set
+            id = #{id,jdbcType=VARCHAR},
+            ,create_name = #{createName,jdbcType=VARCHAR},
+            ,create_by = #{createBy,jdbcType=VARCHAR},
+            ,create_date = #{createDate,jdbcType=DATE},
+            ,update_name = #{updateName,jdbcType=VARCHAR},
+            ,update_by = #{updateBy,jdbcType=VARCHAR},
+            ,update_date = #{updateDate,jdbcType=DATE},
+            ,version_num = #{versionNum,jdbcType=INTEGER},
+            ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            ,del_flag = #{delFlag,jdbcType=VARCHAR},
+            ,obligate_a = #{obligateA,jdbcType=VARCHAR},
+            ,obligate_b = #{obligateB,jdbcType=VARCHAR},
+            ,obligate_c = #{obligateC,jdbcType=VARCHAR},
+            ,obligate_d = #{obligateD,jdbcType=VARCHAR},
+            ,obligate_e = #{obligateE,jdbcType=VARCHAR},
+            ,job_id = #{jobId,jdbcType=VARCHAR},
+            ,job_name = #{jobName,jdbcType=VARCHAR},
+            ,job_description = #{jobDescription,jdbcType=VARCHAR},
+            ,job_type = #{jobType,jdbcType=VARCHAR},
+            ,job_path = #{jobPath,jdbcType=VARCHAR},
+            ,job_repository_id = #{jobRepositoryId,jdbcType=VARCHAR},
+            ,job_quartz = #{jobQuartz,jdbcType=VARCHAR},
+            ,job_record = #{jobRecord,jdbcType=VARCHAR},
+            ,job_log_level = #{jobLogLevel,jdbcType=VARCHAR},
+            ,job_status = #{jobStatus,jdbcType=VARCHAR},
+            ,add_time = #{addTime,jdbcType=VARCHAR},
+            ,add_user = #{addUser,jdbcType=VARCHAR},
+            ,edit_time = #{editTime,jdbcType=VARCHAR},
+            ,edit_user = #{editUser,jdbcType=VARCHAR},
+      <if test="_parameter != null" >
+          <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.Kjob" >
+        update k_job
+        <set >
+                <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                create_name = #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                create_date = #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateName != null">
+                update_name = #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="versionNum != null">
+                version_num = #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                obligate_a = #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                obligate_b = #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                obligate_c = #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                obligate_d = #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                obligate_e = #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="jobId != null">
+                job_id = #{jobId,jdbcType=VARCHAR},
+                </if>
+                <if test="jobName != null">
+                job_name = #{jobName,jdbcType=VARCHAR},
+                </if>
+                <if test="jobDescription != null">
+                job_description = #{jobDescription,jdbcType=VARCHAR},
+                </if>
+                <if test="jobType != null">
+                job_type = #{jobType,jdbcType=VARCHAR},
+                </if>
+                <if test="jobPath != null">
+                job_path = #{jobPath,jdbcType=VARCHAR},
+                </if>
+                <if test="jobRepositoryId != null">
+                job_repository_id = #{jobRepositoryId,jdbcType=VARCHAR},
+                </if>
+                <if test="jobQuartz != null">
+                job_quartz = #{jobQuartz,jdbcType=VARCHAR},
+                </if>
+                <if test="jobRecord != null">
+                job_record = #{jobRecord,jdbcType=VARCHAR},
+                </if>
+                <if test="jobLogLevel != null">
+                job_log_level = #{jobLogLevel,jdbcType=VARCHAR},
+                </if>
+                <if test="jobStatus != null">
+                job_status = #{jobStatus,jdbcType=VARCHAR},
+                </if>
+                <if test="addTime != null">
+                add_time = #{addTime,jdbcType=VARCHAR},
+                </if>
+                <if test="addUser != null">
+                add_user = #{addUser,jdbcType=VARCHAR},
+                </if>
+                <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=VARCHAR},
+                </if>
+                <if test="editUser != null">
+                edit_user = #{editUser,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.Kjob" >
+        update k_job
+        set
+         id = #{id,jdbcType=VARCHAR}
+         ,create_name = #{createName,jdbcType=VARCHAR}
+         ,create_by = #{createBy,jdbcType=VARCHAR}
+         ,create_date = #{createDate,jdbcType=DATE}
+         ,update_name = #{updateName,jdbcType=VARCHAR}
+         ,update_by = #{updateBy,jdbcType=VARCHAR}
+         ,update_date = #{updateDate,jdbcType=DATE}
+         ,version_num = #{versionNum,jdbcType=INTEGER}
+         ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR}
+         ,del_flag = #{delFlag,jdbcType=VARCHAR}
+         ,obligate_a = #{obligateA,jdbcType=VARCHAR}
+         ,obligate_b = #{obligateB,jdbcType=VARCHAR}
+         ,obligate_c = #{obligateC,jdbcType=VARCHAR}
+         ,obligate_d = #{obligateD,jdbcType=VARCHAR}
+         ,obligate_e = #{obligateE,jdbcType=VARCHAR}
+         ,job_id = #{jobId,jdbcType=VARCHAR}
+         ,job_name = #{jobName,jdbcType=VARCHAR}
+         ,job_description = #{jobDescription,jdbcType=VARCHAR}
+         ,job_type = #{jobType,jdbcType=VARCHAR}
+         ,job_path = #{jobPath,jdbcType=VARCHAR}
+         ,job_repository_id = #{jobRepositoryId,jdbcType=VARCHAR}
+         ,job_quartz = #{jobQuartz,jdbcType=VARCHAR}
+         ,job_record = #{jobRecord,jdbcType=VARCHAR}
+         ,job_log_level = #{jobLogLevel,jdbcType=VARCHAR}
+         ,job_status = #{jobStatus,jdbcType=VARCHAR}
+         ,add_time = #{addTime,jdbcType=VARCHAR}
+         ,add_user = #{addUser,jdbcType=VARCHAR}
+         ,edit_time = #{editTime,jdbcType=VARCHAR}
+         ,edit_user = #{editUser,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findAllByPage" resultMap="BaseResultMap"  parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KjobExample">
+        SELECT * FROM k_job
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="sort != ''">
+            ORDER BY ${sort}
+        </if>
+    </select>
+
+    <delete id="deleteLogicByPrimaryKey" parameterType="java.lang.String">
+        update k_job
+        set del_flag='1'
+        where id = #{id,jdbcType=VARCHAR};
+    </delete>
+
+    <select id="findAllList" resultMap="BaseResultMap"  parameterType="com.chrtc.excelTest.excelTest.domain.kettle.Kjob">
+        SELECT * FROM k_job
+    </select>
+</mapper>

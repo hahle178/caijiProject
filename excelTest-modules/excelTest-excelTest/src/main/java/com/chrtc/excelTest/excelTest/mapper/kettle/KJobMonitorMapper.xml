@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrtc.excelTest.excelTest.mapper.kettle.KJobMonitorMapper">
+    <resultMap id="BaseResultMap" type="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitor" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="create_name" property="createName" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="version_num" property="versionNum" jdbcType="INTEGER" />
+        <result column="sys_org_code" property="sysOrgCode" jdbcType="VARCHAR" />
+        <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+        <result column="obligate_a" property="obligateA" jdbcType="VARCHAR" />
+        <result column="obligate_b" property="obligateB" jdbcType="VARCHAR" />
+        <result column="obligate_c" property="obligateC" jdbcType="VARCHAR" />
+        <result column="obligate_d" property="obligateD" jdbcType="VARCHAR" />
+        <result column="obligate_e" property="obligateE" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="DATE" />
+        <result column="update_date" property="updateDate" jdbcType="DATE" />
+        <result column="monitor_id" property="monitorId" jdbcType="VARCHAR" />
+        <result column="monitor_job" property="monitorJob" jdbcType="VARCHAR" />
+        <result column="monitor_success" property="monitorSuccess" jdbcType="VARCHAR" />
+        <result column="monitor_fail" property="monitorFail" jdbcType="VARCHAR" />
+        <result column="add_user" property="addUser" jdbcType="VARCHAR" />
+        <result column="monitor_status" property="monitorStatus" jdbcType="VARCHAR" />
+        <result column="run_status" property="runStatus" jdbcType="VARCHAR" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                 and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                 and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                    #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}  
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                  and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                     #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+    id,create_name,create_by,update_name,update_by,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,create_date,update_date,monitor_id,monitor_job,monitor_success,monitor_fail,add_user,monitor_status,run_status
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitorExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from k_job_monitor
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from  k_job_monitor
+       where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from k_job_monitor
+     where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitorExample" >
+        delete from k_job_monitor
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitor" >
+        insert into k_job_monitor (
+    id,create_name,create_by,update_name,update_by,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,create_date,update_date,monitor_id,monitor_job,monitor_success,monitor_fail,add_user,monitor_status,run_status        )
+        values (
+    #{id,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{updateName,jdbcType=VARCHAR},#{updateBy,jdbcType=VARCHAR},#{versionNum,jdbcType=INTEGER},#{sysOrgCode,jdbcType=VARCHAR},#{delFlag,jdbcType=VARCHAR},#{obligateA,jdbcType=VARCHAR},#{obligateB,jdbcType=VARCHAR},#{obligateC,jdbcType=VARCHAR},#{obligateD,jdbcType=VARCHAR},#{obligateE,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{updateDate,jdbcType=DATE},#{monitorId,jdbcType=VARCHAR},#{monitorJob,jdbcType=VARCHAR},#{monitorSuccess,jdbcType=VARCHAR},#{monitorFail,jdbcType=VARCHAR},#{addUser,jdbcType=VARCHAR},#{monitorStatus,jdbcType=VARCHAR},#{runStatus,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitor">
+        insert into k_job_monitor
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                id,
+                </if>
+                <if test="createName != null">
+                create_name,
+                </if>
+                <if test="createBy != null">
+                create_by,
+                </if>
+                <if test="updateName != null">
+                update_name,
+                </if>
+                <if test="updateBy != null">
+                update_by,
+                </if>
+                <if test="versionNum != null">
+                version_num,
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code,
+                </if>
+                <if test="delFlag != null">
+                del_flag,
+                </if>
+                <if test="obligateA != null">
+                obligate_a,
+                </if>
+                <if test="obligateB != null">
+                obligate_b,
+                </if>
+                <if test="obligateC != null">
+                obligate_c,
+                </if>
+                <if test="obligateD != null">
+                obligate_d,
+                </if>
+                <if test="obligateE != null">
+                obligate_e,
+                </if>
+                <if test="createDate != null">
+                create_date,
+                </if>
+                <if test="updateDate != null">
+                update_date,
+                </if>
+                <if test="monitorId != null">
+                monitor_id,
+                </if>
+                <if test="monitorJob != null">
+                monitor_job,
+                </if>
+                <if test="monitorSuccess != null">
+                monitor_success,
+                </if>
+                <if test="monitorFail != null">
+                monitor_fail,
+                </if>
+                <if test="addUser != null">
+                add_user,
+                </if>
+                <if test="monitorStatus != null">
+                monitor_status,
+                </if>
+                <if test="runStatus != null">
+                run_status,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateName != null">
+                #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="versionNum != null">
+                #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateDate != null">
+                #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="monitorId != null">
+                #{monitorId,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorJob != null">
+                #{monitorJob,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorSuccess != null">
+                #{monitorSuccess,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorFail != null">
+                #{monitorFail,jdbcType=VARCHAR},
+                </if>
+                <if test="addUser != null">
+                #{addUser,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorStatus != null">
+                #{monitorStatus,jdbcType=VARCHAR},
+                </if>
+                <if test="runStatus != null">
+                #{runStatus,jdbcType=VARCHAR},
+                </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitorExample" resultType="java.lang.Integer" >
+        select count(*) from k_job_monitor
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update k_job_monitor
+        <set >
+            <if test="id != null">
+            id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="createName != null">
+            create_name = #{createName,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+            create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateName != null">
+            update_name = #{updateName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+            update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="versionNum != null">
+            version_num = #{versionNum,jdbcType=INTEGER},
+            </if>
+            <if test="sysOrgCode != null">
+            sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+            del_flag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateA != null">
+            obligate_a = #{obligateA,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateB != null">
+            obligate_b = #{obligateB,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateC != null">
+            obligate_c = #{obligateC,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateD != null">
+            obligate_d = #{obligateD,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateE != null">
+            obligate_e = #{obligateE,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+            create_date = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="updateDate != null">
+            update_date = #{updateDate,jdbcType=DATE},
+            </if>
+            <if test="monitorId != null">
+            monitor_id = #{monitorId,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorJob != null">
+            monitor_job = #{monitorJob,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorSuccess != null">
+            monitor_success = #{monitorSuccess,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorFail != null">
+            monitor_fail = #{monitorFail,jdbcType=VARCHAR},
+            </if>
+            <if test="addUser != null">
+            add_user = #{addUser,jdbcType=VARCHAR},
+            </if>
+            <if test="monitorStatus != null">
+            monitor_status = #{monitorStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="runStatus != null">
+            run_status = #{runStatus,jdbcType=VARCHAR},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update k_job_monitor
+        set
+            id = #{id,jdbcType=VARCHAR},
+            ,create_name = #{createName,jdbcType=VARCHAR},
+            ,create_by = #{createBy,jdbcType=VARCHAR},
+            ,update_name = #{updateName,jdbcType=VARCHAR},
+            ,update_by = #{updateBy,jdbcType=VARCHAR},
+            ,version_num = #{versionNum,jdbcType=INTEGER},
+            ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            ,del_flag = #{delFlag,jdbcType=VARCHAR},
+            ,obligate_a = #{obligateA,jdbcType=VARCHAR},
+            ,obligate_b = #{obligateB,jdbcType=VARCHAR},
+            ,obligate_c = #{obligateC,jdbcType=VARCHAR},
+            ,obligate_d = #{obligateD,jdbcType=VARCHAR},
+            ,obligate_e = #{obligateE,jdbcType=VARCHAR},
+            ,create_date = #{createDate,jdbcType=DATE},
+            ,update_date = #{updateDate,jdbcType=DATE},
+            ,monitor_id = #{monitorId,jdbcType=VARCHAR},
+            ,monitor_job = #{monitorJob,jdbcType=VARCHAR},
+            ,monitor_success = #{monitorSuccess,jdbcType=VARCHAR},
+            ,monitor_fail = #{monitorFail,jdbcType=VARCHAR},
+            ,add_user = #{addUser,jdbcType=VARCHAR},
+            ,monitor_status = #{monitorStatus,jdbcType=VARCHAR},
+            ,run_status = #{runStatus,jdbcType=VARCHAR},
+      <if test="_parameter != null" >
+          <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitor" >
+        update k_job_monitor
+        <set >
+                <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                create_name = #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateName != null">
+                update_name = #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="versionNum != null">
+                version_num = #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                obligate_a = #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                obligate_b = #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                obligate_c = #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                obligate_d = #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                obligate_e = #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                create_date = #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="monitorId != null">
+                monitor_id = #{monitorId,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorJob != null">
+                monitor_job = #{monitorJob,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorSuccess != null">
+                monitor_success = #{monitorSuccess,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorFail != null">
+                monitor_fail = #{monitorFail,jdbcType=VARCHAR},
+                </if>
+                <if test="addUser != null">
+                add_user = #{addUser,jdbcType=VARCHAR},
+                </if>
+                <if test="monitorStatus != null">
+                monitor_status = #{monitorStatus,jdbcType=VARCHAR},
+                </if>
+                <if test="runStatus != null">
+                run_status = #{runStatus,jdbcType=VARCHAR},
+                </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitor" >
+        update k_job_monitor
+        set
+         id = #{id,jdbcType=VARCHAR}
+         ,create_name = #{createName,jdbcType=VARCHAR}
+         ,create_by = #{createBy,jdbcType=VARCHAR}
+         ,update_name = #{updateName,jdbcType=VARCHAR}
+         ,update_by = #{updateBy,jdbcType=VARCHAR}
+         ,version_num = #{versionNum,jdbcType=INTEGER}
+         ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR}
+         ,del_flag = #{delFlag,jdbcType=VARCHAR}
+         ,obligate_a = #{obligateA,jdbcType=VARCHAR}
+         ,obligate_b = #{obligateB,jdbcType=VARCHAR}
+         ,obligate_c = #{obligateC,jdbcType=VARCHAR}
+         ,obligate_d = #{obligateD,jdbcType=VARCHAR}
+         ,obligate_e = #{obligateE,jdbcType=VARCHAR}
+         ,create_date = #{createDate,jdbcType=DATE}
+         ,update_date = #{updateDate,jdbcType=DATE}
+         ,monitor_id = #{monitorId,jdbcType=VARCHAR}
+         ,monitor_job = #{monitorJob,jdbcType=VARCHAR}
+         ,monitor_success = #{monitorSuccess,jdbcType=VARCHAR}
+         ,monitor_fail = #{monitorFail,jdbcType=VARCHAR}
+         ,add_user = #{addUser,jdbcType=VARCHAR}
+         ,monitor_status = #{monitorStatus,jdbcType=VARCHAR}
+         ,run_status = #{runStatus,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findAllByPage" resultMap="BaseResultMap"  parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KJobMonitorExample">
+        SELECT * FROM k_job_monitor
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="sort != ''">
+            ORDER BY ${sort}
+        </if>
+    </select>
+
+    <delete id="deleteLogicByPrimaryKey" parameterType="java.lang.String">
+        update k_job_monitor
+        set del_flag='1'
+        where id = #{id,jdbcType=VARCHAR};
+    </delete>
+
+
+</mapper>

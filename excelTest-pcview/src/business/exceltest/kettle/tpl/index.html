@@ -1,0 +1,70 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        上传Excel处理
+        <small>上传Excel处理</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <form id="{{mcid}}_searchForm">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="Tables_wrapper form-inline dt-bootstrap">
+
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="Tables_length">
+                                    </div>
+                                </div>
+                                    <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
+                                    <div class="col-sm-1">
+                                </div>
+
+                                <div class="col-sm-1">
+                                        &nbsp;<a class="fa fa-plus btn btn-success"
+                                                 href="/attach/download/{{data.downloadId}}" target="_blank">下载模板</a>
+                                </div>
+
+                                <div class="col-sm-4">
+                                    <e-attach class="form-control" id="attacher01"  name="attacher01"  e-pixels="800*600*maxWidthHeight"
+                                              e-single="false"  e-atr-id-saver="upfile01" e-atr-type="aLink" e-pixels="orginal"    >
+                                    </e-attach>
+                                </div>
+
+
+                                <div class="col-sm-1">
+                                    <button id="{{mcid}}_confire" type="button" class="btn btn-block btn-success"
+                                            style="min-width:55px;" e-permission="exceltest_bcpmessage_add"
+                                            e-router="href:/{{path}}/upfileExcel?url=/excelTest/exceltest/bcpmessage/upfile&tpl=upSuccess&contentType=application/x-www-form-urlencoded;charset=UTF-8">
+                                        <li class="fa fa-plus"></li>
+                                        &nbsp;确定上传
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    <div id="{{mcid}}_list" class="row">
+
+                    </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </form>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+
+</section>
+<!-- /.content -->

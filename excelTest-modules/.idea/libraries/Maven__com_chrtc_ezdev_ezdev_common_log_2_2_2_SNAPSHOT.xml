@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.chrtc.ezdev:ezdev-common-log:2.2.2-SNAPSHOT">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/chrtc/ezdev/ezdev-common-log/2.2.2-SNAPSHOT/ezdev-common-log-2.2.2-20180504.034904-10.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/chrtc/ezdev/ezdev-common-log/2.2.2-SNAPSHOT/ezdev-common-log-2.2.2-20180504.034904-10-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/chrtc/ezdev/ezdev-common-log/2.2.2-SNAPSHOT/ezdev-common-log-2.2.2-20180504.034904-10-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,88 @@
+
+/***授权管理分页*****/
+.pagination2 {
+
+    display: inline-block;
+    border: 1px solid #CDCDCD;
+    border-radius: 3px; }
+
+.pagination2 a {
+    padding:2px 0 0;
+    display: block;
+    float: left;
+  /*  width: 20px;
+    height: 20px;*/
+    outline: none;
+    border-right: 1px solid #CDCDCD;
+    border-left: 1px solid #CDCDCD;
+
+    vertical-align:middle;
+    text-align: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 80%;
+    font-family: Times, 'Times New Roman', Georgia, Palatino;
+    /* ATTN: need a better font stack */
+    color: #6a6a6a;
+    background-color: #FAFAFA;
+    /*  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
+     background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
+     background-image: linear-gradient(#f3f3f3, lightgrey);  */
+}
+.pagination2 a:hover, .pagination2 a:focus, .pagination2 a:active {
+    background-color: #1E5E9C;
+    color: #FAFAFA;
+    /*   background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #e4e4e4), color-stop(100%, #cecece));
+      background-image: -webkit-linear-gradient(#e4e4e4, #cecece);
+      background-image: linear-gradient(#e4e4e4, #cecece); */
+}
+.pagination2 a.disabled, .pagination2 a.disabled:hover, .pagination2 a.disabled:focus, .pagination2 a.disabled:active {
+    background-color: #FAFAFA;
+    /*  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f3f3f3), color-stop(100%, lightgrey));
+     background-image: -webkit-linear-gradient(#f3f3f3, lightgrey);
+     background-image: linear-gradient(#f3f3f3, lightgrey); */
+    color: #DDDDDD;
+    cursor: default;
+
+}
+
+.pagination2 a:first-child {
+    border: none;
+    border-radius: 2px 0 0 2px; }
+
+.pagination2 a:last-child {
+    border: none;
+    border-radius: 0 2px 2px 0; }
+
+.pagination2 input {
+    float: left;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    vertical-align: middle;
+    text-align: center;
+}
+.gigantic.pagination2 {
+    margin: 20px 0 0 2%;
+    width: 96%;
+    height: 30px;
+}
+
+.gigantic.pagination2 a {
+    /*height: 20px;
+    width: 20px;
+    font-size: 10px;
+    line-height: 15px;*/
+    height: 100%;
+    width: 15%;
+    font-size: 20px;
+    line-height: 100%;
+}
+
+.gigantic.pagination2 input {
+    width: 40%;
+    height: 100%;
+    font-family:  微软雅黑;
+    font-size: 96%;
+}

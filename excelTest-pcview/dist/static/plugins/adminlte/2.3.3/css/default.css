@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+.table>tbody>tr>td.no-oper{
+	padding: 8px;
+}
+.form-horizontal .form-group{
+	margin-bottom: 15px;
+}
+.input-group[class*="col-"] {
+    padding-left: 15px;
+}
+.btn-back {
+	background-color: #fff;
+    border-color: #ddd;
+    color: #444;
+}
+#tabs-project {
+	height: 135px;
+}
+#tabs-project .progress{
+	background: url(../img/bg_state-1.png) no-repeat -157px 0px;
+	height: 30px;
+	width: 30px;
+	float: left;
+	position: relative;
+}
+
+#tabs-project .progress1 {
+	background-position: 0 0;
+	width: 157px;
+}
+
+#tabs-project .progress div.detail {
+	position: absolute;
+	left: -27px;
+	top: 40px;
+	width: 157px;
+	height: 80px;
+	z-index: 2;
+	line-height: 18px;
+}
+
+#tabs-project .progress3 {
+	background-position: 0 -58px;
+	width: 157px;
+}
+
+#tabs-project .progress_cancel {
+	background-position: -157px -90px;
+}
+
+#tabs-project .progress_unstart {
+	background-position: -157px -60px;
+}
+div.progress {
+    box-shadow: none;
+    overflow: visible !important;
+}
+
+div.logo_load {
+	width: 32px;
+	height: 32px;
+	margin: 30px auto;
+	background: url("../img/logo_load.gif") no-repeat;
+}
+.nav-tabs-custom > .nav-warning-tabs > li.active {
+	border-top-color: #f39c12;
+}

@@ -1,0 +1,12 @@
+.yellow-bg {
+    background-color: #f8ac59;
+    color: #ffffff;
+}
+.navy-bg {
+    background-color: #1ab394;
+    color: #ffffff;
+}
+
+.echarts {
+    height: 240px;
+}

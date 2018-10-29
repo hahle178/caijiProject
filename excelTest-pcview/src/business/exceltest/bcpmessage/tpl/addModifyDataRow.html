@@ -1,0 +1,27 @@
+<tr role="row">
+    {{each list item i}}
+    <th class="sorting" sort="count">
+        <label><i class="fa"></i>&nbsp;{{item.fieldName}}</label>
+
+    </th>
+    {{/each}}
+    <th  class="">
+    </th>
+</tr>
+
+<tr role="row" class="odd" id="{{id}}" >
+    {{each list item i}}
+    <td  >
+        <input type="hidden" name="fieldName"  value="{{item.fieldName}}" />
+        <input type="hidden" name="fieldEng"  value="{{item.fieldEng}}" />
+        <input type="hidden" name="fieldRemark"  value="{{item.fieldRemark}}" />
+        <input type="hidden" name="fieldLength"  value="{{item.fieldLength}}" />
+        <input type="hidden" name="fieldHeadName"  value="{{item.fieldHeadName}}" />
+        <input type="hidden" name="fieldOption"  value="{{item.fieldOption}}" />
+
+        <input type="text" name="fieldValue"  class=" form-control" datatype="s1-{{item.fieldLength}}" placeholder="请输入{{item.fieldName}}" />
+        <span class="help-block"></span>
+    </td>
+    {{/each}}
+    <input type="hidden" name="fieldSize"  value="{{list.length}}" />
+</tr>

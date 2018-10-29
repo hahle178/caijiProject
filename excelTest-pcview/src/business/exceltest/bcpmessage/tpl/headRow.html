@@ -1,0 +1,43 @@
+<div id="{{id}}"  class="box-body">
+    <!-- hidden input -->
+    <input type="hidden" name="versionNum"  class="form-control" >
+    <!-- text input -->
+    <div class="col-md-2">
+        <div class="form-group">
+            <label><i class="fa"></i>&nbsp;中文名称</label>
+            <input type="text" name="fieldName"  class="form-control"  datatype="*" placeholder="请输入中文名称" value=""/>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label><i class="fa"></i>&nbsp;英文名称</label>
+            <input type="text" name="fieldEng"  class="form-control" datatype="s1-18" placeholder="请输入英文名称" value=""/>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label><i class="fa"></i>&nbsp;字段备注</label>
+            <input type="text" name="fieldRemark"  class="form-control" datatype="s1-18" placeholder="请输入字段备注" value=""/>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label><i class="fa"></i>&nbsp;字段长度</label>
+            <input type="text" name="fieldLength"  class="form-control" datatype="n" placeholder="请输入字段长度" value=""/>
+            <span class="help-block"></span>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class="form-group">
+            <label><i class="fa"></i>&nbsp;操作</label>
+            <!--<button type="button"  class="btn btn-primary form-control" ><i class="fa fa-remove"></i>&nbsp;删除</button>-->
+            <button e-event="href:/{{path}}/delField?id={{id}}"     class="btn btn-primary form-control delete-contro"  type="button" title="删除">
+                <i class="fa fa-remove"></i>&nbsp;删除
+            </button>
+            <span class="help-block"></span>
+        </div>
+    </div>
+</div>

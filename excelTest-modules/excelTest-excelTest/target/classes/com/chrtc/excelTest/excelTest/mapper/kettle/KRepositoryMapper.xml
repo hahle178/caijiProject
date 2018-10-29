@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrtc.excelTest.excelTest.mapper.kettle.KRepositoryMapper">
+    <resultMap id="BaseResultMap" type="com.chrtc.excelTest.excelTest.domain.kettle.KRepository" >
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="create_name" property="createName" jdbcType="VARCHAR" />
+        <result column="create_by" property="createBy" jdbcType="VARCHAR" />
+        <result column="update_name" property="updateName" jdbcType="VARCHAR" />
+        <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
+        <result column="version_num" property="versionNum" jdbcType="INTEGER" />
+        <result column="sys_org_code" property="sysOrgCode" jdbcType="VARCHAR" />
+        <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
+        <result column="obligate_a" property="obligateA" jdbcType="VARCHAR" />
+        <result column="obligate_b" property="obligateB" jdbcType="VARCHAR" />
+        <result column="obligate_c" property="obligateC" jdbcType="VARCHAR" />
+        <result column="obligate_d" property="obligateD" jdbcType="VARCHAR" />
+        <result column="obligate_e" property="obligateE" jdbcType="VARCHAR" />
+        <result column="create_date" property="createDate" jdbcType="DATE" />
+        <result column="update_date" property="updateDate" jdbcType="DATE" />
+        <result column="repository_name" property="repositoryName" jdbcType="VARCHAR" />
+        <result column="repository_username" property="repositoryUsername" jdbcType="VARCHAR" />
+        <result column="repository_password" property="repositoryPassword" jdbcType="VARCHAR" />
+        <result column="repository_type" property="repositoryType" jdbcType="VARCHAR" />
+        <result column="database_access" property="databaseAccess" jdbcType="VARCHAR" />
+        <result column="database_host" property="databaseHost" jdbcType="VARCHAR" />
+        <result column="database_port" property="databasePort" jdbcType="VARCHAR" />
+        <result column="database_name" property="databaseName" jdbcType="VARCHAR" />
+        <result column="database_username" property="databaseUsername" jdbcType="VARCHAR" />
+        <result column="database_password" property="databasePassword" jdbcType="VARCHAR" />
+        <result column="add_time" property="addTime" jdbcType="DATE" />
+        <result column="add_user" property="addUser" jdbcType="INTEGER" />
+        <result column="edit_time" property="editTime" jdbcType="DATE" />
+        <result column="edit_user" property="editUser" jdbcType="INTEGER" />
+        <result column="repository_id" property="repositoryId" jdbcType="INTEGER" />
+    </resultMap>
+    <sql id="Example_Where_Clause" >
+        <where >
+            <foreach collection="oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                 and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                 and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                    #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause" >
+        <where >
+            <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+                <if test="criteria.valid" >
+                    <trim prefix="(" suffix=")" prefixOverrides="and" >
+                        <foreach collection="criteria.criteria" item="criterion" >
+                            <choose >
+                                <when test="criterion.noValue" >
+                                    and ${criterion.condition}  
+                                </when>
+                                <when test="criterion.singleValue" >
+                                 and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue" >
+                                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue" >
+                                  and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                                     #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List" >
+    id,create_name,create_by,update_name,update_by,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,create_date,update_date,repository_name,repository_username,repository_password,repository_type,database_access,database_host,database_port,database_name,database_username,database_password,add_time,add_user,edit_time,edit_user,repository_id
+    </sql>
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepositoryExample" >
+        select
+        <if test="distinct" >
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List" />
+        from k_repository
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null" >
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from  k_repository
+       where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from k_repository
+     where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepositoryExample" >
+        delete from k_repository
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepository" >
+        insert into k_repository (
+    id,create_name,create_by,update_name,update_by,version_num,sys_org_code,del_flag,obligate_a,obligate_b,obligate_c,obligate_d,obligate_e,create_date,update_date,repository_name,repository_username,repository_password,repository_type,database_access,database_host,database_port,database_name,database_username,database_password,add_time,add_user,edit_time,edit_user,repository_id        )
+        values (
+    #{id,jdbcType=VARCHAR},#{createName,jdbcType=VARCHAR},#{createBy,jdbcType=VARCHAR},#{updateName,jdbcType=VARCHAR},#{updateBy,jdbcType=VARCHAR},#{versionNum,jdbcType=INTEGER},#{sysOrgCode,jdbcType=VARCHAR},#{delFlag,jdbcType=VARCHAR},#{obligateA,jdbcType=VARCHAR},#{obligateB,jdbcType=VARCHAR},#{obligateC,jdbcType=VARCHAR},#{obligateD,jdbcType=VARCHAR},#{obligateE,jdbcType=VARCHAR},#{createDate,jdbcType=DATE},#{updateDate,jdbcType=DATE},#{repositoryName,jdbcType=VARCHAR},#{repositoryUsername,jdbcType=VARCHAR},#{repositoryPassword,jdbcType=VARCHAR},#{repositoryType,jdbcType=VARCHAR},#{databaseAccess,jdbcType=VARCHAR},#{databaseHost,jdbcType=VARCHAR},#{databasePort,jdbcType=VARCHAR},#{databaseName,jdbcType=VARCHAR},#{databaseUsername,jdbcType=VARCHAR},#{databasePassword,jdbcType=VARCHAR},#{addTime,jdbcType=DATE},#{addUser,jdbcType=INTEGER},#{editTime,jdbcType=DATE},#{editUser,jdbcType=INTEGER},#{repositoryId,jdbcType=INTEGER}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepository">
+        insert into k_repository
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                id,
+                </if>
+                <if test="createName != null">
+                create_name,
+                </if>
+                <if test="createBy != null">
+                create_by,
+                </if>
+                <if test="updateName != null">
+                update_name,
+                </if>
+                <if test="updateBy != null">
+                update_by,
+                </if>
+                <if test="versionNum != null">
+                version_num,
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code,
+                </if>
+                <if test="delFlag != null">
+                del_flag,
+                </if>
+                <if test="obligateA != null">
+                obligate_a,
+                </if>
+                <if test="obligateB != null">
+                obligate_b,
+                </if>
+                <if test="obligateC != null">
+                obligate_c,
+                </if>
+                <if test="obligateD != null">
+                obligate_d,
+                </if>
+                <if test="obligateE != null">
+                obligate_e,
+                </if>
+                <if test="createDate != null">
+                create_date,
+                </if>
+                <if test="updateDate != null">
+                update_date,
+                </if>
+                <if test="repositoryName != null">
+                repository_name,
+                </if>
+                <if test="repositoryUsername != null">
+                repository_username,
+                </if>
+                <if test="repositoryPassword != null">
+                repository_password,
+                </if>
+                <if test="repositoryType != null">
+                repository_type,
+                </if>
+                <if test="databaseAccess != null">
+                database_access,
+                </if>
+                <if test="databaseHost != null">
+                database_host,
+                </if>
+                <if test="databasePort != null">
+                database_port,
+                </if>
+                <if test="databaseName != null">
+                database_name,
+                </if>
+                <if test="databaseUsername != null">
+                database_username,
+                </if>
+                <if test="databasePassword != null">
+                database_password,
+                </if>
+                <if test="addTime != null">
+                add_time,
+                </if>
+                <if test="addUser != null">
+                add_user,
+                </if>
+                <if test="editTime != null">
+                edit_time,
+                </if>
+                <if test="editUser != null">
+                edit_user,
+                </if>
+                <if test="repositoryId != null">
+                repository_id,
+                </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateName != null">
+                #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="versionNum != null">
+                #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateDate != null">
+                #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="repositoryName != null">
+                #{repositoryName,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryUsername != null">
+                #{repositoryUsername,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryPassword != null">
+                #{repositoryPassword,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryType != null">
+                #{repositoryType,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseAccess != null">
+                #{databaseAccess,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseHost != null">
+                #{databaseHost,jdbcType=VARCHAR},
+                </if>
+                <if test="databasePort != null">
+                #{databasePort,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseName != null">
+                #{databaseName,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseUsername != null">
+                #{databaseUsername,jdbcType=VARCHAR},
+                </if>
+                <if test="databasePassword != null">
+                #{databasePassword,jdbcType=VARCHAR},
+                </if>
+                <if test="addTime != null">
+                #{addTime,jdbcType=DATE},
+                </if>
+                <if test="addUser != null">
+                #{addUser,jdbcType=INTEGER},
+                </if>
+                <if test="editTime != null">
+                #{editTime,jdbcType=DATE},
+                </if>
+                <if test="editUser != null">
+                #{editUser,jdbcType=INTEGER},
+                </if>
+                <if test="repositoryId != null">
+                #{repositoryId,jdbcType=INTEGER},
+                </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepositoryExample" resultType="java.lang.Integer" >
+        select count(*) from k_repository
+        <if test="_parameter != null" >
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map" >
+        update k_repository
+        <set >
+            <if test="id != null">
+            id = #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="createName != null">
+            create_name = #{createName,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+            create_by = #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="updateName != null">
+            update_name = #{updateName,jdbcType=VARCHAR},
+            </if>
+            <if test="updateBy != null">
+            update_by = #{updateBy,jdbcType=VARCHAR},
+            </if>
+            <if test="versionNum != null">
+            version_num = #{versionNum,jdbcType=INTEGER},
+            </if>
+            <if test="sysOrgCode != null">
+            sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            </if>
+            <if test="delFlag != null">
+            del_flag = #{delFlag,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateA != null">
+            obligate_a = #{obligateA,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateB != null">
+            obligate_b = #{obligateB,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateC != null">
+            obligate_c = #{obligateC,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateD != null">
+            obligate_d = #{obligateD,jdbcType=VARCHAR},
+            </if>
+            <if test="obligateE != null">
+            obligate_e = #{obligateE,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+            create_date = #{createDate,jdbcType=DATE},
+            </if>
+            <if test="updateDate != null">
+            update_date = #{updateDate,jdbcType=DATE},
+            </if>
+            <if test="repositoryName != null">
+            repository_name = #{repositoryName,jdbcType=VARCHAR},
+            </if>
+            <if test="repositoryUsername != null">
+            repository_username = #{repositoryUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="repositoryPassword != null">
+            repository_password = #{repositoryPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="repositoryType != null">
+            repository_type = #{repositoryType,jdbcType=VARCHAR},
+            </if>
+            <if test="databaseAccess != null">
+            database_access = #{databaseAccess,jdbcType=VARCHAR},
+            </if>
+            <if test="databaseHost != null">
+            database_host = #{databaseHost,jdbcType=VARCHAR},
+            </if>
+            <if test="databasePort != null">
+            database_port = #{databasePort,jdbcType=VARCHAR},
+            </if>
+            <if test="databaseName != null">
+            database_name = #{databaseName,jdbcType=VARCHAR},
+            </if>
+            <if test="databaseUsername != null">
+            database_username = #{databaseUsername,jdbcType=VARCHAR},
+            </if>
+            <if test="databasePassword != null">
+            database_password = #{databasePassword,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+            add_time = #{addTime,jdbcType=DATE},
+            </if>
+            <if test="addUser != null">
+            add_user = #{addUser,jdbcType=INTEGER},
+            </if>
+            <if test="editTime != null">
+            edit_time = #{editTime,jdbcType=DATE},
+            </if>
+            <if test="editUser != null">
+            edit_user = #{editUser,jdbcType=INTEGER},
+            </if>
+            <if test="repositoryId != null">
+            repository_id = #{repositoryId,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map" >
+        update k_repository
+        set
+            id = #{id,jdbcType=VARCHAR},
+            ,create_name = #{createName,jdbcType=VARCHAR},
+            ,create_by = #{createBy,jdbcType=VARCHAR},
+            ,update_name = #{updateName,jdbcType=VARCHAR},
+            ,update_by = #{updateBy,jdbcType=VARCHAR},
+            ,version_num = #{versionNum,jdbcType=INTEGER},
+            ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+            ,del_flag = #{delFlag,jdbcType=VARCHAR},
+            ,obligate_a = #{obligateA,jdbcType=VARCHAR},
+            ,obligate_b = #{obligateB,jdbcType=VARCHAR},
+            ,obligate_c = #{obligateC,jdbcType=VARCHAR},
+            ,obligate_d = #{obligateD,jdbcType=VARCHAR},
+            ,obligate_e = #{obligateE,jdbcType=VARCHAR},
+            ,create_date = #{createDate,jdbcType=DATE},
+            ,update_date = #{updateDate,jdbcType=DATE},
+            ,repository_name = #{repositoryName,jdbcType=VARCHAR},
+            ,repository_username = #{repositoryUsername,jdbcType=VARCHAR},
+            ,repository_password = #{repositoryPassword,jdbcType=VARCHAR},
+            ,repository_type = #{repositoryType,jdbcType=VARCHAR},
+            ,database_access = #{databaseAccess,jdbcType=VARCHAR},
+            ,database_host = #{databaseHost,jdbcType=VARCHAR},
+            ,database_port = #{databasePort,jdbcType=VARCHAR},
+            ,database_name = #{databaseName,jdbcType=VARCHAR},
+            ,database_username = #{databaseUsername,jdbcType=VARCHAR},
+            ,database_password = #{databasePassword,jdbcType=VARCHAR},
+            ,add_time = #{addTime,jdbcType=DATE},
+            ,add_user = #{addUser,jdbcType=INTEGER},
+            ,edit_time = #{editTime,jdbcType=DATE},
+            ,edit_user = #{editUser,jdbcType=INTEGER},
+            ,repository_id = #{repositoryId,jdbcType=INTEGER},
+      <if test="_parameter != null" >
+          <include refid="Update_By_Example_Where_Clause" />
+      </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepository" >
+        update k_repository
+        <set >
+                <if test="id != null">
+                id = #{id,jdbcType=VARCHAR},
+                </if>
+                <if test="createName != null">
+                create_name = #{createName,jdbcType=VARCHAR},
+                </if>
+                <if test="createBy != null">
+                create_by = #{createBy,jdbcType=VARCHAR},
+                </if>
+                <if test="updateName != null">
+                update_name = #{updateName,jdbcType=VARCHAR},
+                </if>
+                <if test="updateBy != null">
+                update_by = #{updateBy,jdbcType=VARCHAR},
+                </if>
+                <if test="versionNum != null">
+                version_num = #{versionNum,jdbcType=INTEGER},
+                </if>
+                <if test="sysOrgCode != null">
+                sys_org_code = #{sysOrgCode,jdbcType=VARCHAR},
+                </if>
+                <if test="delFlag != null">
+                del_flag = #{delFlag,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateA != null">
+                obligate_a = #{obligateA,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateB != null">
+                obligate_b = #{obligateB,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateC != null">
+                obligate_c = #{obligateC,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateD != null">
+                obligate_d = #{obligateD,jdbcType=VARCHAR},
+                </if>
+                <if test="obligateE != null">
+                obligate_e = #{obligateE,jdbcType=VARCHAR},
+                </if>
+                <if test="createDate != null">
+                create_date = #{createDate,jdbcType=DATE},
+                </if>
+                <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=DATE},
+                </if>
+                <if test="repositoryName != null">
+                repository_name = #{repositoryName,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryUsername != null">
+                repository_username = #{repositoryUsername,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryPassword != null">
+                repository_password = #{repositoryPassword,jdbcType=VARCHAR},
+                </if>
+                <if test="repositoryType != null">
+                repository_type = #{repositoryType,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseAccess != null">
+                database_access = #{databaseAccess,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseHost != null">
+                database_host = #{databaseHost,jdbcType=VARCHAR},
+                </if>
+                <if test="databasePort != null">
+                database_port = #{databasePort,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseName != null">
+                database_name = #{databaseName,jdbcType=VARCHAR},
+                </if>
+                <if test="databaseUsername != null">
+                database_username = #{databaseUsername,jdbcType=VARCHAR},
+                </if>
+                <if test="databasePassword != null">
+                database_password = #{databasePassword,jdbcType=VARCHAR},
+                </if>
+                <if test="addTime != null">
+                add_time = #{addTime,jdbcType=DATE},
+                </if>
+                <if test="addUser != null">
+                add_user = #{addUser,jdbcType=INTEGER},
+                </if>
+                <if test="editTime != null">
+                edit_time = #{editTime,jdbcType=DATE},
+                </if>
+                <if test="editUser != null">
+                edit_user = #{editUser,jdbcType=INTEGER},
+                </if>
+                <if test="repositoryId != null">
+                repository_id = #{repositoryId,jdbcType=INTEGER},
+                </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepository" >
+        update k_repository
+        set
+         id = #{id,jdbcType=VARCHAR}
+         ,create_name = #{createName,jdbcType=VARCHAR}
+         ,create_by = #{createBy,jdbcType=VARCHAR}
+         ,update_name = #{updateName,jdbcType=VARCHAR}
+         ,update_by = #{updateBy,jdbcType=VARCHAR}
+         ,version_num = #{versionNum,jdbcType=INTEGER}
+         ,sys_org_code = #{sysOrgCode,jdbcType=VARCHAR}
+         ,del_flag = #{delFlag,jdbcType=VARCHAR}
+         ,obligate_a = #{obligateA,jdbcType=VARCHAR}
+         ,obligate_b = #{obligateB,jdbcType=VARCHAR}
+         ,obligate_c = #{obligateC,jdbcType=VARCHAR}
+         ,obligate_d = #{obligateD,jdbcType=VARCHAR}
+         ,obligate_e = #{obligateE,jdbcType=VARCHAR}
+         ,create_date = #{createDate,jdbcType=DATE}
+         ,update_date = #{updateDate,jdbcType=DATE}
+         ,repository_name = #{repositoryName,jdbcType=VARCHAR}
+         ,repository_username = #{repositoryUsername,jdbcType=VARCHAR}
+         ,repository_password = #{repositoryPassword,jdbcType=VARCHAR}
+         ,repository_type = #{repositoryType,jdbcType=VARCHAR}
+         ,database_access = #{databaseAccess,jdbcType=VARCHAR}
+         ,database_host = #{databaseHost,jdbcType=VARCHAR}
+         ,database_port = #{databasePort,jdbcType=VARCHAR}
+         ,database_name = #{databaseName,jdbcType=VARCHAR}
+         ,database_username = #{databaseUsername,jdbcType=VARCHAR}
+         ,database_password = #{databasePassword,jdbcType=VARCHAR}
+         ,add_time = #{addTime,jdbcType=DATE}
+         ,add_user = #{addUser,jdbcType=INTEGER}
+         ,edit_time = #{editTime,jdbcType=DATE}
+         ,edit_user = #{editUser,jdbcType=INTEGER}
+         ,repository_id = #{repositoryId,jdbcType=INTEGER}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findAllByPage" resultMap="BaseResultMap"  parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepositoryExample">
+        SELECT * FROM k_repository
+        <if test="_parameter != null" >
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="sort != ''">
+            ORDER BY ${sort}
+        </if>
+    </select>
+
+    <select id="findAllList" resultMap="BaseResultMap"  parameterType="com.chrtc.excelTest.excelTest.domain.kettle.KRepository">
+        SELECT * FROM k_repository
+    </select>
+
+    <delete id="deleteLogicByPrimaryKey" parameterType="java.lang.String">
+        update k_repository
+        set del_flag='1'
+        where id = #{id,jdbcType=VARCHAR};
+    </delete>
+
+
+</mapper>

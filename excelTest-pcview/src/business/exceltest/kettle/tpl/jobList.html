@@ -1,0 +1,13 @@
+
+
+<tr  id="{{id}}">
+    <td >{{value.jobName}}</td>
+    <td >{{value.jobPath}}</td>
+    <td> <button e-event="href:/{{path}}/startJob?jobPath={{value.jobPath}}&url=/excelTest/exceltest/kjob/runJob" class="btn  btn-xs form-delete" type="button"  title="启动">
+        <i class="fa fa-trash"></i>&nbsp;启动
+    </button>
+     <button e-event="href:/{{path}}/deleteRow?id={{id}}&name={{value.jobPath}}" class="btn  btn-xs form-delete" type="button"  title="删除">
+        <i class="fa fa-trash"></i>&nbsp;删除
+    </button>
+    </td>
+</tr>

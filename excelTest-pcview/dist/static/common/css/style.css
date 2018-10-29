@@ -1,0 +1,104 @@
+
+/****************用户树，资源树********************/
+.ztree li span.button.user_ico_docu{margin-right:2px; background: url(../images/icon_user.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+.ztree li span.button.rule_ico_docu{margin-right:2px; background: url(../images/bind_data.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+.ztree li span.button.field_ico_open{margin-right:2px; background: url(../images/icon_field.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+.ztree li span.button.field_ico_close{margin-right:2px; background: url(../images/icon_field.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+
+.ztree li span.button.resc0_ico_docu, .ztree li span.button.resc0_ico_open, .ztree li span.button.resc0_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px 0px no-repeat scroll transparent;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+.ztree li span.button.resc1_ico_docu, .ztree li span.button.resc1_ico_open, .ztree li span.button.resc1_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px -24px no-repeat scroll transparent;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+.ztree li span.button.resc2_ico_docu, .ztree li span.button.resc2_ico_open, .ztree li span.button.resc2_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px -48px no-repeat scroll transparent;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+.ztree li span.button.resc3_ico_docu, .ztree li span.button.resc3_ico_open, .ztree li span.button.resc3_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px -72px no-repeat scroll transparent;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+.ztree li span.button.resc4_ico_docu, .ztree li span.button.resc4_ico_open, .ztree li span.button.resc4_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px -96px no-repeat scroll transparent ;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+.ztree li span.button.resc5_ico_docu, .ztree li span.button.resc5_ico_open, .ztree li span.button.resc5_ico_close{
+    width:32px;
+    display: inline-block;
+    margin-right:2px;
+    background: url(../images/icon_resc.png) 0px -120px no-repeat scroll transparent ;
+    vertical-align:middle;
+    *vertical-align:middle
+}
+
+.ztree li span.button.bind_data{margin-right:2px; background: url(../images/bind_data.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+
+.ztree li span.button.bind_operation{margin-right:2px; background: url(../images/bind_operation.png) no-repeat scroll 0 0 transparent; vertical-align:middle; *vertical-align:middle}
+
+/* Icons------------------------- */
+.btn-selectIcon {
+    color: #000000;
+    background-color: #FFFFFF;
+}
+.the-icons {
+    margin-left: 0;
+    list-style: none;
+}
+.the-icons li {
+    float: left;
+    width: 25%;
+    line-height: 36px;
+    font-size: 14px;
+    padding-left: 10px;
+}
+.the-icons li i {
+    padding-right: 6px;
+}
+.the-icons li:hover {
+    background-color: #DDDDDD;
+}
+.icon-selected {
+    color: #FFFFFF;
+    background-color: #519329;
+}
+
+.aui_state_lock{
+    width: 25%;
+}
+.row-fluid .col-sm-10{
+    margin: 10px;
+}
+.scroll-box{
+    height: auto;
+}
+
+.ztree {
+    overflow: auto;
+    /*min-width: 260px;*/
+    min-height: 520px;
+    max-height: 520px;
+}
+
