@@ -1,7 +1,15 @@
 package com.chrtc.excelTest.excelTest.utils;
 
-public class XmlUtil {
+import org.apache.log4j.Logger;
+import org.dom4j.*;
+import org.dom4j.io.SAXReader;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.*;
+
+public class XmlUtil {
     private static List<Map<String, Object>> lists = new LinkedList<Map<String, Object>>();
     private RepeatUtil repeatUtil = new RepeatUtil();
     private Logger log = Logger.getLogger("xmlfile");
@@ -148,3 +156,4 @@ public class XmlUtil {
         }
     }
 }
+
