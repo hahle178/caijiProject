@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<!--单例工程架构-->
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.chrtc.excelTest</groupId>
-	<artifactId>excelTest</artifactId>
+    <!--单例工程架构-->
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.chrtc.excelTest</groupId>
+    <artifactId>excelTest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
-	<name>excelTest</name>
-	<description></description>
+    <packaging>pom</packaging>
+    <name>excelTest</name>
+    <description></description>
 
     <parent>
         <groupId>com.chrtc.ezdev</groupId>
@@ -25,8 +25,8 @@
 
     <properties>
         <excelTest.version>0.0.1-SNAPSHOT</excelTest.version>
-    <ezdev.system.version>1.0.2-SNAPSHOT</ezdev.system.version>
-    <java.version>1.8</java.version>
+        <ezdev.system.version>1.0.2-SNAPSHOT</ezdev.system.version>
+        <java.version>1.8</java.version>
 
     </properties>
 
@@ -167,6 +167,8 @@
             <version>2.0</version>
         </dependency>
 
+        <!--日志 start-->
+        <!--日志end-->
 
 
         <!-- 未来的单体的权限引入 -->
@@ -174,16 +176,16 @@
     </dependencies>
 
 
-	<profiles>
-		<profile>
-			<id>default</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<modules>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <modules>
 
-				<module>excelTest-excelTest</module>
-			</modules>
-		</profile>
-	</profiles>
+                <module>excelTest-excelTest</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
