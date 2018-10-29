@@ -712,8 +712,9 @@ var map = {
 	"./modifyHead.html": 38,
 	"./modifyHeadRow.html": 39,
 	"./recordRow.html": 40,
-	"./rowbak.html": 41,
-	"./upSuccess.html": 42
+	"./row.html": 41,
+	"./rowbak.html": 42,
+	"./upSuccess.html": 43
 };
 function webpackContext(req) {
 	return __webpack_require__(webpackContextResolve(req));
@@ -1213,7 +1214,7 @@ module.exports = function ($data) {
     var $$out = '', $escape = $imports.$escape, id = $data.id, path = $data.path;
     $$out += '<div id="';
     $$out += $escape(id);
-    $$out += '"  class="box-body">\r\n    <!-- hidden input -->\r\n    <input type="hidden" name="versionNum"  class="form-control" >\r\n    <!-- text input -->\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;中文名称</label>\r\n            <input type="text" name="fieldName"  class="form-control"  datatype="*" placeholder="请输入中文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;英文名称</label>\r\n            <input type="text" name="fieldRemark"  class="form-control" datatype="*" placeholder="请输入英文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;字段类型</label>\r\n            &lt;!&ndash;<input type="text" name="fieldValue"  class="form-control" datatype="*" placeholder="请输入字段类型" />&ndash;&gt;\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;字段长度</label>\r\n            <input type="text" name="fieldLength"  class="form-control" datatype="*" placeholder="请输入字段长度" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-1">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;操作</label>\r\n            <!--<button type="button"  class="btn btn-primary form-control" ><i class="fa fa-remove"></i>&nbsp;删除</button>-->\r\n            <button e-event="href:/';
+    $$out += '"  class="box-body">\r\n    <!-- hidden input -->\r\n    <input type="hidden" name="versionNum"  class="form-control" >\r\n    <!-- text input -->\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;中文名称</label>\r\n            <input type="text" name="fieldName"  class="form-control"  datatype="*" placeholder="请输入中文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;英文名称</label>\r\n            <input type="text" name="fieldRemark"  class="form-control" datatype="*" placeholder="请输入英文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;字段长度</label>\r\n            <input type="text" name="fieldValue"  class="form-control" datatype="*" placeholder="请输入字段长度" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-1">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;操作</label>\r\n            <!--<button type="button"  class="btn btn-primary form-control" ><i class="fa fa-remove"></i>&nbsp;删除</button>-->\r\n            <button e-event="href:/';
     $$out += $escape(path);
     $$out += '/delField?id=';
     $$out += $escape(id);
@@ -1223,6 +1224,25 @@ module.exports = function ($data) {
 
 /***/ }),
 /* 42 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var $imports = __webpack_require__(10);
+module.exports = function ($data) {
+    'use strict';
+    $data = $data || {};
+    var $$out = '', $escape = $imports.$escape, id = $data.id, path = $data.path;
+    $$out += '<div id="';
+    $$out += $escape(id);
+    $$out += '"  class="box-body">\r\n    <!-- hidden input -->\r\n    <input type="hidden" name="versionNum"  class="form-control" >\r\n    <!-- text input -->\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;中文名称</label>\r\n            <input type="text" name="fieldName"  class="form-control"  datatype="*" placeholder="请输入中文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;英文名称</label>\r\n            <input type="text" name="fieldRemark"  class="form-control" datatype="*" placeholder="请输入英文名称" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;字段类型</label>\r\n            &lt;!&ndash;<input type="text" name="fieldValue"  class="form-control" datatype="*" placeholder="请输入字段类型" />&ndash;&gt;\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-2">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;字段长度</label>\r\n            <input type="text" name="fieldLength"  class="form-control" datatype="*" placeholder="请输入字段长度" />\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n    <div class="col-md-1">\r\n        <div class="form-group">\r\n            <label><i class="fa"></i>&nbsp;操作</label>\r\n            <!--<button type="button"  class="btn btn-primary form-control" ><i class="fa fa-remove"></i>&nbsp;删除</button>-->\r\n            <button e-event="href:/';
+    $$out += $escape(path);
+    $$out += '/delField?id=';
+    $$out += $escape(id);
+    $$out += '"   class="btn btn-primary form-control"  type="button" title="删除">\r\n                <i class="fa fa-remove"></i>&nbsp;删除\r\n            </button>\r\n            <span class="help-block"></span>\r\n        </div>\r\n    </div>\r\n</div>';
+    return $$out;
+};
+
+/***/ }),
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var $imports = __webpack_require__(10);

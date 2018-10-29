@@ -322,9 +322,10 @@ export default class extends BaseHandler{
             this.render(args).then(()=>{
                 args.url="/excelTest/exceltest/kjob/jobList";
                 this.ajaxResource(args).then((data) => {
-                    data.data.forEach(function (value) {
+                    /*data.data.forEach(function (value) {
                         $this.jobList(value);
-                    })
+                    })*/
+                    $this.jobList(data.data.kjobs);
 
                 })
             });
@@ -332,6 +333,7 @@ export default class extends BaseHandler{
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
         }
     }
+
 
     //根据查询条件查询作业
     findByJobName(args) {
@@ -363,7 +365,7 @@ export default class extends BaseHandler{
             tpl:"jobList",
             position:"append",
             contentId:$('.addRow'),
-            data:{id:miscUtils.guid(),value:value}
+            data:{id:miscUtils.guid(),data:value}
         })
     }
 
@@ -425,10 +427,13 @@ export default class extends BaseHandler{
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
-                console.log(data)
                 var transNode = data.node;
                 layer.close(index);
+
                 $("#jobPath").val(transNode.text);
+                var split = transNode.id.split("_");
+
+                $("#jobId").val(split[1]);
             })
 
         }else if($jobRepositoryId != null && treeData == null){
@@ -452,6 +457,19 @@ export default class extends BaseHandler{
                 layer.msg("请求失败！重新操作");
             }
         })
+    }
+
+    //编辑定时时间
+    scheduler(args){
+        args.tpl = args.tpl || "scheduler";
+        if (args.tpl) {
+            args.type = args.type || 'get';
+            this.render(args).then(()=>{
+                /*treeData = null;*/
+            });
+        } else {
+            throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
+        }
     }
 
     //作业日志

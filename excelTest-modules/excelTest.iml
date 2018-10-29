@@ -111,7 +111,7 @@
     <orderEntry type="library" name="Maven: org.pac4j:spring-webmvc-pac4j:2.0.0-RC2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-validation:1.5.2.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: com.chrtc.ezdev:ezdev-metadata-core:1.0.0-SNAPSHOT" level="project" />
-    <orderEntry type="library" name="Maven: com.chrtc.metadata:metadata-queryapi:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: com.chrtc.cs:metadata-queryapi:0.0.2-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.apache.zookeeper:zookeeper:3.4.10" level="project" />
     <orderEntry type="library" name="Maven: jline:jline:0.9.94" level="project" />
     <orderEntry type="library" name="Maven: com.101tec:zkclient:0.10" level="project" />

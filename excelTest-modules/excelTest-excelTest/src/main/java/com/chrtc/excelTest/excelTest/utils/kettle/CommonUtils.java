@@ -58,20 +58,26 @@ public class CommonUtils {
 		}
 		Integer startDay = 0;
 		Integer stopDay = 0;
+		int counter = 0;
 		for (int i = 0; i <= 6; i++){
 			if (timeList.get(i) < startTime && startTime < timeList.get(i + 1)){
 				startDay = i;
+				counter++;
 			}
 			if (timeList.get(i) < stopTime && stopTime < timeList.get(i + 1)){
 				stopDay = i;
+				counter++;
 			}	
+		}
+		if(counter == 0 ){
+			return resultList;
 		}
 		if ((stopDay - startDay) > 0){			
 			for (int i = startDay; i <= stopDay; i++){
 				resultList.set(i, resultList.get(i) + 1);
 			}
 		} else {
-			resultList.set(startDay, resultList.get(startDay) + 1);
+			resultList.set(startDay, resultList.get(startDay)+1);
 		}
 		return resultList;
 	}

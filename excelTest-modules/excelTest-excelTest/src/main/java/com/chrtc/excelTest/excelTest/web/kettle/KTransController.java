@@ -218,7 +218,6 @@ public class KTransController {
             addRecord(transPath,transStartDate,transStopDate,logText,"2");
             return ResultFactory.create(CodeMsgBase.FAILURE);
         }
-
         addRecord(transPath,transStartDate,transStopDate,logText,"1");
         return ResultFactory.create(CodeMsgBase.SUCCESS);
     }

@@ -136,7 +136,12 @@ public class KjobController {
      */
     @RequestMapping("/jobList")
     public Result jobList(Kjob kTrans, HttpServletRequest request){
-        List all = KjobService.findAllList();
+        List<Kjob> kjobs = KjobService.findAllList();
+        Map all = new LinkedHashMap();
+        all.put("kjobs",kjobs);
+        for (Kjob k : kjobs) {
+            String jobPath = k.getJobPath();
+        }
         return ResultFactory.create(all);
     }
 
@@ -151,8 +156,6 @@ public class KjobController {
         List<Kjob> byJobName = KjobService.findByJobName(findByJobName);
         return ResultFactory.create(byJobName);
     }
-
-
 
     /**
      * 增加作业
