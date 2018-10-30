@@ -57,13 +57,13 @@ public class BcpUtil {
             // 保存该文件原有的内容
             for (int j = 1; (temp = br.readLine()) != null; j++) {
                 buf = buf.append(temp);
-                // System.getProperty("line.separator")
-                // 行与行之间的分隔符 相当于“\n”
-                buf = buf.append(System.getProperty("line.separator"));
-                counter++;
-            }
-            buf.append(filein);
+            // System.getProperty("line.separator")
+            // 行与行之间的分隔符 相当于“\n”
+            buf = buf.append(System.getProperty("line.separator"));
             counter++;
+        }
+        buf.append(filein);
+        counter++;
 
             fos = new FileOutputStream(file);
             pw = new PrintWriter(fos);
