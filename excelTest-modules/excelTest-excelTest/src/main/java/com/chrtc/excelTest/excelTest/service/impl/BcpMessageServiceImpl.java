@@ -44,7 +44,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private String dir;
     private List<Map<String, Object>> bankListByExcel = new LinkedList<>();
     private List<Map<String, Object>> bankListByExcel1 = new LinkedList<>();
-
+    private FileNameUtil fileNameUtil = new FileNameUtil();
 
     /**
      * 五位自增序列号
