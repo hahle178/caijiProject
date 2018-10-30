@@ -13,6 +13,8 @@ public class LogUtil {
     public void ExcelLogWriting(String fileName,int row,String key,int cod) {
             try {
                 //Whatever the file path is.
+
+
                 String path="E://ExcelLogs/"+fileName+".log";
                 File statText = new File(path);
                 FileOutputStream is = new FileOutputStream(statText,true);
