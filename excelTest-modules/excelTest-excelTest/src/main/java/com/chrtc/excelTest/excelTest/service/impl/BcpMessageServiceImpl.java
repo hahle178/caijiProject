@@ -681,7 +681,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     @Override
     public LinkedList readXMLAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
-        XmlUtil xmlUtil=new XmlUtil();
+        FileMessage fileMessage = new FileMessage();
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -700,17 +700,18 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
                 //读取excel中的内容
                 String extString = attachmentName.substring(attachmentName.lastIndexOf("."));
-                bankListByExcel = xmlUtil.ReadFile(file);
-
+                fileMessage = ExcelUtil.getBankListByExcel(in, extString, attachmentName);
+                bankListByExcel = fileMessage.getDataList();
                 //生成bcp文件
-                String sysCode = "101";//数据发送方系统标识
-                String depCode = "202";//数据发送方机构标识
+                String sysCode = "910";//数据源代码910
+                String depCode = "684682590";//组织机构代码
+                String dataSource = "110000"; //数据采集地编码
                 long currentTimeMillis = System.currentTimeMillis();//绝对秒数
                 int nextSN = getNextSN();//五位自增序列号
-                String dataCode = "303";//数据集代码
+                String dataCode = "BASIC_0003";//数据集代码
                 String dataType = "0";//结构化非结构化标识
 
-                String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
+                String name = fileNameUtil.BcpFileName();
                 String path = "E:" + File.separator + "EXCEL\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
@@ -726,11 +727,18 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     }
                     BcpUtil.writeTxtFile(stringBuilder.toString());
                 }
-                Map<String, Object> stringObjectMap = bankListByExcel.get(0);
-                for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
-                    objectObjectHashMap.put(entry.getKey(), entry.getValue());
+
+                Map<String, Object> stringObjectMap = new LinkedHashMap<>();
+                List<List<Object>> titleList = fileMessage.getTitleList();
+                for (List<Object> list2 : titleList) {
+                    for (Object title : list2) {
+                        stringObjectMap.put(title.toString(), title.toString());
+                    }
+                    for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
+                        objectObjectHashMap.put(entry.getKey(), entry.getValue());
+                    }
+                    bankListByExcel1.add(objectObjectHashMap);
                 }
-                bankListByExcel1.add(objectObjectHashMap);
             }
         } catch (Exception e) {
             e.printStackTrace();
