@@ -1,13 +1,13 @@
 <component name="libraryTable">
   <library name="Maven: com.chrtc.ezdev:ezdev-system-common:1.0.2-SNAPSHOT">
     <CLASSES>
-      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181020.075854-12.jar!/" />
+      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181030.025309-13.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181020.075854-12-javadoc.jar!/" />
+      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181030.025309-13-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181020.075854-12-sources.jar!/" />
+      <root url="jar://D:/soft/maven/repo/com/chrtc/ezdev/ezdev-system-common/1.0.2-SNAPSHOT/ezdev-system-common-1.0.2-20181030.025309-13-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
