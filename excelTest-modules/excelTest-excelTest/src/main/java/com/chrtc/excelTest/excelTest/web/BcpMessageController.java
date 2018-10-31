@@ -243,8 +243,7 @@ public class BcpMessageController {
      */
     @RequestMapping(value = "/upfile")
     public Result  readExcel(String excelId, @Valid  ExcelEntity excelEntity,HttpServletResponse responese) throws Exception {
-        dataMappingXmlService.readXML2();
-       /* JSONObject jsonObject = new JSONObject();
+        JSONObject jsonObject = new JSONObject();
         try{
         LinkedList bcpMessages = null;
         BcpMessage bcpMessage = null;
@@ -308,8 +307,7 @@ public class BcpMessageController {
             jsonObject.put("SUCCESS",false);
             e.printStackTrace();
         }
-        return ResultFactory.create(jsonObject);*/
-       return null;
+        return ResultFactory.create(jsonObject);
     }
     @RequestMapping(value = "/testtest")
     public Result  testtest(@Valid Test test, HttpServletResponse responese) throws Exception {
