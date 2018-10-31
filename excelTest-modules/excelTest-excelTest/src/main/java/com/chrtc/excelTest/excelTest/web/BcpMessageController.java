@@ -24,6 +24,7 @@ import com.chrtc.excelTest.excelTest.domain.*;
 import com.chrtc.excelTest.excelTest.mapper.BcpMessageMapper;
 import com.chrtc.excelTest.excelTest.service.ExcelFileService;
 import com.chrtc.excelTest.excelTest.service.FieldRowMessageService;
+import com.chrtc.excelTest.excelTest.service.impl.DataMappingXmlServiceImpl;
 import com.chrtc.excelTest.excelTest.utils.BcpUtil;
 import com.chrtc.excelTest.excelTest.utils.CompressedFileUtil;
 import com.chrtc.excelTest.excelTest.utils.ExcelUtil;
@@ -67,7 +68,8 @@ import org.springframework.web.multipart.MultipartFile;
 @javax.annotation.Generated(value = "class BcpMessageController", date = "2018-06-08 14:03:31")
 @EzdevModule(name = "bcpMessage")
 public class BcpMessageController {
-
+    @Autowired
+    private DataMappingXmlServiceImpl dataMappingXmlService;
     @Autowired
     private BcpMessageMapper bcpMessageMapper;
     @Autowired
@@ -79,6 +81,8 @@ public class BcpMessageController {
 
     @Value("${ezdev.attach.config.local.dir}")
     private  String dir;
+    @Value("${ezdev.attach.config.local.dumpdir}")
+    private  String dumpdir;
 
 
     /**
@@ -254,8 +258,6 @@ public class BcpMessageController {
             String s = split[1];
             //获取文件后缀名，判断是什么文件
             String houzui = s.split("\\.")[1];
-            //File file = new File(dir + "/" + s);
-            //InputStream in = new FileInputStream(file);
 
             if(houzui.equals("xls") | houzui.equals("xlsx")){
                 //读取excel文件，生成bcp文件
@@ -275,16 +277,20 @@ public class BcpMessageController {
                 BcpMessageService.createZIP("CSV");
             }else if(houzui.equals("dmp") | houzui.equals("DMP")){
                 //解析dmp文件
-                //String[]  code = {"cmd","/k","start","impdp " + "QDYTH" + "/" + "root" + "@" + "ORCL" +  "  DIRECTORY=dump_dir" +    "  dumpfile=" + "ABC.DMP"  +"  logfile=11111.log"};
-                String name  = "ABC.DMP";
-                String code1 = "cmd"+" /k start"+ " C:\\Users\\zycy6\\Desktop\\111.bat " + name;
-                File dir = new File("C:\\Users\\zycy6");
-                //Joiner joiner = Joiner.on(" ").skipNulls();
-                //System.out.println(joiner.join(code));
-               // String[] cmds = {"cmd","/C",code};
-               // Process exec = Runtime.getRuntime().exec(code1,null,dir);
+                String code1 = "cmd"+" /k start "+ dumpdir +"/dmp.bat " + attachmentName;
                 Process exec = Runtime.getRuntime().exec(code1);
                 Process process = exec;
+            }else if(houzui.equals("txt")|houzui.equals("TXT")){
+                //读取txt文件,生成bcp文件
+                bcpMessages = BcpMessageService.readTXTAndOut(excelId);
+                String xmlPath = "E:"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
+                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
+                BcpMessageService.createZIP1("TXT");
+            }else if(houzui.equals("xml")|houzui.equals("XML")){
+                bcpMessages = BcpMessageService.readXMLAndOut(excelId);
+                String xmlPath = "E:"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
+                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+                BcpMessageService.createZIP("XML");
             }
         }else{
             //接收表单数据，生成bcp文件
@@ -313,7 +319,6 @@ public class BcpMessageController {
         //生成xml文件
         String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         BcpMessageService.createIndexXml(xmlPath,bcpMessages);
-
         //生成压缩文件
         try{
         BcpMessageService.createZIP("FIELD");

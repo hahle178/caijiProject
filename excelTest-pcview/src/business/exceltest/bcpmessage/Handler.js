@@ -44,7 +44,26 @@ export default class extends BaseHandler{
             }
         });
     }
-
+    //上传xml
+    upfileXML(args) {
+        alert("运行");
+        let fileId = $("#upfile01").val();
+        let $this =this;
+        let data = {};
+        data.fileId = fileId;
+        args.data = data;
+        ajaxRequest.ajax(args).then(function (msg) {
+            let udata = {};
+            udata.data = msg.data;
+            args.data = udata;
+            args.url=undefined;
+            if (msg.data.SUCCESS){
+                $this.render(args);
+            }else{
+                alert("出错了！")
+            }
+        });
+    }
     formIndex(args) {
         args.tpl = args.tpl || "formIndex";
         if (args.tpl) {
@@ -65,6 +84,17 @@ export default class extends BaseHandler{
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
         }
+
+    }
+    dataMapping(args) {
+        args.tpl = args.tpl || "dataMapping";
+        if (args.tpl) {
+            args.type = args.type || 'get';
+            return this.render(args);
+        } else {
+            throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
+        }
+
     }
 
 
