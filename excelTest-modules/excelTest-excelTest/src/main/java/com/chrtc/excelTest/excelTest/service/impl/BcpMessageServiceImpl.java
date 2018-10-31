@@ -9,10 +9,7 @@ import com.chrtc.excelTest.excelTest.domain.*;
 import com.chrtc.excelTest.excelTest.mapper.XmlFILEMapper;
 import com.chrtc.excelTest.excelTest.service.FieldBcpMessageService;
 import com.chrtc.excelTest.excelTest.service.XmlFILEService;
-import com.chrtc.excelTest.excelTest.utils.BcpUtil;
-import com.chrtc.excelTest.excelTest.utils.CompressedFileUtil;
-import com.chrtc.excelTest.excelTest.utils.ExcelUtil;
-import com.chrtc.excelTest.excelTest.utils.FileNameUtil;
+import com.chrtc.excelTest.excelTest.utils.*;
 import com.csvreader.CsvReader;
 import org.dom4j.Document;
 import org.dom4j.DocumentHelper;
@@ -51,7 +48,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private List<Map<String, Object>> bankListByExcel = new LinkedList<>();
     private List<Map<String, Object>> bankListByExcel1 = new LinkedList<>();
     private FileNameUtil fileNameUtil = new FileNameUtil();
-
+    private List<Map<String, Object>> ListByFile = new LinkedList<>();
     /**
      *五位自增序列号
      */
@@ -260,6 +257,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         return bcpMessages;
     }
     public void createIndexXml(String xmlPath,LinkedList bcpMessages) throws IOException {
+
         File file = new File(xmlPath);//写入文件
         if(!file.exists()) {
             try {
@@ -493,4 +491,250 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         bankListByExcel1.add(objectObjectHashMap);
         return bcpMessages;
     }
+
+    /**
+     * 读取txt文件写出bcp文件
+     *
+     * @param excelId
+     * @return
+     */
+    @Override
+    public LinkedList readTXTAndOut(String excelId) {
+        LinkedList bcpMessages = new LinkedList<>();
+        int Column = 0;
+        ListByFile.clear();
+        try {
+            List<FileAttachment> list = attachService.list(excelId);
+            TxtUtil txtUtil = new TxtUtil();
+            LinkedList<String> titleList = new LinkedList<>();
+            for (FileAttachment fileAttachment : list) {
+                String c = fileAttachment.getAttachmentPathStore();
+                String[] split = c.split("/");
+                String s = split[1];
+                //获取文件file
+                File file = new File(dir + "/" + s);
+                File newFile = file;
+                InputStream in = new FileInputStream(file);
+                String attachmentName = fileAttachment.getAttachmentName();
+                String[] names = attachmentName.split("_");
+                int lastIndex = names.length - 1;
+                //进行title文件判断
+                if (names[lastIndex].equals("title.txt") | names[lastIndex].equals("TITLE.TXT")) {
+                    Map<String, Object> titleMap = txtUtil.readTitle(file);
+                    for (Map.Entry<String, Object> entry : titleMap.entrySet()) {
+                        titleList.add((String) entry.getKey());
+                    }
+                    ListByFile.add(titleMap);
+                }
+            }
+            //获取数据文件
+            for (FileAttachment fileAttachment : list) {
+                String c = fileAttachment.getAttachmentPathStore();
+                String[] split = c.split("/");
+                String s = split[1];
+                //获取文件file
+                File file = new File(dir + "/" + s);
+                InputStream in = new FileInputStream(file);
+                String attachmentName = fileAttachment.getAttachmentName();
+                String[] names = attachmentName.split("_");
+                int lastIndex = names.length - 1;
+                Map titleMap = ListByFile.get(0);
+                //进行title文件判断
+                if (!names[lastIndex].equals("title.txt")) {
+                    List<Map<String, Object>> maps = txtUtil.readFile(file, titleMap.size());
+                    BcpMessage bcpMessage = new BcpMessage();
+                    HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
+                    //生成bcp文件
+                    String sysCode = "101";//数据发送方系统标识
+                    String depCode = "202";//数据发送方机构标识
+                    long currentTimeMillis = System.currentTimeMillis();//绝对秒数
+                    int nextSN = getNextSN();//五位自增序列号
+                    String dataCode = "303";//数据集代码
+                    String dataType = "0";//结构化非结构化标识
+                    String path = "E:" + File.separator + "TXT\\";
+                    String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
+                    //String path = "E:" + File.separator + "FILE\\";
+                    bcpMessage.setCount(maps.size());
+                    bcpMessage.setName(name);
+                    bcpMessage.setPath(path);
+                    bcpMessages.add(bcpMessage);
+                    //生成文件
+                    BcpUtil.creatBCPFile(name, path);
+
+                    for (Map<String, Object> dataMap : maps) {
+                        StringBuilder stringBuilder = new StringBuilder();
+                        for (String key : titleList) {
+                            //for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
+                            Object o = dataMap.get(key);
+                            if (o != null && o != "") {
+                                stringBuilder.append(o + "\t");
+                            } else {
+                                stringBuilder.append("\t");
+                            }
+                            //}
+                            //
+                        }
+                        BcpUtil.writeTxtFile(stringBuilder.toString());
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bcpMessages;
+    }
+
+    /**
+     * 专写txt文件的XMl
+     *
+     * @param xmlPath
+     * @param bcpMessages
+     * @throws IOException
+     */
+    public void createIndexXml1(String xmlPath, LinkedList bcpMessages) throws IOException {
+        File file = new File(xmlPath);//写入文件
+        if (!file.exists()) {
+            try {
+                file.createNewFile();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+        Document document = DocumentHelper.createDocument();
+        Element root = document.addElement("MESSAGE");
+        Element DATASET = root.addElement("DATASET").addAttribute("name", "COMMON_010017").addAttribute("rmk", "数据文件索引信息");
+        Element data = DATASET.addElement("DATA");
+
+        Element DATASET1 = data.addElement("DATASET");
+        DATASET1.addAttribute("name", "COMMON_010013").addAttribute("rmk", "BCP格式文件描述信息");
+
+
+        for (int i = 0; i < bcpMessages.size(); i++) {
+            BcpMessage bcpMessage1 = (BcpMessage) bcpMessages.get(i);
+            Element DATA1 = DATASET1.addElement("DATA");
+
+            DATA1.addElement("ITEM").addAttribute("key", "10A0024").addAttribute("val", "\\t").addAttribute("rmk", "列分隔符(缺少值时默认为制表符\\t)");
+            DATA1.addElement("ITEM").addAttribute("key", "10A0025").addAttribute("val", "\\n").addAttribute("rmk", "行分隔符(缺少值时默认为制表符\\n)");
+            DATA1.addElement("ITEM").addAttribute("key", "01A0004").addAttribute("val", "SOURCE_0002").addAttribute("rmk", "数据集代码");
+            DATA1.addElement("ITEM").addAttribute("key", "02E0016").addAttribute("val", "").addAttribute("rmk", "数据来源");
+            DATA1.addElement("ITEM").addAttribute("key", "07B0013").addAttribute("val", "").addAttribute("rmk", "安全专用产品厂家组织机构代码");
+            DATA1.addElement("ITEM").addAttribute("key", "06A0008").addAttribute("val", "").addAttribute("rmk", "数据采集地");
+            DATA1.addElement("ITEM").addAttribute("key", "10A0027").addAttribute("val", "1").addAttribute("rmk", "数据起始行，可选项。不填写默认为第一行");
+            DATA1.addElement("ITEM").addAttribute("key", "10A0028").addAttribute("val", "UTF-8").addAttribute("rmk", "可选项,默认为UTF-8。BCP格式文件编码格式（采用不带格式的编码方式。如：UTF-8无BOM）");
+
+            Element DATASET2 = DATA1.addElement("DATASET").addAttribute("name", "COMMON_010014").addAttribute("rmk", "BCP数据文件信息");
+
+            Element DATA2 = DATASET2.addElement("DATA");
+            DATA2.addElement("ITEM").addAttribute("key", "H040003").addAttribute("val", bcpMessage1.getPath()).addAttribute("rmk", "文件路径");
+            DATA2.addElement("ITEM").addAttribute("key", "H010020").addAttribute("val", bcpMessage1.getName()).addAttribute("rmk", "文件名");
+            DATA2.addElement("ITEM").addAttribute("key", "I010034").addAttribute("val", bcpMessage1.getCount() + "").addAttribute("rmk", "记录行数");
+
+            Element DATASET3 = DATA1.addElement("DATASET").addAttribute("name", "COMMON_010015").addAttribute("rmk", "BCP格式文件数据结构");
+
+
+            Element DATA3 = DATASET3.addElement("DATA");
+            Map<String, Object> stringObjectMap = ListByFile.get(i);
+            for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
+                DATA3.addElement("ITEM").addAttribute("key", "H040003").addAttribute("eng", entry.getKey()).addAttribute("chn", (String) entry.getValue()).addAttribute("rmk", "rr");
+            }
+        }
+
+        OutputFormat format = OutputFormat.createPrettyPrint();  //转换成字符串
+        format.setEncoding("UTF-8");
+        XMLWriter writer = new XMLWriter(new FileOutputStream(file), format);
+        writer.write(document);
+        writer.close();
+
+    }
+
+    /**
+     * 专写txt的zip
+     *
+     * @param bcpPath
+     * @throws Exception
+     */
+    public void createZIP1(String bcpPath) throws Exception {
+//        String dataSendSysIden = "101";//数据发送方系统标识
+//        String dataSendDevIden = "102";//数据发送方机构标识
+//        String dataReceSysIden = "103";//数据接收方系统标识
+//        String dataReceDevIden = "104";//数据接收方机构标识
+//        long currentTimeMillisZIP = System.currentTimeMillis();//绝对秒数
+//
+//        int nextSNZIP = getNextSN();//五位自增序列号,避重序列号
+        //文件名生成工具引入
+        String zipName = fileNameUtil.ZipFileName();
+        CompressedFileUtil.compressedFile("E:\\" + bcpPath + "\\", "F:\\ZIP\\", zipName);
+
+    }
+
+    /**
+     * 读取XML文件
+     *
+     * @param excelId
+     * @return
+     */
+    @Override
+    public LinkedList readXMLAndOut(String excelId) {
+        LinkedList bcpMessages = new LinkedList<>();
+        XmlUtil xmlUtil = new XmlUtil();
+        bankListByExcel1.clear();
+        try {
+            List<FileAttachment> list = attachService.list(excelId);
+            for (FileAttachment fileAttachment : list) {
+                BcpMessage bcpMessage = new BcpMessage();
+                String c = fileAttachment.getAttachmentPathStore();
+                String attachmentName = fileAttachment.getAttachmentName();
+                HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
+                //截取字符串，获取本地存储文件名
+                String[] split = c.split("/");
+                String s = split[1];
+
+                File file = new File(dir + "/" + s);
+
+                InputStream in = new FileInputStream(file);
+
+                //读取excel中的内容
+                String extString = attachmentName.substring(attachmentName.lastIndexOf("."));
+                bankListByExcel = xmlUtil.ReadFile(file);
+
+                //生成bcp文件
+//                String sysCode = "101";//数据发送方系统标识
+//                String depCode = "202";//数据发送方机构标识
+//                long currentTimeMillis = System.currentTimeMillis();//绝对秒数
+//                int nextSN = getNextSN();//五位自增序列号
+//                String dataCode = "303";//数据集代码
+//                String dataType = "0";//结构化非结构化标识
+
+//                String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
+                String name = fileNameUtil.BcpFileName();
+                String path = "E:" + File.separator + "EXCEL\\";
+                bcpMessage.setCount(bankListByExcel.size());
+                bcpMessage.setName(name);
+                bcpMessage.setPath(path);
+                bcpMessages.add(bcpMessage);
+                BcpUtil.creatBCPFile(name, path);
+
+                //生成bcp记录
+                for (Map<String, Object> dataMap : bankListByExcel) {
+                    StringBuilder stringBuilder = new StringBuilder();
+                    for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
+                        stringBuilder.append(entry.getValue() + "\t");
+                    }
+                    BcpUtil.writeTxtFile(stringBuilder.toString());
+                }
+                Map<String, Object> stringObjectMap = bankListByExcel.get(0);
+                for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
+                    objectObjectHashMap.put(entry.getKey(), entry.getValue());
+                }
+                bankListByExcel1.add(objectObjectHashMap);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bcpMessages;
+    }
+
+
+
 }
