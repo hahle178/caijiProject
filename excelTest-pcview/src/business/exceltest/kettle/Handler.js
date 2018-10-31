@@ -461,6 +461,11 @@ export default class extends BaseHandler{
 
     //编辑定时时间
     scheduler(args){
+        args.data = {};
+        let $this = this;
+        let zidingyiData  = {};
+        zidingyiData.id = args.id;
+        args.data = zidingyiData;
         args.tpl = args.tpl || "scheduler";
         if (args.tpl) {
             args.type = args.type || 'get';
@@ -741,4 +746,82 @@ export default class extends BaseHandler{
         }
     }
 
+    //定时
+    selectChange(args){
+
+        let $this = this;
+        let  schedulerType = $(".schedulerType").val();
+
+        /*if(schedulerType == ""){
+            $(".addFieldRow").attr("disabled",true);
+            $(".radioBTN").attr("disabled",true);
+            return false;
+        }*/
+        if(schedulerType == "0"){
+            $("#intervalSeconds").attr("disabled",true);
+            $("#intervalMinutes").attr("disabled",true);
+            $("#hour").attr("disabled",true);
+            $("#minutes").attr("disabled",true);
+            $("#weekDay").attr("disabled",true);
+            $("#dayOfMonth").attr("disabled",true);
+        }else
+        if(schedulerType == "1"){
+            $("#intervalSeconds").attr("disabled",false);
+            $("#intervalMinutes").attr("disabled",false);
+            $("#hour").attr("disabled",true);
+            $("#minutes").attr("disabled",true);
+            $("#weekDay").attr("disabled",true);
+            $("#dayOfMonth").attr("disabled",true);
+        }else
+        if(schedulerType == "2"){
+            $("#intervalSeconds").attr("disabled",true);
+            $("#intervalMinutes").attr("disabled",true);
+            $("#hour").attr("disabled",false);
+            $("#minutes").attr("disabled",false);
+            $("#weekDay").attr("disabled",true);
+            $("#dayOfMonth").attr("disabled",true);
+        }else
+        if(schedulerType == "3"){
+            $("#intervalSeconds").attr("disabled",true);
+            $("#intervalMinutes").attr("disabled",true);
+            $("#hour").attr("disabled",false);
+            $("#minutes").attr("disabled",false);
+            $("#weekDay").attr("disabled",false);
+            $("#dayOfMonth").attr("disabled",true);
+        }else
+        if(schedulerType == "4"){
+            $("#intervalSeconds").attr("disabled",true);
+            $("#intervalMinutes").attr("disabled",true);
+            $("#hour").attr("disabled",false);
+            $("#minutes").attr("disabled",false);
+            $("#weekDay").attr("disabled",true);
+            $("#dayOfMonth").attr("disabled",false);
+        }else{
+            $("#intervalSeconds").attr("disabled",false);
+            $("#intervalMinutes").attr("disabled",false);
+            $("#hour").attr("disabled",false);
+            $("#minutes").attr("disabled",false);
+            $("#weekDay").attr("disabled",false);
+            $("#dayOfMonth").attr("disabled",false);
+        }
+
+        /*$(".addFieldRow").attr("disabled",false);
+        $(".radioBTN").attr("disabled",false);
+        $(".radioBTN2").prop("checked",false);
+        $(".radioBTN1").prop("checked",true);
+        let dataHead = args.data || {};
+        dataHead.selectHead = selectHead;
+        args.data = dataHead;
+
+        $this.ajaxResource(args).then((data) => {
+            args.url=undefined;
+            data.data.forEach(function (value) {
+                $("input[name='fieldHeadName']").val(value.fieldHeadName)
+                $this.addModifyFieldRow(value);
+            })
+        }, (data) => {
+            eventUtils.getCurrentEventTarget().removeAttr("disabled");
+            reject(data);
+        })*/
+    }
 };

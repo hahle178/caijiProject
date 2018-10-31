@@ -53,14 +53,20 @@
                                 <!-- <select id="repositoryType" name="repositoryType" class="form-control">
                                      <option value="">请选择资源库类型</option>
                                  </select>-->
-                                <select id="schedulerType" name="schedulerType" class="form-control">
+                                <e-select class="form-control schedulerType"  name="schedulerType"  e-option-value="code"
+                                          e-event="event:change,href:/{{path}}/selectChange"
+                                          e-option-text="value" e-url="/excelTest/exceltest/kettle/ajaxGetSchedulerType" e-value='sc'
+                                          e-type="get">
+                                </e-select>
+
+                               <!-- <select id="schedulerType" name="schedulerType" class="form-control">
                                     <option >请选择</option>
                                     <option value="0">不需要定时</option>
                                     <option value="1">时间间隔（分钟秒）</option>
                                     <option value="2">天</option>
                                     <option value="3">周</option>
                                     <option value="4">月</option>
-                                </select>
+                                </select>-->
 
                             </div>
                         </div>
