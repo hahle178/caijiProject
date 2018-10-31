@@ -46,7 +46,6 @@ export default class extends BaseHandler{
     }
     //上传xml
     upfileXML(args) {
-        alert("运行");
         let fileId = $("#upfile01").val();
         let $this =this;
         let data = {};
@@ -60,7 +59,9 @@ export default class extends BaseHandler{
             if (msg.data.SUCCESS){
                 $this.render(args);
             }else{
-                alert("出错了！")
+                alert(msg.data.MSG);
+                $this.render(args);
+                //alert(msg.data.msg);
             }
         });
     }
@@ -149,7 +150,7 @@ export default class extends BaseHandler{
     }
 
     selfSubmit1(args) {
-
+        console.log(1)
         args.form = args.form || this.getContainerId('submitForm');
         if (args && args.url) {
             let form = $('#' + args.form);
