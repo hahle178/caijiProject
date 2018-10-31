@@ -7,6 +7,9 @@ import javax.servlet.ServletRequest;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSONObject;
+import com.chrtc.excelTest.excelTest.domain.kettle.KSchedulerType;
+import com.chrtc.excelTest.excelTest.service.kettle.KSchedulerTypeService;
+import com.chrtc.excelTest.excelTest.utils.BcpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +42,8 @@ public class KRepositoryTypeController {
 
     @Autowired
     private KRepositoryTypeService KRepositoryTypeService;
+    @Autowired
+    private KSchedulerTypeService kSchedulerTypeService;
 
     /**
     * 根据ID查询
@@ -122,4 +127,23 @@ public class KRepositoryTypeController {
         return ResultFactory.create(list);
     }
 
+
+    /**
+     * 动态获取数据库资源库类型
+     *
+     * @param
+     * @return Result
+     */
+    @RequestMapping(value = "/ajaxGetSchedulerType")
+    public Result ajaxGetSchedulerType() {
+        List<JSONObject> list = new ArrayList();
+        List<KSchedulerType> all = kSchedulerTypeService.findAll();
+        for (KSchedulerType fn:all) {
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("value",fn.getSchedulerTypeDes());
+            jsonObject.put("code",fn.getSchedulerTypeCode());
+            list.add(jsonObject);
+        }
+        return ResultFactory.create(list);
+    }
 }
