@@ -2,13 +2,16 @@ package com.chrtc.excelTest.excelTest.web.kettle;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chrtc.common.base.domain.Paging;
 import com.chrtc.excelTest.excelTest.domain.kettle.*;
 import com.chrtc.excelTest.excelTest.service.kettle.KJobMonitorService;
@@ -377,5 +380,51 @@ public class KjobController {
         String content = FileUtils.readFileToString(new File(logFilePath), Constant.DEFAULT_ENCODING);
         String[] split = content.split("\\r\\n");
         return ResultFactory.create(split);
+    }
+
+    /**
+     * 获取定时设置
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/scheduler")
+    public Result scheduler(String id) throws IOException, ClassNotFoundException, SQLException {
+        JSONObject jsonObject = new JSONObject();
+        //注册驱动，反射方式加载
+        Class.forName("com.mysql.jdbc.Driver");
+        //设置url
+        String url = "jdbc:mysql://localhost:3306/test-demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
+        //设置用户名
+        String username = "root";
+        //设置密码
+        String password = "root";
+        //获得连接对象
+        Connection con = DriverManager.getConnection(url, username, password);
+        //获得执行者对象
+        String sql = "select CODE,VALUE_NUM,VALUE_STR  from r_jobentry_attribute where ID_JOB =  " + id;
+        PreparedStatement ps = con.prepareStatement(sql);
+        //获得结果集
+        ResultSet rs = ps.executeQuery();
+        //结果集处理，
+        StringBuilder stringBuilder = new StringBuilder();
+
+        while(rs.next()){
+            String s  =   rs.getString("CODE");
+            if(s.equals("repeat")){
+                stringBuilder.append(rs.getString("VALUE_STR")+",");
+            }
+            if(s.equals("schedulerType") | s.equals("intervalSeconds") | s.equals("intervalMinutes") | s.equals("hour") | s.equals("minutes") | s.equals("weekDay") | s.equals("dayOfMonth")){
+                stringBuilder.append(rs.getString("VALUE_NUM")+",");
+            }
+        }
+        //释放资源
+        rs.close();
+        ps.close();
+        con.close();
+        if (stringBuilder.length() > 0)
+            stringBuilder.deleteCharAt(stringBuilder.length() - 1); //调用 字符串的deleteCharAt() 方法,删除最后一个多余的逗号
+        jsonObject.put("scheduler",stringBuilder);
+        return ResultFactory.create(jsonObject);
     }
 }
