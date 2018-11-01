@@ -86,11 +86,12 @@ public class Constant extends Const {
 
 	static {
 		props = readProperties();
-		KETTLE_HOME = uKettle() + props.getProperty("kettle.home");
+		//KETTLE_HOME = uKettle() + props.getProperty("kettle.home");
+		KETTLE_HOME = props.getProperty("kettle.home");
 		KETTLE_PLUGIN = KETTLE_HOME + FILE_SEPARATOR
 				+ props.getProperty("kettle.plugin");
-		KETTLE_SCRIPT = uKettle()
-				+ props.getProperty("kettle.script");
+		//KETTLE_SCRIPT = uKettle() + props.getProperty("kettle.script");
+		KETTLE_SCRIPT = props.getProperty("kettle.script");
 		KETTLE_LOGLEVEL = logger(props
 				.getProperty("kettle.loglevel"));
 
@@ -107,9 +108,7 @@ public class Constant extends Const {
 	public static Properties readProperties() {
 		Properties p = new Properties();
 		try {
-			p.load(new FileInputStream(Constant.class.getResource("/")
-					.getPath().replace("%20", " ")
-					+ UKETTLE));
+			p.load(Constant.class.getClassLoader().getResourceAsStream(UKETTLE));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -138,7 +137,7 @@ public class Constant extends Const {
 		return logLevel;
 	}
 
-	private static String uKettle() {
+/*	private static String uKettle() {
 		String classPath = Constant.class.getResource("/").getPath()
 				.replace("%20", " ");
 		String iQuartz = "";
@@ -157,6 +156,6 @@ public class Constant extends Const {
 			iQuartz = iQuartz.replace("\\", "/");
 		}
 		return iQuartz;
-	}
+	}*/
 
 }
