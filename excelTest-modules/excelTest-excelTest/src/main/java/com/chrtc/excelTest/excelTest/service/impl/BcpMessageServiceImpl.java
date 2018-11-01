@@ -47,7 +47,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private FileNameUtil fileNameUtil = new FileNameUtil();
     private List<Map<String, Object>> ListByFile = new LinkedList<>();
     /**
-     * 五位自增序列号
+     *五位自增序列号
      */
     private static int sn = 10001;
 
@@ -163,7 +163,6 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     }
                     bankListByExcel1.add(objectObjectHashMap);
                 }
-
 
             }
         } catch (Exception e) {
