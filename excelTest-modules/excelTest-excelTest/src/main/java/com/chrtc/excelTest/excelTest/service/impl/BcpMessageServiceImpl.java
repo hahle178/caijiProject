@@ -6,6 +6,7 @@ import java.util.*;
 import com.chrtc.attach.common.domain.FileAttachment;
 import com.chrtc.attach.common.service.AttachService;
 import com.chrtc.excelTest.excelTest.domain.*;
+import com.chrtc.excelTest.excelTest.service.CreateXmlService;
 import com.chrtc.excelTest.excelTest.service.FieldBcpMessageService;
 import com.chrtc.excelTest.excelTest.service.XmlFILEService;
 import com.chrtc.excelTest.excelTest.utils.*;
@@ -38,6 +39,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private AttachService attachService;
     @Autowired
     private FieldBcpMessageService fieldBcpMessageService;
+    @Autowired
+    private CreateXmlService createXmlService;
 
 
     @Value("${ezdev.attach.config.local.dir}")
@@ -154,19 +157,20 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
                 List<List<Object>> titleList=fileMessage.getTitleList();
                 for (List<Object> list2:titleList) {
-                    for (Object title:list2){
-                       stringObjectMap.put(title.toString(),title.toString());
+                    for (Object title : list2) {
+                        stringObjectMap.put(title.toString(), title.toString());
                     }
                     for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
                         objectObjectHashMap.put(entry.getKey(), entry.getValue());
                     }
                     bankListByExcel1.add(objectObjectHashMap);
                 }
-
             }
+            createXmlService.createIndexXml(xmlPath,bcpMessages,bankListByExcel1,"");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return bcpMessages;
     }
 
