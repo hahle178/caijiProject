@@ -70,7 +70,7 @@ public interface BcpMessageService {
      * @param
      * @return List
      */
-    public void createIndexXml(String xmlPath, LinkedList bcpMessages) throws IOException;
+    public void createIndexXml(String xmlPath,LinkedList bcpMessages) throws IOException;
     /**
      * 生成压缩文件
      * @param
@@ -96,14 +96,11 @@ public interface BcpMessageService {
      */
     public LinkedList getEntityCreateBcp2(FieldVO fieldVO, Integer option) throws Exception;
 
-<<<<<<< HEAD
-=======
     /**
      * 读取txt文件生成bcp文件
      * @param excelId
      * @return
      */
->>>>>>> origin/master
     LinkedList readTXTAndOut(String excelId);
 
     void createIndexXml1(String xmlPath, LinkedList bcpMessages) throws IOException;
@@ -111,8 +108,4 @@ public interface BcpMessageService {
     void createZIP1(String txt)throws Exception;
 
     LinkedList readXMLAndOut(String excelId);
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 }
