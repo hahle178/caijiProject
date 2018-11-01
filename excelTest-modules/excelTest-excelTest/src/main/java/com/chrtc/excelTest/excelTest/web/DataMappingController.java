@@ -25,12 +25,6 @@ import java.util.List;
 public class DataMappingController {
     @Autowired
     private DataMappingXmlServiceImpl dataMappingXmlService;
-  /*  public static void main(String[] args) throws IOException, DocumentException {
-        dataMappingXmlService.readXML2();
-    }*/
-  @RequestMapping("upfile")
-    public Result upfile(String fileId, HttpServletResponse responese) throws Exception{
-      JSONObject jsonObject = new JSONObject();
     @Autowired
     private AttachService attachService;
   @RequestMapping("upfile")
