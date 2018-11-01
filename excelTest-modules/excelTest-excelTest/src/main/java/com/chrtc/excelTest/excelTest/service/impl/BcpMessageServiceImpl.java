@@ -47,7 +47,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private FileNameUtil fileNameUtil = new FileNameUtil();
     private List<Map<String, Object>> ListByFile = new LinkedList<>();
     /**
-     * 五位自增序列号
+     *五位自增序列号
      */
     private static int sn = 10001;
 
@@ -100,9 +100,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
-
         FileMessage fileMessage=new FileMessage();
-
+        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -163,7 +162,6 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     }
                     bankListByExcel1.add(objectObjectHashMap);
                 }
-
 
             }
         } catch (Exception e) {

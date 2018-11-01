@@ -5,16 +5,14 @@ import org.dom4j.*;
 import org.dom4j.io.SAXReader;
 
 import java.io.File;
-import java.util.*;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.*;
 
 public class XmlUtil {
     private static List<Map<String, Object>> lists = new LinkedList<Map<String, Object>>();
     private RepeatUtil repeatUtil = new RepeatUtil();
-    private Logger log=Logger.getLogger("xmlfile");
-    static String str = "";
-    private static Map<String, Object> map = new HashMap<>();
+    private Logger log = Logger.getLogger("xmlfile");
     //存储单个Normalizing节点的对象
     private   Map<String, String> mapL = new HashMap<>();
     //存储param对应的数据
@@ -37,8 +35,13 @@ public class XmlUtil {
         return lists;
     }
 
+
+    static String str = "";
+    private static Map<String, Object> map = new HashMap<>();
+
     public XmlUtil() {
         List<Map<String, Object>> lists = new LinkedList<Map<String, Object>>();
+        map=null;
     }
 
     public void listNodes(Element node) {

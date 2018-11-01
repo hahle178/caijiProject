@@ -70,7 +70,7 @@ public interface BcpMessageService {
      * @param
      * @return List
      */
-    public void createIndexXml(String xmlPath, LinkedList bcpMessages) throws IOException;
+    public void createIndexXml(String xmlPath,LinkedList bcpMessages) throws IOException;
     /**
      * 生成压缩文件
      * @param
