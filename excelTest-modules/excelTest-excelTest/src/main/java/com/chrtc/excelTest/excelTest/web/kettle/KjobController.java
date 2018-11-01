@@ -64,9 +64,10 @@ public class KjobController {
     private KRepositoryService KRepositoryService;
     @Autowired
     private KJobMonitorService kJobMonitorService;
-
     @Autowired
     private KJobRecordService kJobRecordService;
+
+    private LinkedHashMap<String,Job> jobMap= new LinkedHashMap();
 
     /**
     * 根据ID查询
@@ -176,6 +177,15 @@ public class KjobController {
             return ResultFactory.create(CodeMsgBase.FAILURE);
         }
     }
+    @RequestMapping("/stopJob")
+    public Result stopJob(String jobPath){
+        if (!jobMap.containsKey(jobPath)){
+            return ResultFactory.create("1");
+        }else{
+            jobMap.get(jobPath).stopAll();
+            return ResultFactory.create(CodeMsgBase.SUCCESS);
+        }
+    }
 
     /**
      * 执行作业
@@ -184,27 +194,29 @@ public class KjobController {
      */
     @RequestMapping("/runJob")
     public  Result repositoryName(String jobPath) throws Exception {
-        //根据repositoryName得到转换信息
-        Kjob kjob  =  KjobService.findByJobPath(jobPath);
-        String transRepositoryId = kjob.getJobRepositoryId();
-        KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
-        //初始化环境
-        KettleEnvironment.init();
-        //创建DB资源库
-        KettleDatabaseRepository repository=new KettleDatabaseRepository();
-        DatabaseMeta databaseMeta=new DatabaseMeta(KRepository.getRepositoryName(),KRepository.getRepositoryType(),KRepository.getDatabaseAccess(),KRepository.getDatabaseHost(),KRepository.getDatabaseName(),KRepository.getDatabasePort(),KRepository.getDatabaseUsername(),KRepository.getDatabasePassword());
-        //选择资源库
-        //资源库元对象
-        KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
-        repositoryInfo.setConnection(databaseMeta);
-        repository.init(repositoryInfo);
-        //连接资源库
-        repository.connect("admin","admin");
-        RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree();
-        //选择作业
-        JobMeta jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
-        Job job = new Job(repository, jobMeta);
+            //根据repositoryName得到转换信息
+            Kjob kjob  =  KjobService.findByJobPath(jobPath);
+            String transRepositoryId = kjob.getJobRepositoryId();
+            KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
+            //初始化环境
+            KettleEnvironment.init();
+            //创建DB资源库
+            KettleDatabaseRepository repository=new KettleDatabaseRepository();
+            DatabaseMeta databaseMeta=new DatabaseMeta(KRepository.getRepositoryName(),KRepository.getRepositoryType(),KRepository.getDatabaseAccess(),KRepository.getDatabaseHost(),KRepository.getDatabaseName(),KRepository.getDatabasePort(),KRepository.getDatabaseUsername(),KRepository.getDatabasePassword());
+            //选择资源库
+            //资源库元对象
+            KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
+            repositoryInfo.setConnection(databaseMeta);
+            repository.init(repositoryInfo);
+            //连接资源库
+            repository.connect("admin","admin");
+            RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree();
+            //选择作业
+            JobMeta jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
+            Job job = new Job(repository, jobMeta);
+            jobMap.put(jobPath,job);
 
+        Job ss = jobMap.get(jobPath);
         //添加监控
         Date jobStopDate = null;
         Date jobStartDate = null;
@@ -215,7 +227,7 @@ public class KjobController {
             String exception = null;
             jobStartDate = new  Date();
             job.start();
-            job.waitUntilFinished();//等待直到数据结束
+            //job.waitUntilFinished();//等待直到数据结束
             jobStopDate = new Date();
             logText = appender.getBuffer(logChannelId, true).toString();
             addMonitor(jobPath,jobStartDate,jobStopDate);
