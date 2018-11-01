@@ -264,7 +264,7 @@ public class BcpMessageController {
                 bcpMessages = BcpMessageService.readExcelAndOut(excelId);
                 //生成xml文件
                 String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
-                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+                //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("EXCEL");
             }else if(houzui.equals("csv") | houzui.equals("CSV")){

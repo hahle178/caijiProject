@@ -33,7 +33,7 @@ public class FileNameUtil {
         String  dataAdd="110000";//数据采集地编码
         long currentTimeMillis = System.currentTimeMillis();//数据采集时间戳
         String dataCode="BASIC_0003";//数据集编码(从数据库中获取)
-        return dataSource+"-"+deptCode+"-"+dataAdd+"-"+currentTimeMillis+"-"+getNextSN()+"-"+dataCode;
+        return dataSource+"-"+deptCode+"-"+dataAdd+"-"+currentTimeMillis+"-"+getNextSN()+"-"+dataCode+".zip";
     }
 
 }

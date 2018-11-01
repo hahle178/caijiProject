@@ -6,6 +6,7 @@ import java.util.*;
 import com.chrtc.attach.common.domain.FileAttachment;
 import com.chrtc.attach.common.service.AttachService;
 import com.chrtc.excelTest.excelTest.domain.*;
+import com.chrtc.excelTest.excelTest.service.CreateXmlService;
 import com.chrtc.excelTest.excelTest.service.FieldBcpMessageService;
 import com.chrtc.excelTest.excelTest.service.XmlFILEService;
 import com.chrtc.excelTest.excelTest.utils.*;
@@ -38,6 +39,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private AttachService attachService;
     @Autowired
     private FieldBcpMessageService fieldBcpMessageService;
+    @Autowired
+    private CreateXmlService createXmlService;
 
 
     @Value("${ezdev.attach.config.local.dir}")
@@ -47,7 +50,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private FileNameUtil fileNameUtil = new FileNameUtil();
     private List<Map<String, Object>> ListByFile = new LinkedList<>();
     /**
-     * 五位自增序列号
+     *五位自增序列号
      */
     private static int sn = 10001;
 
@@ -100,9 +103,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
-
         FileMessage fileMessage=new FileMessage();
-
+        String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -155,20 +157,21 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
                 List<List<Object>> titleList=fileMessage.getTitleList();
                 for (List<Object> list2:titleList) {
-                    for (Object title:list2){
-                       stringObjectMap.put(title.toString(),title.toString());
+                    for (Object title : list2) {
+                        stringObjectMap.put(title.toString(), title.toString());
                     }
                     for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
                         objectObjectHashMap.put(entry.getKey(), entry.getValue());
                     }
                     bankListByExcel1.add(objectObjectHashMap);
                 }
-
-
             }
+            List<List<Object>> titlelist=fileMessage.getTitleList();
+            createXmlService.createIndexXml(xmlPath,bcpMessages,titlelist,"");
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         return bcpMessages;
     }
 
@@ -289,7 +292,6 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         DATASET1.addAttribute("name", BCP_DESCRIBE.get(0).getName1()).addAttribute("rmk", BCP_DESCRIBE.get(0).getRmk());
         Element DATA1 = DATASET1.addElement("DATA");
 
-        //for (Object bcpMessage:bcpMessages) {
         for (int i = 0; i < bcpMessages.size(); i++) {
             BcpMessage bcpMessage1 = (BcpMessage) bcpMessages.get(i);
             for (XmlFILE xmlFILE : BCP_DESCRIBE_INFO) {
@@ -298,23 +300,13 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
             Element DATASET2 = DATA1.addElement("DATASET").addAttribute("name", BCP_DATA.get(0).getName1()).addAttribute("rmk", BCP_DATA.get(0).getRmk());
             //生成BCP数据文件信息
-            //for (Object bcpMessage : bcpMessages) {
-            // BcpMessage bcpMessage1 = (BcpMessage) bcpMessage;
             Element DATA2 = DATASET2.addElement("DATA");
             DATA2.addElement("ITEM").addAttribute("key", "H040003").addAttribute("val", bcpMessage1.getPath()).addAttribute("rmk", "文件路径");
             DATA2.addElement("ITEM").addAttribute("key", "H010020").addAttribute("val", bcpMessage1.getName()).addAttribute("rmk", "文件名");
             DATA2.addElement("ITEM").addAttribute("key", "I010034").addAttribute("val", bcpMessage1.getCount() + "").addAttribute("rmk", "记录行数");
-            // }
 
             //生成BCP格式文件数据结构
             Element DATASET3 = DATA1.addElement("DATASET").addAttribute("name", BCP_DATA_STRUCTURE.get(0).getName1()).addAttribute("rmk", BCP_DATA_STRUCTURE.get(0).getRmk());
-
-            /*for (Map<String, Object> stringObjectMap : bankListByExcel1) {
-                Element DATA3 = DATASET3.addElement("DATA");
-                for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {
-                    DATA3.addElement("ITEM").addAttribute("key", "H040003").addAttribute("eng", entry.getKey()).addAttribute("chn", "ss").addAttribute("rmk", "rr");
-                }
-            }*/
             Element DATA3 = DATASET3.addElement("DATA");
             Map<String, Object> stringObjectMap = bankListByExcel1.get(i);
             for (Map.Entry<String, Object> entry : stringObjectMap.entrySet()) {

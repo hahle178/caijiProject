@@ -11,7 +11,7 @@ public class DataMapping extends BaseEntity {
     @Size(max = 32)
     private String id;
     @Size(max = 50)
-    private String key;
+    private String key1;
     @Size(max = 50)
     private String eng;
     @Size(max = 50)
@@ -109,11 +109,11 @@ public class DataMapping extends BaseEntity {
     }
 
     public String getKey() {
-        return key;
+        return key1;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setKey(String key1) {
+        this.key1 = key1;
     }
 
     public String getEng() {
