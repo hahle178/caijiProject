@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface CreateXmlService {
-    public void createIndexXml(String xmlPath, LinkedList bcpMessages, List<Map<String, Object>> bankListByExcel, String SDateSet) throws IOException;
+    public void createIndexXml(String xmlPath, LinkedList bcpMessages, List<List<Object>> bankListByExcel, String SDateSet) throws IOException;
 }

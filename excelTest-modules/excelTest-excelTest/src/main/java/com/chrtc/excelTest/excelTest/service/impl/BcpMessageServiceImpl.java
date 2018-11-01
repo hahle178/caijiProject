@@ -166,7 +166,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     bankListByExcel1.add(objectObjectHashMap);
                 }
             }
-            createXmlService.createIndexXml(xmlPath,bcpMessages,bankListByExcel1,"");
+            List<List<Object>> titlelist=fileMessage.getTitleList();
+            createXmlService.createIndexXml(xmlPath,bcpMessages,titlelist,"");
         } catch (Exception e) {
             e.printStackTrace();
         }
