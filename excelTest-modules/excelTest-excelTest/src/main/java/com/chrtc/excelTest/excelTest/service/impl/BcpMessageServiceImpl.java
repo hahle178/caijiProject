@@ -100,9 +100,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
-
         FileMessage fileMessage=new FileMessage();
-
+        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
