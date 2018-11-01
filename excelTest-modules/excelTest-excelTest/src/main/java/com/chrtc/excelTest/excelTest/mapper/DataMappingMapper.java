@@ -17,5 +17,5 @@ public interface DataMappingMapper {
     */
     int insert(DataMapping dataMapping);
 
-    List<DataMapping> selectBySDateSet(@Param("sDateSet") String sDateSet);
+    List<DataMapping> selectBySDateSet(@Param("sDataSet") String sDataSet);
 }
