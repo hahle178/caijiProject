@@ -458,6 +458,23 @@ export default class extends BaseHandler{
             }
         })
     }
+    //停止作业
+    stopJob(args){
+        args.data = {};
+        let $this = this;
+        let zidingyiData  = {};
+        zidingyiData.jobPath = args.jobPath;
+        args.data = zidingyiData;
+        this.ajaxResource(args).then((data) => {
+            if(data.code == "0"){
+                layer.msg("成功停止！");
+            }else if(data.code == 1){
+                layer.msg("没有运行此作业！")
+            }else{
+                layer.msg("请求失败！重新操作");
+            }
+        })
+    }
 
     //编辑定时时间
     scheduler(args){
