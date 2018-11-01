@@ -493,7 +493,7 @@
     <select id="findByGroup" resultMap="BaseResultMap" >
         select
         fieldheadname
-        from  fieldRowMessage
+        from  fieldrowmessage
         group BY fieldheadname;
     </select>
 
