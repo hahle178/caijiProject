@@ -341,7 +341,7 @@ public class BcpMessageController {
         //注册驱动，反射方式加载
         Class.forName("com.mysql.jdbc.Driver");
         //设置url
-        String url = "jdbc:mysql://localhost:3306/test-demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
+        String url = "jdbc:mysql://192.168.1.90:3306/test-demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
         //设置用户名
         String username = "root";
         //设置密码
