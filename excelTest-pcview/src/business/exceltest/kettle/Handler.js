@@ -480,14 +480,91 @@ export default class extends BaseHandler{
     scheduler(args){
         args.data = {};
         let $this = this;
-        let zidingyiData  = {};
-        zidingyiData.id = args.id;
-        args.data = zidingyiData;
         args.tpl = args.tpl || "scheduler";
         if (args.tpl) {
             args.type = args.type || 'get';
-            this.render(args).then(()=>{
-                /*treeData = null;*/
+            this.render(args).then(()=> {
+                //解析并回显
+                args.url = "/excelTest/exceltest/kjob/scheduler?id= " + args.id;
+                this.ajaxResource(args).then((data) => {
+                    $("input[name='schedulerid']").val(args.id)
+
+                    $this.jobLogList(data);
+                    let arr = data.data.scheduler.split(",");
+                    if (arr[0] == "N") {
+                        $(".Nrepeat").attr("selected", true);
+                    } else {
+                        $(".Yrepeat").attr("selected", true);
+                    }
+
+                    if (arr[1] == "0") {
+                        $("#schedulerType  option[value='0'] ").attr("selected", true)
+
+                        $("#intervalSeconds").attr("disabled", true);
+                        $("#intervalMinutes").attr("disabled", true);
+                        $("#hour").attr("disabled", true);
+                        $("#minutes").attr("disabled", true);
+                        $("#weekDay").attr("disabled", true);
+                        $("#dayOfMonth").attr("disabled", true);
+
+                    } else if (arr[1] == "1") {
+                        $("#schedulerType  option[value='1'] ").attr("selected", true)
+
+                        $("#intervalSeconds").attr("disabled", false);
+                        $("#intervalSeconds").val(arr[2])
+                        $("#intervalMinutes").attr("disabled", false);
+                        $("#intervalMinutes").val(arr[3]);
+                        $("#hour").attr("disabled", true);
+                        $("#minutes").attr("disabled", true);
+                        $("#weekDay").attr("disabled", true);
+                        $("#weekDay  option[value='0'] ").attr("selected", true)
+                        $("#dayOfMonth").attr("disabled", true);
+                    } else if (arr[1] == "2") {
+                        $("#schedulerType  option[value='2'] ").attr("selected", true)
+
+                        $("#intervalSeconds").attr("disabled", true);
+                        $("#intervalMinutes").attr("disabled", true);
+                        $("#hour").attr("disabled", false);
+                        $("#hour").val(arr[4])
+                        $("#minutes").attr("disabled", false);
+                        $("#minutes").val(arr[5])
+                        $("#weekDay").attr("disabled", true);
+                        $("#dayOfMonth").attr("disabled", true);
+                    } else if (arr[1] == "3") {
+                        $("#schedulerType  option[value='3'] ").attr("selected", true)
+
+                        $("#intervalSeconds").attr("disabled", true);
+                        $("#intervalMinutes").attr("disabled", true);
+                        $("#hour").attr("disabled", false);
+                        $("#hour").val(arr[4])
+                        $("#minutes").attr("disabled", false);
+                        $("#minutes").val(arr[5]);
+                        $("#weekDay").attr("disabled", false);
+                        $("#weekDay  option[value='" + arr[6] + "'] ").attr("selected", true)
+                        $("#dayOfMonth").attr("disabled", true);
+                    } else if (arr[1] == "4") {
+                        $("#schedulerType  option[value='4'] ").attr("selected", true)
+
+                        $("#intervalSeconds").attr("disabled", true);
+                        $("#intervalMinutes").attr("disabled", true);
+                        $("#hour").attr("disabled", false);
+                        $("#hour").val(arr[4])
+                        $("#minutes").attr("disabled", false);
+                        $("#minutes").val(arr[5]);
+                        $("#weekDay").attr("disabled", true);
+                        $("#weekDay  option[value='0'] ").attr("selected", true)
+                        $("#dayOfMonth").attr("disabled", false);
+                        $("#dayOfMonth").val(arr[7])
+                    } else {
+                        $("#intervalSeconds").attr("disabled", false);
+                        $("#intervalMinutes").attr("disabled", false);
+                        $("#hour").attr("disabled", false);
+                        $("#minutes").attr("disabled", false);
+                        $("#weekDay").attr("disabled", false);
+                        $("#dayOfMonth").attr("disabled", false);
+                    }
+                })
+
             });
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
@@ -765,9 +842,8 @@ export default class extends BaseHandler{
 
     //定时
     selectChange(args){
-
         let $this = this;
-        let  schedulerType = $(".schedulerType").val();
+        let  schedulerType = $("#schedulerType").val();
 
         /*if(schedulerType == ""){
             $(".addFieldRow").attr("disabled",true);
@@ -842,3 +918,7 @@ export default class extends BaseHandler{
         })*/
     }
 };
+
+
+
+

@@ -27,6 +27,7 @@
                                     </div>
                                 </div>
                                 <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
+                                <input type="hidden" name="schedulerid" value="">
                                 <div class="col-sm-1">
                                 </div>
 
@@ -41,8 +42,8 @@
                                  </select>-->
                                 <select id="repeat" name="repeat" class="form-control" >
                                     <option >请选择</option>
-                                    <option value="1">是</option>
-                                    <option value="0">否</option>
+                                    <option value="1"  class="Yrepeat" >是</option>
+                                    <option value="0"  class="Nrepeat">否</option>
                                 </select>
 
                             </div>
@@ -53,20 +54,11 @@
                                 <!-- <select id="repositoryType" name="repositoryType" class="form-control">
                                      <option value="">请选择资源库类型</option>
                                  </select>-->
-                                <e-select class="form-control schedulerType"  name="schedulerType"  e-option-value="code"
+                                <e-select class="form-control"  name="schedulerType"  e-option-value="code"
                                           e-event="event:change,href:/{{path}}/selectChange"
                                           e-option-text="value" e-url="/excelTest/exceltest/kettle/ajaxGetSchedulerType" e-value='sc'
                                           e-type="get">
                                 </e-select>
-
-                               <!-- <select id="schedulerType" name="schedulerType" class="form-control">
-                                    <option >请选择</option>
-                                    <option value="0">不需要定时</option>
-                                    <option value="1">时间间隔（分钟秒）</option>
-                                    <option value="2">天</option>
-                                    <option value="3">周</option>
-                                    <option value="4">月</option>
-                                </select>-->
 
                             </div>
                         </div>
@@ -119,7 +111,7 @@
 
                         <div class="form-group">
                             <div class="col-sm-9 col-sm-offset-3">
-                                <button class="btn btn-w-m btn-primary" type="button"  e-event="href:/{{path}}/addSubmit?type=post&url=/excelTest/exceltest/kettleKRepository/repositoryAdd&contentType=application/x-www-form-urlencoded;charset=UTF-8"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;保存</button>
+                                <button class="btn btn-w-m btn-primary" type="button"  e-event="href:/{{path}}/addSubmit?type=post&url=/excelTest/exceltest/kjob/schedulerAdd&contentType=application/x-www-form-urlencoded;charset=UTF-8"><i class="fa fa-check" aria-hidden="true"></i>&nbsp;保存</button>
                                 <button class="btn btn-w-m btn-primary" type="button" e-event="href:/{{path}}/goBack"><i class="fa fa-reply" aria-hidden="true"></i>&nbsp;取消</button>
                             </div>
                         </div>
