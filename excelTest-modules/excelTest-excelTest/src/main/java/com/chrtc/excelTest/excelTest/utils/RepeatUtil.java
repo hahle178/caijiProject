@@ -13,7 +13,7 @@ public class RepeatUtil {
      */
     public boolean fileRepeat(String key){
         HashUtil hashUtil=new HashUtil();
-        int hashcode=hashUtil.toHash(key);
+        int hashcode=key.hashCode();
 
 
         boolean hashboolean=false;
