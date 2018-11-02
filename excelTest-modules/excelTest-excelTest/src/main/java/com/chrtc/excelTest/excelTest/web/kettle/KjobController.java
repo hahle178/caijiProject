@@ -179,11 +179,15 @@ public class KjobController {
     }
     @RequestMapping("/stopJob")
     public Result stopJob(String jobPath){
+        JSONObject jsonObject = new JSONObject();
         if (!jobMap.containsKey(jobPath)){
-            return ResultFactory.create("1");
+            jsonObject.put("result",0);
+            return ResultFactory.create(jsonObject);
         }else{
             jobMap.get(jobPath).stopAll();
-            return ResultFactory.create(CodeMsgBase.SUCCESS);
+            jobMap.remove(jobPath);
+            jsonObject.put("result",1);
+            return ResultFactory.create(jsonObject);
         }
     }
 
