@@ -62,7 +62,7 @@ public class ExcelUtil {
             throw new Exception("创建Excel工作薄为空！");
         }
         //创建查重工具的对象
-        RepeatUtil repeatUtil=new RepeatUtil();
+
         //创建日志工具的对象
         LogUtil log=new LogUtil();
         Sheet sheet = null;
@@ -102,8 +102,10 @@ public class ExcelUtil {
             titleList.add(title);
             //遍历当前sheet中的所有行
             int lastRowNum = sheet.getLastRowNum();
+            RepeatUtil repeatUtil=new RepeatUtil();
             for (int j =1; j <= sheet.getLastRowNum(); j++) {
                 Map<String,Object> dataMap = new LinkedHashMap<String,Object>();
+
                 key="";
                 row = sheet.getRow(j);
                 if (row == null ) {
@@ -228,9 +230,11 @@ public class ExcelUtil {
                     // 如果是纯数字
                     else {
                         // 取得当前Cell的数值
-                        DecimalFormat df = new DecimalFormat("0");
-                        String dfStr = df.format(cell.getNumericCellValue());
-                        cellvalue = dfStr;
+//                        DecimalFormat df = new DecimalFormat("0");
+//                        String dfStr = df.format(cell.getNumericCellValue());
+
+
+                        cellvalue = String.valueOf(cell.getNumericCellValue());
                     }
                     break;
                 }
@@ -242,7 +246,9 @@ public class ExcelUtil {
                 // 默认的Cell值
                 default:
                     cellvalue = " ";
+
             }
+
         } else {
             cellvalue = "";
         }

@@ -68,10 +68,11 @@ public class TxtUtil {
     }
 
     //读取title文件
-    public Map<String, Object> readTitle(File file) {
+    public List<List<Object>> readTitle(File file) {
         BufferedReader reader = null;
-        List<Map<String, Object>> titleList = new LinkedList<>();
-        Map<String, Object> titleMap = new LinkedHashMap<String, Object>();
+//        List<Map<String, Object>> titleList = new LinkedList<>();
+//        Map<String, Object> titleMap = new LinkedHashMap<String, Object>();
+        List<List<Object>> titleList=new LinkedList<>();
         try {
             if (file.isDirectory()) {
                 readTitle(file);
@@ -80,7 +81,7 @@ public class TxtUtil {
                 String tempString = null;
                 int line = 1;
                 //读取file中的内容
-
+                List<Object> title = new LinkedList<>();
                 while ((tempString = reader.readLine()) != null) {
 
                     //保存每一行
@@ -88,11 +89,13 @@ public class TxtUtil {
                     if (titleArray.size() > 0) {
                         for (int i = 0; i < titleArray.size(); i++) {
                             JSONObject job = titleArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-                            titleMap.put((String) job.get("dataCode"), job.get("dataName"));
+//                            .put((String) job.get("dataCode"), job.get("dataName"));
+                            title.add("dataName");
                         }
                     }
                     //titleList.add(titleMap);
                 }
+                titleList.add(title);
                 reader.close();
             }
         } catch (IOException e) {
@@ -105,7 +108,7 @@ public class TxtUtil {
                 }
             }
         }
-        return titleMap;
+        return titleList;
     }
 
 
