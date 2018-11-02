@@ -17,7 +17,10 @@ import com.chrtc.excelTest.excelTest.domain.kettle.*;
 import com.chrtc.excelTest.excelTest.service.kettle.KJobMonitorService;
 import com.chrtc.excelTest.excelTest.service.kettle.KJobRecordService;
 import com.chrtc.excelTest.excelTest.service.kettle.KjobService;
+import com.chrtc.excelTest.excelTest.utils.kettle.JDBCUtils;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import org.apache.commons.io.FileUtils;
+import org.omg.PortableInterceptor.SUCCESSFUL;
 import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.logging.KettleLogStore;
@@ -30,6 +33,7 @@ import org.pentaho.di.repository.kdr.KettleDatabaseRepositoryMeta;
 import org.pentaho.di.trans.Trans;
 import org.pentaho.di.trans.TransMeta;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -68,6 +72,18 @@ public class KjobController {
     private KJobRecordService kJobRecordService;
 
     private LinkedHashMap<String,Job> jobMap= new LinkedHashMap();
+
+    @Value("${scheduler.jdbc.dbdriver}")
+    private   String DBDRIVER;// 驱动类类名
+    @Value("${scheduler.jdbc.table}")
+    private   String TABLE;// 表名
+    @Value("${scheduler.jdbc.dburl}")
+    private   String DBURL;// 连接URL
+    @Value("${scheduler.jdbc.dbuser}")
+    private   String DBUSER; // 数据库用户名
+    @Value("${scheduler.jdbc.dbpassword}")
+    private  String DBPASSWORD; // 数据库密码
+
 
     /**
     * 根据ID查询
@@ -407,19 +423,11 @@ public class KjobController {
     @RequestMapping("/scheduler")
     public Result scheduler(String id) throws IOException, ClassNotFoundException, SQLException {
         JSONObject jsonObject = new JSONObject();
-        //注册驱动，反射方式加载
-        Class.forName("com.mysql.jdbc.Driver");
-        //设置url
+        //获取连接
+        Connection con = JDBCUtils.getConnection(DBDRIVER, DBURL, DBUSER, DBPASSWORD);
 
-        String url = "jdbc:mysql://192.168.1.90:3306/caiji-test?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
-        //设置用户名
-        String username = "root";
-        //设置密码
-        String password = "123";
-        //获得连接对象
-        Connection con = DriverManager.getConnection(url, username, password);
         //获得执行者对象
-        String sql = "select CODE,VALUE_NUM,VALUE_STR  from r_jobentry_attribute where ID_JOB =  " + id;
+        String sql = "select CODE,VALUE_NUM,VALUE_STR  from "+TABLE +" where ID_JOB =  " + id;
         PreparedStatement ps = con.prepareStatement(sql);
         //获得结果集
         ResultSet rs = ps.executeQuery();
@@ -443,5 +451,51 @@ public class KjobController {
             stringBuilder.deleteCharAt(stringBuilder.length() - 1); //调用 字符串的deleteCharAt() 方法,删除最后一个多余的逗号
         jsonObject.put("scheduler",stringBuilder);
         return ResultFactory.create(jsonObject);
+    }
+
+    /**
+     * 获取定时设置
+     * @param id
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping("/schedulerAdd")
+    public Result schedulerAdd(String schedulerid,String repeat,String schedulerType,String  intervalSeconds,String intervalMinutes,String hour,String minutes,String weekDay,String dayOfMonth) throws IOException, ClassNotFoundException, SQLException {
+        //获取连接
+        Connection con = JDBCUtils.getConnection(DBDRIVER, DBURL, DBUSER, DBPASSWORD);
+        if(Integer.parseInt(repeat) == 0){
+            repeat = "N";
+        }else{
+            repeat = "Y";
+        }
+        if(Integer.parseInt(schedulerType) == 0 ){
+            //获得执行者对象
+            //INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+            String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
+            PreparedStatement psREPEAT = con.prepareStatement(r);
+
+            //设置占位符值
+           // psREPEAT.setString(1,TABLE);
+            psREPEAT.setString(1,repeat);
+            psREPEAT.setString(2,schedulerid);
+            //获得结果集
+            psREPEAT.executeUpdate();
+
+            String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
+            PreparedStatement psschedulerType = con.prepareStatement(s);
+
+            //设置占位符值
+           // psschedulerType.setString(1,TABLE);
+            psschedulerType.setString(1,schedulerType);
+            psschedulerType.setString(2,schedulerid);
+            //获得结果集
+            psschedulerType.executeUpdate();
+            //释放资源
+            psREPEAT.close();
+            psschedulerType.close();
+            con.close();
+        }
+
+        return ResultFactory.create(CodeMsgBase.SUCCESS);
     }
 }
