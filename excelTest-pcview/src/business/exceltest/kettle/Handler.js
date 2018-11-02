@@ -466,9 +466,9 @@ export default class extends BaseHandler{
         zidingyiData.jobPath = args.jobPath;
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
-            if(data.code == "0"){
+            if(data.data.result == "1"){
                 layer.msg("成功停止！");
-            }else if(data.code == 1){
+            }else if(data.data.result == "0"){
                 layer.msg("没有运行此作业！")
             }else{
                 layer.msg("请求失败！重新操作");
