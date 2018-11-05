@@ -735,19 +735,17 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 //                String dataCode = "303";//数据集代码
 //                String dataType = "0";//结构化非结构化标识
 
-//                String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
-                fileMessage = ExcelUtil.getBankListByExcel(in, extString, attachmentName);
-                bankListByExcel = fileMessage.getDataList();
+//                String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;);
                 //生成bcp文件
-                String sysCode = "910";//数据源代码910
-                String depCode = "684682590";//组织机构代码
-                String dataSource = "110000"; //数据采集地编码
-                long currentTimeMillis = System.currentTimeMillis();//绝对秒数
-                int nextSN = getNextSN();//五位自增序列号
-                String dataCode = "BASIC_0003";//数据集代码
-                String dataType = "0";//结构化非结构化标识
+//                String sysCode = "910";//数据源代码910
+//                String depCode = "684682590";//组织机构代码
+//                String dataSource = "110000"; //数据采集地编码
+//                long currentTimeMillis = System.currentTimeMillis();//绝对秒数
+//                int nextSN = getNextSN();//五位自增序列号
+//                String dataCode = "BASIC_0003";//数据集代码
+//                String dataType = "0";//结构化非结构化标识
                 String name = fileNameUtil.BcpFileName();
-                String path = "E:" + File.separator + "EXCEL\\";
+                String path = "E:" + File.separator + "XML\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
