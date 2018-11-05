@@ -28,14 +28,6 @@
                                     <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
                                     <div class="col-sm-1">
                                 </div>
-                                <div class="box-body ">
-                                    <div class="col-md-3">
-                                        <button e-event="href:/{{path}}/transAdd" class="btn btn-success" type="button"  title="新增资源库转换"
-                                                e-permission="exceltest_bcpmessage_submit1">
-                                            <i class="fa fa-search-plus"></i>&nbsp;新增资源库转换
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div id="{{mcid}}_list" class="row">
@@ -44,21 +36,27 @@
                                     <input type="text" id="{{mcid}}_txtSearch"   class="form-control" placeholder="请输入转换名称">
                                     <span class="input-group-btn">
                                         <button id="{{mcid}}_btnSearch" class="btn btn-primary"
-                                                e-event="href:/{{path}}/findBytransName">
-                                            <i class="fa fa-search"></i>
+                                                e-event="href:/{{path}}/findBytransName" style="min-width:55px; border:none">
+                                                <i class="fa fa-search"></i>
                                         </button>
-                                    </span>
+                                     </span>
                                 </div>
                             </div>
-                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer"
+                            <div class="col-md-3">
+                                <button e-event="href:/{{path}}/transAdd" class="btn btn-block btn-success" type="button"  title="新增资源库转换"
+                                        e-permission="exceltest_bcpmessage_submit1" style="width:140px;border:none">
+                                    <i class="fa fa-search-plus"></i>&nbsp;新增资源库转换
+                                </button>
+                            </div>
+                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer" style="margin-left:15px;margin-top:50px"
                                role="grid" aria-describedby="example2_info">
                             <!-- 搜索  -->
                             <thead>
                             <tr role="row" class="odd" >
                                 <!--<th data-field="repositoryId">资源库编号</th>-->
-                                <th data-field="databaseHost">转换名称</th>
-                                <th data-field="databaseHost">资源库中转换名称</th>
-                                <th data-field="action" data-formatter="actionFormatter"
+                                <th class="sorting"  data-field="databaseHost">转换名称</th>
+                                <th class="sorting" data-field="databaseHost">资源库中转换名称</th>
+                                <th class="sorting" data-field="action" data-formatter="actionFormatter"
                                     data-events="actionEvents">操作</th>
                             </tr>
                             </thead>

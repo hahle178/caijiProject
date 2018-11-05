@@ -1,4 +1,9 @@
 <!-- Content Header (Page header) -->
+<style>
+    .form-group{
+         height: 50px;
+     }
+</style>
 <section class="content-header">
     <h1>
         添加作业
@@ -33,7 +38,9 @@
                             </div>
 
                         </div>
-
+                        <div class="form-group">
+                            <input id="jobId"  name="jobId" type="hidden" >
+                        </div>
 
                         <div class="form-group">
                             <label class="col-sm-3 control-label">资源库：</label>
@@ -48,10 +55,6 @@
                                 </e-select>
 
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                                <input id="jobId"  name="jobId" type="hidden" >
                         </div>
 
                         <div class="form-group">

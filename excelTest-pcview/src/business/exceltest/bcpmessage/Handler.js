@@ -40,7 +40,8 @@ export default class extends BaseHandler{
             if (msg.data.SUCCESS){
                 $this.render(args);
             }else{
-                alert("出错了！")
+                layer.msg("出错了！");
+              //  alert("出错了！");
             }
         });
     }
@@ -59,7 +60,7 @@ export default class extends BaseHandler{
             if (msg.data.SUCCESS){
                 $this.render(args);
             }else{
-                alert(msg.data.MSG);
+                layer.msg(msg.data.MSG);
                 $this.render(args);
                 //alert(msg.data.msg);
             }
