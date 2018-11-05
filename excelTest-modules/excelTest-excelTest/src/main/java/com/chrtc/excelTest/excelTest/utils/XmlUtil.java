@@ -29,7 +29,7 @@ public class XmlUtil {
     public List<Map<String, Object>> ReadFile(File file) throws DocumentException {
 
         SAXReader reader = new SAXReader();
-        Document document = reader.read(new File("C:/Users/Administrator/Desktop/测试数据/123456.xml"));
+        Document document = reader.read(file);
         Element root = document.getRootElement();
         listNodes(root);
         return lists;
@@ -41,7 +41,7 @@ public class XmlUtil {
 
     public XmlUtil() {
         List<Map<String, Object>> lists = new LinkedList<Map<String, Object>>();
-        map=null;
+        map.clear();
     }
 
     public void listNodes(Element node) {
