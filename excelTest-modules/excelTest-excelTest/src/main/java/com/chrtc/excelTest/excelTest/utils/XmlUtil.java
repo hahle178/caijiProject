@@ -1,5 +1,6 @@
 package com.chrtc.excelTest.excelTest.utils;
 
+import com.chrtc.excelTest.excelTest.domain.FileMessage;
 import org.apache.log4j.Logger;
 import org.dom4j.*;
 import org.dom4j.io.SAXReader;
@@ -26,13 +27,14 @@ public class XmlUtil {
     //存储ListMap和valMap
     private static Map<String, Object> mapCount = new HashMap<>();
 
-    public List<Map<String, Object>> ReadFile(File file) throws DocumentException {
-
+    public FileMessage ReadFile(File file) throws DocumentException {
+        FileMessage fileMessage = new FileMessage();
         SAXReader reader = new SAXReader();
         Document document = reader.read(file);
         Element root = document.getRootElement();
         listNodes(root);
-        return lists;
+        fileMessage.setDataList(lists);
+        return fileMessage;
     }
 
 
@@ -48,7 +50,7 @@ public class XmlUtil {
 
 
         Iterator<Element> iterator = node.elementIterator();
-        while (iterator.hasNext()) {
+        while (iterator.  hasNext()) {
             Element e = iterator.next();
             if (e.elements().size() == 0) {
                 map.put(e.getName(), e.getText());

@@ -726,7 +726,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
                 //读取excel中的内容
                 String extString = attachmentName.substring(attachmentName.lastIndexOf("."));
-                bankListByExcel = xmlUtil.ReadFile(file);
+                fileMessage = xmlUtil.ReadFile(file);
                 //生成bcp文件
 //                String sysCode = "101";//数据发送方系统标识
 //                String depCode = "202";//数据发送方机构标识
