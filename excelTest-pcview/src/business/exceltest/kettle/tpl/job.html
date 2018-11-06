@@ -30,12 +30,7 @@
                                     <div class="col-sm-1">
                                 </div>
                                 <div class="box-body ">
-                                    <div class="col-md-3">
-                                        <button e-event="href:/{{path}}/jobAdd" class="btn btn-success" type="button"  title="新增资源库作业"
-                                                e-permission="exceltest_bcpmessage_submit1">
-                                            <i class="fa fa-search-plus"></i>&nbsp;新增资源库作业
-                                        </button>
-                                    </div>
+
                                 </div>
 
                             </div>
@@ -47,15 +42,20 @@
                             <div class=" input-group ">
                                 <input type="text" id="{{mcid}}_txtSearch"    class="form-control" placeholder="请输入作业名称">
                                 <span class="input-group-btn">
-                                        <button id="{{mcid}}_btnSearch" class="btn btn-primary"
+                                        <button id="{{mcid}}_btnSearch" class="btn btn-primary" style="min-width:55px; border:none"
                                                 e-event="href:/{{path}}/findByJobName">
                                             <i class="fa fa-search"></i>
                                         </button>
                                     </span>
                             </div>
                         </div>
-
-                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer"
+                        <div class="col-md-3">
+                            <button e-event="href:/{{path}}/jobAdd" class="btn btn-success" type="button"  title="新增资源库作业" style="min-width:55px; border:none"
+                                    e-permission="exceltest_bcpmessage_submit1">
+                                <i class="fa fa-search-plus"></i>&nbsp;新增资源库作业
+                            </button>
+                        </div>
+                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer" style="margin-left:15px;margin-top:50px"
                                role="grid" aria-describedby="example2_info">
                             <thead>
                             <tr role="row" class="odd" >
