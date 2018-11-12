@@ -182,7 +182,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         List<Map<String, Object>> dataList = new ArrayList<>();
         List<List<Object>> titlelist = new LinkedList<>();
         RepeatUtil repeatUtil = new RepeatUtil();
-        String xmlPath = "E:" + File.separator + "CSV" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator +"home" + File.separator + "CSV" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -256,7 +256,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
 //              String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
                 String name = fileNameUtil.BcpFileName();
-                String path = "E:" + File.separator + "CSV\\";
+                String path = File.separator +"home" + File.separator + "CSV\\";
                 bcpMessage.setCount(dataList.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
@@ -368,7 +368,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String dataType = "0";//结构化非结构化标识
 
         String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
-        String path = "E:" + File.separator + "FIELD\\";
+        String path =  File.separator +"home"+ File.separator + "FIELD\\";
         BcpUtil.creatBCPFile(name, path);
 
 
@@ -410,7 +410,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String dataType = "0";//结构化非结构化标识
 
         String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
-        String path = "E:" + File.separator + "FIELD\\";
+        String path =  File.separator +"home" + File.separator + "FIELD\\";
         BcpUtil.creatBCPFile(name, path);
 
 
@@ -574,7 +574,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     int nextSN = getNextSN();//五位自增序列号
                     String dataCode = "303";//数据集代码
                     String dataType = "0";//结构化非结构化标识
-                    String path = "E:" + File.separator + "TXT\\";
+                    String path =  File.separator +"home" + File.separator + "TXT\\";
 //                    String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
                     String name = fileNameUtil.BcpFileName();
                     //String path = "E:" + File.separator + "FILE\\";
@@ -707,7 +707,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         LinkedList bcpMessages = new LinkedList<>();
         XmlUtil xmlUtil = new XmlUtil();
         FileMessage fileMessage = new FileMessage();
-        String xmlPath = "E:" + File.separator + "XML" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath =  File.separator +"home" + File.separator + "XML" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);

@@ -439,7 +439,7 @@ public class BcpMessageController {
         }*/
 
         //生成xml文件
-        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath =  File.separator +"home"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         BcpMessageService.createIndexXml(xmlPath,bcpMessages);
 
         //生成压缩文件
