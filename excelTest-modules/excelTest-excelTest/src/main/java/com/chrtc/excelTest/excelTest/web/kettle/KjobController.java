@@ -468,9 +468,12 @@ public class KjobController {
         }else{
             repeat = "Y";
         }
-        if(Integer.parseInt(schedulerType) == 0 ){
-            //获得执行者对象
-            //INSERT INTO table_name (列1, 列2,...) VALUES (值1, 值2,....)
+        if(schedulerType.equals("")){
+            return ResultFactory.create(new CodeMsgBase("5000", "请选择定时类型"));
+        }else if(Integer.parseInt(schedulerType) == 0 ){
+            /*
+                修改是否重复
+             */
             String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
             PreparedStatement psREPEAT = con.prepareStatement(r);
 
@@ -481,6 +484,9 @@ public class KjobController {
             //获得结果集
             psREPEAT.executeUpdate();
 
+            /*
+                修改定时类型
+             */
             String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
             PreparedStatement psschedulerType = con.prepareStatement(s);
 
@@ -494,8 +500,227 @@ public class KjobController {
             psREPEAT.close();
             psschedulerType.close();
             con.close();
-        }
+        }else if(Integer.parseInt(schedulerType) == 1 ){
+            /*
+                修改是否重复
+             */
+            String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
+            PreparedStatement psREPEAT = con.prepareStatement(r);
+            //设置占位符值
+            psREPEAT.setString(1,repeat);
+            psREPEAT.setString(2,schedulerid);
+            //获得结果集
+            psREPEAT.executeUpdate();
+            /*
+                修改定时类型
+             */
+            String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
+            PreparedStatement psschedulerType = con.prepareStatement(s);
+            //设置占位符值
+            // psschedulerType.setString(1,TABLE);
+            psschedulerType.setString(1,schedulerType);
+            psschedulerType.setString(2,schedulerid);
+            //获得结果集
+            psschedulerType.executeUpdate();
+            /*
+                修改以秒计算的间隔
+             */
+            String i = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'INTERVALSECONDS' AND ID_JOB = ?";
+            PreparedStatement psINTERVALSECONDS = con.prepareStatement(i);
+            //设置占位符值
+            psINTERVALSECONDS.setString(1,intervalSeconds);
+            psINTERVALSECONDS.setString(2,schedulerid);
+            //获得结果集
+            psINTERVALSECONDS.executeUpdate();
+            /*
+                修改以分钟计算的间隔
+             */
+            String iter = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'INTERVALMINUTES' AND ID_JOB = ?";
+            PreparedStatement psINTERVALMINUTES = con.prepareStatement(iter);
+            //设置占位符值
+            psINTERVALMINUTES.setString(1,intervalMinutes);
+            psINTERVALMINUTES.setString(2,schedulerid);
+            //获得结果集
+            psINTERVALMINUTES.executeUpdate();
 
+
+            //释放资源
+            psREPEAT.close();
+            psschedulerType.close();
+            psINTERVALSECONDS.close();
+            psINTERVALMINUTES.close();
+            con.close();
+        }else if(Integer.parseInt(schedulerType) == 2 ){
+            /*
+                修改是否重复
+             */
+            String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
+            PreparedStatement psREPEAT = con.prepareStatement(r);
+            //设置占位符值
+            psREPEAT.setString(1,repeat);
+            psREPEAT.setString(2,schedulerid);
+            //获得结果集
+            psREPEAT.executeUpdate();
+            /*
+                修改定时类型
+             */
+            String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
+            PreparedStatement psschedulerType = con.prepareStatement(s);
+            //设置占位符值
+            // psschedulerType.setString(1,TABLE);
+            psschedulerType.setString(1,schedulerType);
+            psschedulerType.setString(2,schedulerid);
+            //获得结果集
+            psschedulerType.executeUpdate();
+            /*
+                修改每天几点
+             */
+            String  h = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'HOUR' AND ID_JOB = ?";
+            PreparedStatement psHOUR = con.prepareStatement(h);
+            //设置占位符值
+            psHOUR.setString(1,hour);
+            psHOUR.setString(2,schedulerid);
+            //获得结果集
+            psHOUR.executeUpdate();
+            /*
+                修改每天几点几分
+             */
+            String m = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'MINUTES' AND ID_JOB = ?";
+            PreparedStatement psMINUTES = con.prepareStatement(m);
+            //设置占位符值
+            psMINUTES.setString(1,minutes);
+            psMINUTES.setString(2,schedulerid);
+            //获得结果集
+            psMINUTES.executeUpdate();
+
+
+            //释放资源
+            psREPEAT.close();
+            psschedulerType.close();
+            psHOUR.close();
+            psMINUTES.close();
+            con.close();
+        }else if(Integer.parseInt(schedulerType) == 3 ){
+            /*
+                修改是否重复
+             */
+            String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
+            PreparedStatement psREPEAT = con.prepareStatement(r);
+            //设置占位符值
+            psREPEAT.setString(1,repeat);
+            psREPEAT.setString(2,schedulerid);
+            //获得结果集
+            psREPEAT.executeUpdate();
+            /*
+                修改定时类型
+             */
+            String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
+            PreparedStatement psschedulerType = con.prepareStatement(s);
+            //设置占位符值
+            // psschedulerType.setString(1,TABLE);
+            psschedulerType.setString(1,schedulerType);
+            psschedulerType.setString(2,schedulerid);
+            //获得结果集
+            psschedulerType.executeUpdate();
+            /*
+                修改每天几点
+             */
+            String  h = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'HOUR' AND ID_JOB = ?";
+            PreparedStatement psHOUR = con.prepareStatement(h);
+            //设置占位符值
+            psHOUR.setString(1,hour);
+            psHOUR.setString(2,schedulerid);
+            //获得结果集
+            psHOUR.executeUpdate();
+            /*
+                修改每天几点几分
+             */
+            String m = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'MINUTES' AND ID_JOB = ?";
+            PreparedStatement psMINUTES = con.prepareStatement(m);
+            //设置占位符值
+            psMINUTES.setString(1,minutes);
+            psMINUTES.setString(2,schedulerid);
+            //获得结果集
+            psMINUTES.executeUpdate();
+            /*
+                修改每周几
+             */
+            String w = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'WEEKDAY' AND ID_JOB = ?";
+            PreparedStatement psWEEKDAY = con.prepareStatement(w);
+            //设置占位符值
+            psWEEKDAY.setString(1,weekDay);
+            psWEEKDAY.setString(2,schedulerid);
+            //获得结果集
+            psWEEKDAY.executeUpdate();
+
+            //释放资源
+            psREPEAT.close();
+            psschedulerType.close();
+            psHOUR.close();
+            psMINUTES.close();
+            psWEEKDAY.close();
+            con.close();
+        }else if(Integer.parseInt(schedulerType) == 4 ){
+            /*
+                修改是否重复
+             */
+            String r = "UPDATE "+TABLE+" SET  VALUE_STR = ?  where CODE = 'REPEAT' AND ID_JOB = ?";
+            PreparedStatement psREPEAT = con.prepareStatement(r);
+            //设置占位符值
+            psREPEAT.setString(1,repeat);
+            psREPEAT.setString(2,schedulerid);
+            //获得结果集
+            psREPEAT.executeUpdate();
+            /*
+                修改定时类型
+             */
+            String s = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'SCHEDULERTYPE' AND ID_JOB = ?";
+            PreparedStatement psschedulerType = con.prepareStatement(s);
+            //设置占位符值
+            // psschedulerType.setString(1,TABLE);
+            psschedulerType.setString(1,schedulerType);
+            psschedulerType.setString(2,schedulerid);
+            //获得结果集
+            psschedulerType.executeUpdate();
+            /*
+                修改每天几点
+             */
+            String  h = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'HOUR' AND ID_JOB = ?";
+            PreparedStatement psHOUR = con.prepareStatement(h);
+            //设置占位符值
+            psHOUR.setString(1,hour);
+            psHOUR.setString(2,schedulerid);
+            //获得结果集
+            psHOUR.executeUpdate();
+            /*
+                修改每天几点几分
+             */
+            String m = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'MINUTES' AND ID_JOB = ?";
+            PreparedStatement psMINUTES = con.prepareStatement(m);
+            //设置占位符值
+            psMINUTES.setString(1,minutes);
+            psMINUTES.setString(2,schedulerid);
+            //获得结果集
+            psMINUTES.executeUpdate();
+            /*
+                修改月份
+             */
+            String d = "UPDATE "+TABLE+" SET  VALUE_NUM = ? where CODE = 'DAYOFMONTH' AND ID_JOB = ?";
+            PreparedStatement psDAYOFMONTH = con.prepareStatement(d);
+            //设置占位符值
+            psDAYOFMONTH.setString(1,dayOfMonth);
+            psDAYOFMONTH.setString(2,schedulerid);
+            //获得结果集
+            psDAYOFMONTH.executeUpdate();
+
+            //释放资源
+            psREPEAT.close();
+            psschedulerType.close();
+            psHOUR.close();
+            psMINUTES.close();
+            psDAYOFMONTH.close();
+            con.close();
+        }
         return ResultFactory.create(CodeMsgBase.SUCCESS);
     }
 }

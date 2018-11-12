@@ -156,6 +156,10 @@ export default class extends BaseHandler{
                             args.data = form.serialize()
                         }
                         this.ajaxResource(args).then((data) => {
+                            if(data.code == "5000"){
+                                layer.msg("请选择定时类型");
+                                return;
+                            }
                             if (!args.jump) {
                                 if (data.code == "0"){
                                     layer.msg("保存成功");
@@ -517,7 +521,7 @@ export default class extends BaseHandler{
                         $("#hour").attr("disabled", true);
                         $("#minutes").attr("disabled", true);
                         $("#weekDay").attr("disabled", true);
-                        $("#weekDay  option[value='0'] ").attr("selected", true)
+                        /*$("#weekDay  option[value='7'] ").attr("selected", true)*/
                         $("#dayOfMonth").attr("disabled", true);
                     } else if (arr[1] == "2") {
                         $("#schedulerType  option[value='2'] ").attr("selected", true)
@@ -552,7 +556,7 @@ export default class extends BaseHandler{
                         $("#minutes").attr("disabled", false);
                         $("#minutes").val(arr[5]);
                         $("#weekDay").attr("disabled", true);
-                        $("#weekDay  option[value='0'] ").attr("selected", true)
+                       /* $("#weekDay  option[value='0'] ").attr("selected", true)*/
                         $("#dayOfMonth").attr("disabled", false);
                         $("#dayOfMonth").val(arr[7])
                     } else {

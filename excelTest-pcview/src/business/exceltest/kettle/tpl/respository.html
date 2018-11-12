@@ -36,30 +36,27 @@
                                             <i class="fa fa-search-plus"></i>&nbsp;新增数据库资源库
                                         </button>
                                     </div>
+
+                                    <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer" style="margin-left:15px"
+                                           role="grid" aria-describedby="example2_info">
+                                        <thead>
+                                        <tr role="row" class="odd" >
+                                            <!--<th data-field="repositoryId">资源库编号</th>-->
+                                            <th data-field="repositoryName" data-formatter="repositoryNameFormatter">资源库名称</th>
+                                            <th data-field="databaseHost">资源库主机名或IP地址</th>
+                                            <th data-field="databaseName">资源库数据库名称</th>
+                                            <th data-field="editTime">资源库更新时间</th>
+                                            <th data-field="action" data-formatter="actionFormatter"
+                                                data-events="actionEvents">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="addRow">
+
+                                        </tbody>
+                                    </table>
                                 </div>
-
                             </div>
-
                         </div>
-                    <div id="{{mcid}}_list" class="row">
-                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer" style="margin-left:15px"
-                               role="grid" aria-describedby="example2_info">
-                            <thead>
-                            <tr role="row" class="odd" >
-                                <!--<th data-field="repositoryId">资源库编号</th>-->
-                                <th data-field="repositoryName" data-formatter="repositoryNameFormatter">资源库名称</th>
-                                <th data-field="databaseHost">资源库主机名或IP地址</th>
-                                <th data-field="databaseName">资源库数据库名称</th>
-                                <th data-field="editTime">资源库更新时间</th>
-                                <th data-field="action" data-formatter="actionFormatter"
-                                    data-events="actionEvents">操作</th>
-                            </tr>
-                            </thead>
-                            <tbody class="addRow">
-
-                            </tbody>
-                        </table>
-                    </div>
                     </div>
                 </div>
             </div>

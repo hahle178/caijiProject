@@ -1,0 +1,82 @@
+<!-- Content Header (Page header) -->
+<section class="content-header">
+    <h1>
+        转换日志详情
+        <small>转换日志详情</small>
+    </h1>
+</section>
+
+<!-- Main content -->
+<section class="content">
+
+    <div class="row">
+
+        <form id="{{mcid}}_searchForm">
+            <div class="col-xs-12">
+
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title"></h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+
+                        <div class="Tables_wrapper form-inline dt-bootstrap">
+
+                            <div class="row">
+                                <div class="col-sm-1">
+                                    <div class="Tables_length">
+                                    </div>
+                                </div>
+                                    <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
+                                    <div class="col-sm-1">
+                                </div>
+                                <div class="box-body ">
+                                    <div class="col-md-3">
+                                        <b >转换日志详情</b>
+                                    </div>
+                                </div>
+                                <div class="ibox float-e-margins">
+                            </div>
+
+                        </div>
+                    <div id="{{mcid}}_list" class="row">
+                        <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer"
+                               role="grid" aria-describedby="example2_info">
+                            <thead>
+                                <tr role="row" class="odd" >
+                                    <!--<th data-field="repositoryId">资源库编号</th>-->
+                                    <th data-field="databaseHost">序号</th>
+                                    <th data-field="databaseHost" >转换名称</th>
+                                    <th data-field="databaseHost">转换执行起始时间</th>
+                                    <th data-field="databaseHost">转换执行结束时间</th>
+                                    <th data-field="databaseHost">转换执行状态</th>
+                                    <th data-field="action" data-formatter="actionFormatter"
+                                        data-events="actionEvents">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody class="addRow">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <div class="row" id="{{mcid}}_pager">
+
+                    </div>
+
+                    </div>
+                </div>
+            </div>
+
+            </div>
+
+            <!-- /.box-body -->
+        </form>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+<!-- /.content -->
