@@ -263,7 +263,7 @@ public class BcpMessageController {
                 //读取excel文件，生成bcp文件
                 bcpMessages = BcpMessageService.readExcelAndOut(excelId);
                 //生成xml文件
-                String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+                String xmlPath =File.separator+ "home"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
                 //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("EXCEL");
@@ -271,7 +271,7 @@ public class BcpMessageController {
                 //读取csv文件，生成bcp文件
                 bcpMessages = BcpMessageService.readCSVAndOut(excelId);
                 //生成xml文件
-                String xmlPath = "E:"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
+                String xmlPath = File.separator+ "home"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
                 BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("CSV");
@@ -283,12 +283,12 @@ public class BcpMessageController {
             }else if(houzui.equals("txt")|houzui.equals("TXT")){
                 //读取txt文件,生成bcp文件
                 bcpMessages = BcpMessageService.readTXTAndOut(excelId);
-                String xmlPath = "E:"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
+                String xmlPath = File.separator+ "home"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
                 BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
                 BcpMessageService.createZIP1("TXT");
             }else if(houzui.equals("xml")|houzui.equals("XML")){
                 bcpMessages = BcpMessageService.readXMLAndOut(excelId);
-                String xmlPath = "E:"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
+                String xmlPath = File.separator+ "home"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
                 BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 BcpMessageService.createZIP("XML");
             }
@@ -296,7 +296,7 @@ public class BcpMessageController {
             //接收表单数据，生成bcp文件
             bcpMessage = BcpMessageService.getEntityCreateBcp(excelEntity);
             //生成xml文件
-            String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+            String xmlPath = File.separator+ "home"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
             BcpMessageService.createIndexXml(xmlPath,bcpMessages);
             //生成压缩文件
             BcpMessageService.createZIP("FIELD");
@@ -317,7 +317,7 @@ public class BcpMessageController {
         //接收表单数据，生成bcp文件
         bcpMessages = BcpMessageService.getEntityCreateBcp1(test);
         //生成xml文件
-        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator+ "home"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         BcpMessageService.createIndexXml(xmlPath,bcpMessages);
         //生成压缩文件
         try{

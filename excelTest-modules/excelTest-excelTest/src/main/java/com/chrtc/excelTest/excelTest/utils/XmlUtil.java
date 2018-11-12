@@ -81,6 +81,7 @@ public class XmlUtil {
             Document document = reader.read(file);
             Element element = document.getRootElement();
             listNodes2(element);
+
             mapCount.put("listMap", listMap);
             mapCount.put("valMap", valMap);
         } catch (DocumentException e) {
@@ -146,9 +147,7 @@ public class XmlUtil {
                         } else if (attribute.getName().equals("SDataSet")) {
                             sdata = attribute.getValue();
                         }
-
                     }
-
                     listMap.put(sdata, objectHashMap);
                     valMap.put(sdata, ddata);
                     mapL.clear();

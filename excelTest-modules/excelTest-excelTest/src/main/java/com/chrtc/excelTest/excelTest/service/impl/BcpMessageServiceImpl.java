@@ -106,7 +106,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
         FileMessage fileMessage = new FileMessage();
-        String xmlPath = "E:" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator+"home" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -139,7 +139,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String dataType = "0";//结构化非结构化标识
 
                 String name = fileNameUtil.BcpFileName();
-                String path = "E:" + File.separator + "EXCEL\\";
+                String path = File.separator+"home" + File.separator + "EXCEL\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
@@ -460,7 +460,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         if (option == 1) {
             name = fieldBcpMessageService.findByFieldName(fieldVO.getFieldHeadName()[0]);
         }
-        String path = "E:" + File.separator + "FIELD\\";
+        String path = File.separator+"home" + File.separator + "FIELD\\";
         BcpUtil.creatBCPFile(name, path);
 
         String[] split = fieldVO.getFieldValue();
@@ -745,7 +745,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 //                String dataCode = "BASIC_0003";//数据集代码
 //                String dataType = "0";//结构化非结构化标识
                 String name = fileNameUtil.BcpFileName();
-                String path = "E:" + File.separator + "XML\\";
+                String path =File.separator+ "home" + File.separator + "XML\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
