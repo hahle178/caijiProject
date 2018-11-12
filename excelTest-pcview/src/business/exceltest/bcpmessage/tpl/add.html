@@ -46,13 +46,15 @@
                             </div>
 
                             <div class="box-footer">
-                                <button e-event="href:/{{path}}/submit?type=post&url=/excelTest/exceltest/bcpmessage" class="btn btn-success"   id="process_{{mcid}}_btn" type="button"  title="提交"
-                                        e-permission="exceltest_bcpmessage_submit1">
-                                	<i class="fa fa-arrow-up"></i>&nbsp;提交
-								</button>
-                                <button e-event="href:/{{path}}/goBack" class="btn btn-primary " id="back_{{mcid}}_btn" type="button" title="返回">
-								    <i class="fa fa-undo"></i>&nbsp;返回
-								</button>
+                                <div class="col-md-3">
+                                    <button e-event="href:/{{path}}/submit?type=post&url=/excelTest/exceltest/bcpmessage" class="btn btn-success"   id="process_{{mcid}}_btn" type="button"  title="提交"
+                                            e-permission="exceltest_bcpmessage_submit1">
+                                        <i class="fa fa-arrow-up"></i>&nbsp;提交
+                                    </button>
+                                    <button e-event="href:/{{path}}/goBack" class="btn btn-primary " id="back_{{mcid}}_btn" type="button" title="返回">
+                                        <i class="fa fa-undo"></i>&nbsp;返回
+                                    </button>
+                                </div>
                             </div>
 
                         </form>
