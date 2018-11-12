@@ -106,7 +106,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
         FileMessage fileMessage = new FileMessage();
-        String xmlPath = File.separator+"home" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = "\\home" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -139,7 +139,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String dataType = "0";//结构化非结构化标识
 
                 String name = fileNameUtil.BcpFileName();
-                String path = File.separator+"home" + File.separator + "EXCEL\\";
+                String path = "\\home" + File.separator + "EXCEL\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
