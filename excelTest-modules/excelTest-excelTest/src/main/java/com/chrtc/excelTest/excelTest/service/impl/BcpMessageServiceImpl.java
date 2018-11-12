@@ -523,7 +523,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     public LinkedList readTXTAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
         List<List<Object>> titlelist = new LinkedList<>();
-        String xmlPath = "E:" + File.separator + "TXT" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator +"home" + File.separator + "TXT" + File.separator + "AQ_ZIP_INDEX.xml";
         int Column = 0;
         ListByFile.clear();
         try {
