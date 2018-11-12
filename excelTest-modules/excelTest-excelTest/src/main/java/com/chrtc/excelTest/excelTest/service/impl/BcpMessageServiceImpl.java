@@ -106,7 +106,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     public LinkedList readExcelAndOut(String excelId) {
         LinkedList bcpMessages = new LinkedList<>();
         FileMessage fileMessage = new FileMessage();
-        String xmlPath = "\\home" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator+"home" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         try {
             List<FileAttachment> list = attachService.list(excelId);
@@ -139,7 +139,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String dataType = "0";//结构化非结构化标识
 
                 String name = fileNameUtil.BcpFileName();
-                String path = "\\home" + File.separator + "EXCEL\\";
+                String path = File.separator+"home" + File.separator + "EXCEL\\";
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
@@ -352,7 +352,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         int nextSNZIP = getNextSN();//五位自增序列号,避重序列号
 
         String zipName = dataSendSysIden + "_" + dataSendDevIden + "_" + dataReceSysIden + "_" + dataReceDevIden + "_" + currentTimeMillisZIP + "_" + nextSNZIP + ".zip";
-        CompressedFileUtil.compressedFile("\\home\\" + path + "\\", "E:\\zip\\", zipName);
+        CompressedFileUtil.compressedFile(File.separator+"home"+File.separator + path + File.separator, File.separator+"home"+File.separator+"zip"+File.separator, zipName);
 
     }
 
@@ -692,7 +692,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         //文件名生成工具引入
         String zipName = fileNameUtil.ZipFileName();
 
-        CompressedFileUtil.compressedFile("\\home\\" + bcpPath + "\\", "F:\\ZIP\\", zipName);
+        CompressedFileUtil.compressedFile(File.separator+"home"+File.separator + bcpPath + File.separator, File.separator+"home"+File.separator+"zip"+File.separator, zipName);
 
     }
 
