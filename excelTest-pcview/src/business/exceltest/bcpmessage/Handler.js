@@ -61,7 +61,7 @@ export default class extends BaseHandler{
                 $this.render(args);
             }else{
                 layer.msg(msg.data.MSG);
-                $this.render(args);
+                //$this.render(args);
                 //alert(msg.data.msg);
             }
         });
