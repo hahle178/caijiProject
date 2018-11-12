@@ -352,7 +352,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         int nextSNZIP = getNextSN();//五位自增序列号,避重序列号
 
         String zipName = dataSendSysIden + "_" + dataSendDevIden + "_" + dataReceSysIden + "_" + dataReceDevIden + "_" + currentTimeMillisZIP + "_" + nextSNZIP + ".zip";
-        CompressedFileUtil.compressedFile("E:\\" + path + "\\", "E:\\zip\\", zipName);
+        CompressedFileUtil.compressedFile("/home\\" + path + "\\", "E:\\zip\\", zipName);
 
     }
 
@@ -692,7 +692,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         //文件名生成工具引入
         String zipName = fileNameUtil.ZipFileName();
 
-        CompressedFileUtil.compressedFile("E:\\" + bcpPath + "\\", "F:\\ZIP\\", zipName);
+        CompressedFileUtil.compressedFile("/home\\" + bcpPath + "\\", "F:\\ZIP\\", zipName);
 
     }
 

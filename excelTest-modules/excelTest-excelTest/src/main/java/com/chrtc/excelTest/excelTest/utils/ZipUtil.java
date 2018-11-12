@@ -5,7 +5,7 @@ public class ZipUtil {
 
     public void createZIP(String path) throws Exception {
         String zipName =fileNameUtil.ZipFileName();
-        CompressedFileUtil.compressedFile("E:\\" + path + "\\", "E:\\zip\\", zipName);
+        CompressedFileUtil.compressedFile("/home\\" + path + "\\", "E:\\zip\\", zipName);
 
     }
 }
