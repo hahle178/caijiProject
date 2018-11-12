@@ -74,9 +74,9 @@ public class XmlUtil {
         }
     }
 
-    public Map<String, Object> ReadDateMappingXml(File file1) throws DocumentException {
+    public Map<String, Object> ReadDateMappingXml(File file) throws DocumentException {
         SAXReader reader = new SAXReader();
-        File file = new File("C:\\Users\\Administrator\\Desktop\\数据处理\\格转配置文件1023(1)\\格转配置文件1023\\DataMapping.xml");
+       // File file = new File("C:\\Users\\Administrator\\Desktop\\数据处理\\格转配置文件1023(1)\\格转配置文件1023\\DataMapping.xml");
         try {
             Document document = reader.read(file);
             Element element = document.getRootElement();
