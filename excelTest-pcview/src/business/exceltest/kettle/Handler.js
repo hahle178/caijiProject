@@ -287,7 +287,6 @@ export default class extends BaseHandler{
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
-                console.log(data)
                 var transNode = data.node;
                 layer.close(index);
                 $("#transPath").val(transNode.text);
@@ -613,7 +612,6 @@ export default class extends BaseHandler{
     }
     //transLog列表
     transLogList(value){
-        console.log(value)
         this.render({
             tpl:"transLogList",
             position:"append",
@@ -630,7 +628,6 @@ export default class extends BaseHandler{
     }
     //jobLog列表
     jobLogList(value){
-        console.log(value)
         this.render({
             tpl:"jobLogList",
             position:"append",
@@ -703,7 +700,7 @@ export default class extends BaseHandler{
                 args.type="get";
                 args.contentType="application/x-www-form-urlencoded;charset=UTF-8";
                 let param = args.data || {};
-                param.transPath = args.jobPath;
+                param.jobPath = args.jobPath;
                 args.data =  param;
                 //获取预览数据行
                 this.render(args).then(function (data) {
@@ -761,7 +758,6 @@ export default class extends BaseHandler{
         args.data =  param;
         //获取预览数据行
         this.render(args).then(function (data) {
-            console.log(data.data)
         }.bind(this));
     }
 

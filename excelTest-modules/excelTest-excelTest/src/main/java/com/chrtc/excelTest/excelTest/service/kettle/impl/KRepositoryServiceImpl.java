@@ -1,5 +1,6 @@
 package com.chrtc.excelTest.excelTest.service.kettle.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.chrtc.excelTest.excelTest.domain.kettle.RepositoryTree;
@@ -91,10 +92,12 @@ public class KRepositoryServiceImpl implements KRepositoryService {
      * @param
      */
     public int insertRepo(KRepository kRepository){
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String id = UUID.randomUUID().toString().replace("-","");
         kRepository.setId(id);
        /* long l = System.currentTimeMillis();
         kRepository.setRepositoryId(Integer.parseInt(l+""));*/
+        String addTime =formatDate.format(new Date());
         kRepository.setAddTime(new Date());
         //kRepository.setAddUser(uId);
         kRepository.setEditTime(new Date());

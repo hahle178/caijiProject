@@ -33,8 +33,6 @@ public class KTransRecordServiceImpl implements KTransRecordService {
         KTransRecordExample.Criteria c = example.createCriteria();
         c.andDelFlagEqualTo("0");
         c.andRecordTransEqualTo(searchParams.get("record_trans")+"");
-
-
         return kTransRecordMapper.findAllByPage(example, pageNumber, pageSize, sort);
     }
 
