@@ -315,7 +315,7 @@ public class KTransController {
         kTransRecord.setRecordTrans(transId);
 
         // 拼接logfilepath
-        String allLogFilePath = "F:"+ File.separator+"log"+File.separator+"trans"+File.separator+new Date().getTime()+".txt";
+        String allLogFilePath = "E:"+ File.separator+"log"+File.separator+"trans"+File.separator+new Date().getTime()+".txt";
 
         kTransRecord.setLogFilePath(allLogFilePath);
         kTransRecord.setRecordStatus(status);
@@ -324,7 +324,11 @@ public class KTransController {
 
         // 将日志信息写入文件
         File file = new File(allLogFilePath);
-        if(!file.exists()){//如果文件夹不存在
+        //判断文件的父文件夹是否存在
+        if(!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
+        if(!file.exists()){//如果文件不存在
             file.createNewFile();
         }
         FileUtils.writeStringToFile(file, logText, Constant.DEFAULT_ENCODING, false);
