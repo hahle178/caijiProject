@@ -266,8 +266,8 @@ public class BcpMessageController {
                 filePath=File.separator+ "home"+File.separator +"EXCEL";
                 mkDirs(filePath);
                 //生成xml文件
-                String xmlPath =File.separator+"home"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
-                //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+//                String xmlPath =File.separator+"home"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+//                //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("EXCEL");
             }else if(houzui.equals("csv") | houzui.equals("CSV")){
@@ -277,8 +277,8 @@ public class BcpMessageController {
                 filePath=File.separator+ "home"+File.separator +"CSV";
                 mkDirs(filePath);
                 //生成xml文件
-                String xmlPath = File.separator+ "home"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
-                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+//                String xmlPath = File.separator+ "home"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
+//                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("CSV");
             }else if(houzui.equals("dmp") | houzui.equals("DMP")){
@@ -292,16 +292,16 @@ public class BcpMessageController {
                 //判断文件夹是否存在
                 filePath=File.separator+ "home"+File.separator +"TXT";
                 mkDirs(filePath);
-                String xmlPath = File.separator+ "home"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
-                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
+//                String xmlPath = File.separator+ "home"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
+//                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
                 BcpMessageService.createZIP1("TXT");
             }else if(houzui.equals("xml")|houzui.equals("XML")){
                 bcpMessages = BcpMessageService.readXMLAndOut(excelId);
                 //判断文件夹是否存在
                 filePath=File.separator+ "home"+File.separator +"XML";
                 mkDirs(filePath);
-                String xmlPath = File.separator+ "home"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
-                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+//                String xmlPath = File.separator+ "home"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
+//                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                 BcpMessageService.createZIP("XML");
             }
         }else{
