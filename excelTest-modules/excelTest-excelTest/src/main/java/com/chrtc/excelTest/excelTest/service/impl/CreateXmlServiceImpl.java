@@ -86,7 +86,7 @@ public class CreateXmlServiceImpl implements CreateXmlService {
                         if (dataMappings.size() > 0) {
                             for (DataMapping dataMapping : dataMappings) {
                                 if (dataMapping.getEng().equals(o.toString())) {
-                                    DATA3.addElement("ITEM").addAttribute("key", dataMapping.getKey()).addAttribute("eng", dataMapping.getEng()).addAttribute("chn", "ss").addAttribute("rmk", "rr");
+                                    DATA3.addElement("ITEM").addAttribute("key", dataMapping.getKey1()).addAttribute("eng", dataMapping.getEng()).addAttribute("chn", "ss").addAttribute("rmk", "rr");
                                 }
                             }
                         }

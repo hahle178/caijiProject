@@ -7,6 +7,7 @@ import com.chrtc.excelTest.excelTest.domain.DataMapping;
 import com.chrtc.excelTest.excelTest.mapper.DataMappingMapper;
 import com.chrtc.excelTest.excelTest.service.DataMappingXmlService;
 import com.chrtc.excelTest.excelTest.utils.XmlUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,8 +60,17 @@ public class DataMappingXmlServiceImpl implements DataMappingXmlService {
                         dataMapping.setSDataSet(key);
                         dataMapping.setDDataSet(valMap.get(key).toString());
                         dataMapping.setEng(name2);
-                        dataMapping.setKey(map1.get(name2).toString());
-                        dataMappingMapper.insert(dataMapping);
+                        dataMapping.setKey1(map1.get(name2).toString());
+                        dataMapping.setVersionNum(0);
+                        //判断eng字段是否为空
+                        if(StringUtils.isNotBlank(dataMapping.getEng())){
+                            int count=dataMappingMapper.selectByCondition(dataMapping);
+                            if (count==0){
+                                dataMappingMapper.insert(dataMapping);
+                            }else {
+                                dataMappingMapper.update(dataMapping);
+                            }
+                        }
                     }
                 }
             }

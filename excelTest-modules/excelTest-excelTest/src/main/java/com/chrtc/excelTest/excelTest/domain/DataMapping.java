@@ -39,6 +39,38 @@ public class DataMapping extends BaseEntity {
     /**更新人登录名称*/
     @Size(max=50)
     private String updateBy;
+    @Size(max=1)
+    private String delFlag;
+    @Size(max=11)
+    private Integer versionNum;
+
+    public String getKey1() {
+        return key1;
+    }
+
+    public void setKey1(String key1) {
+        this.key1 = key1;
+    }
+
+    @Override
+    public String getDelFlag() {
+        return delFlag;
+    }
+
+    @Override
+    public void setDelFlag(String delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    @Override
+    public Integer getVersionNum() {
+        return versionNum;
+    }
+
+    @Override
+    public void setVersionNum(Integer versionNum) {
+        this.versionNum = versionNum;
+    }
 
     @Override
     public String getCreateName() {
@@ -106,14 +138,6 @@ public class DataMapping extends BaseEntity {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getKey() {
-        return key1;
-    }
-
-    public void setKey(String key1) {
-        this.key1 = key1;
     }
 
     public String getEng() {

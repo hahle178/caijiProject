@@ -18,4 +18,8 @@ public interface DataMappingMapper {
     int insert(DataMapping dataMapping);
 
     List<DataMapping> selectBySDateSet(@Param("sDataSet") String sDataSet);
+
+    int selectByCondition(DataMapping dataMapping);
+
+    void update(DataMapping dataMapping);
 }
