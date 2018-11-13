@@ -352,11 +352,15 @@ export default class extends BaseHandler{
             args.data = data;
             this.render(args).then(()=>{
                 args.url="/excelTest/exceltest/kjob/findByJobName";
-                this.ajaxResource(args).then((data) => {
+                /*this.ajaxResource(args).then((data) => {
                     data.data.forEach(function (value) {
                         $this.jobList(value);
                     })
+                })*/
+                this.ajaxResource(args).then((data) => {
+                    $this.jobList(data.data);
                 })
+
             });
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
