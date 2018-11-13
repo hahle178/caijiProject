@@ -26,11 +26,16 @@
 
     <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
         insert into datamapping (
-                id,key1,eng, d_date_set,s_data_set)  values
+                id,key1,eng, d_data_set,s_data_set)  values
                  (#{id}, #{key1,jdbcType=VARCHAR},#{eng,jdbcType=VARCHAR}, #{DDataSet,jdbcType=VARCHAR},#{SDataSet,jdbcType=VARCHAR})
     </insert>
     <select id="selectBySDateSet"  parameterType="java.lang.String" resultType="com.chrtc.excelTest.excelTest.domain.DataMapping">
         select key1 ,eng from datamapping where s_data_set=#{sDataSet}
     </select>
-
+    <select id="selectByCondition"  resultType="java.lang.Integer" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
+        select count(*) from datamapping where  d_data_set=#{DDataSet} and s_data_set=#{SDataSet} and key1=#{key1}
+    </select>
+    <update id="update" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
+        update datamapping set eng=#{eng},version_num=#{versionNum}  where d_data_set=#{DDataSet} and s_data_set=#{SDataSet} and key1=#{key1}
+    </update>
 </mapper>
