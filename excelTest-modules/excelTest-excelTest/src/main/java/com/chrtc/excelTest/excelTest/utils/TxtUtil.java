@@ -90,7 +90,7 @@ public class TxtUtil {
                         for (int i = 0; i < titleArray.size(); i++) {
                             JSONObject job = titleArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
 //                            .put((String) job.get("dataCode"), job.get("dataName"));
-                            title.add("dataName");
+                            title.add(job.get("dataCode"));
                         }
                     }
                     //titleList.add(titleMap);
