@@ -458,6 +458,10 @@ export default class extends BaseHandler{
         zidingyiData.jobPath = args.jobPath;
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
+            if(data.data.result == "0"){
+                return;
+            }
+
             if(data.code == "0"){
                 layer.msg("启动成功！");
             }else{

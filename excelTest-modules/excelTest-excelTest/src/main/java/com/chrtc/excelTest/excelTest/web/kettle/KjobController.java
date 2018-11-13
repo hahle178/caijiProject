@@ -247,7 +247,7 @@ public class KjobController {
             String exception = null;
             jobStartDate = new  Date();
             job.start();
-            //job.waitUntilFinished();//等待直到数据结束
+            job.waitUntilFinished();//等待直到数据结束
             jobStopDate = new Date();
             logText = appender.getBuffer(logChannelId, true).toString();
             addMonitor(jobPath,jobStartDate,jobStopDate);
@@ -256,9 +256,15 @@ public class KjobController {
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"2");
             return ResultFactory.create(CodeMsgBase.FAILURE);
         }
-
-        addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
-        return ResultFactory.create(CodeMsgBase.SUCCESS);
+        if(jobMap.containsKey(jobPath)){
+            addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
+            return ResultFactory.create(CodeMsgBase.SUCCESS);
+        }else{
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result","0");
+            addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
+            return ResultFactory.create(jsonObject);
+        }
     }
 
     /**
