@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
 	$.ajax({
         type: 'POST',
         async: false,
