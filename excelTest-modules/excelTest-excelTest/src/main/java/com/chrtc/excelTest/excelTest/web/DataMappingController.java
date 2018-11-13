@@ -12,6 +12,7 @@ import org.dom4j.DocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -28,6 +29,7 @@ public class DataMappingController {
     @Autowired
     private AttachService attachService;
   @RequestMapping("upfile")
+  @ResponseBody
     public Result upfile(String fileId, HttpServletResponse responese) throws Exception{
       JSONObject jsonObject = new JSONObject();
       if (fileId != null && fileId != "" ) {
