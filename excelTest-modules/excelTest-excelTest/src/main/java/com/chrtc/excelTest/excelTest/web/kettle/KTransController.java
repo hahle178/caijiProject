@@ -1,8 +1,6 @@
 package com.chrtc.excelTest.excelTest.web.kettle;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
 import javax.servlet.ServletRequest;
@@ -386,8 +384,20 @@ public class KTransController {
      */
     @RequestMapping("/recordLogDetail")
     public Result recordLogDetail(String logFilePath) throws IOException {
+        File loginFile=  new File(logFilePath);
+        //判断文件是否存在
+        if (!loginFile.getParentFile().exists()){
+            loginFile.getParentFile().mkdirs();
+        }
+        if(!loginFile.exists()){
+           loginFile.createNewFile();
+            FileOutputStream fs=new FileOutputStream(loginFile);
+            OutputStreamWriter os=new OutputStreamWriter(fs);
+            os.write("文件已不存在！");
+            os.close();
+        }
        //读取磁盘文件
-        String content = FileUtils.readFileToString(new File(logFilePath), Constant.DEFAULT_ENCODING);
+        String content = FileUtils.readFileToString(loginFile, Constant.DEFAULT_ENCODING);
         String[] split = content.split("\\r\\n");
         return ResultFactory.create(split);
     }
