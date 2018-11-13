@@ -139,7 +139,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String dataType = "0";//结构化非结构化标识
 
                 String name = fileNameUtil.BcpFileName();
-                String path = File.separator+"home" + File.separator + "EXCEL\\";
+                String path = File.separator+"home" + File.separator + "EXCEL"+File.separator;
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
@@ -256,7 +256,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
 //              String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
                 String name = fileNameUtil.BcpFileName();
-                String path = File.separator +"home" + File.separator + "CSV\\";
+                String path = File.separator +"home" + File.separator + "CSV"+File.separator;
                 bcpMessage.setCount(dataList.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
@@ -574,7 +574,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     int nextSN = getNextSN();//五位自增序列号
                     String dataCode = "303";//数据集代码
                     String dataType = "0";//结构化非结构化标识
-                    String path =  File.separator +"home" + File.separator + "TXT\\";
+                    String path =  File.separator +"home" + File.separator + "TXT"+File.separator;
 //                    String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
                     String name = fileNameUtil.BcpFileName();
                     //String path = "E:" + File.separator + "FILE\\";
@@ -745,7 +745,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 //                String dataCode = "BASIC_0003";//数据集代码
 //                String dataType = "0";//结构化非结构化标识
                 String name = fileNameUtil.BcpFileName();
-                String path =File.separator+ "home" + File.separator + "XML\\";
+                String path =File.separator+ "home" + File.separator + "XML"+File.separator;
                 bcpMessage.setCount(bankListByExcel.size());
                 bcpMessage.setName(name);
                 bcpMessage.setPath(path);
