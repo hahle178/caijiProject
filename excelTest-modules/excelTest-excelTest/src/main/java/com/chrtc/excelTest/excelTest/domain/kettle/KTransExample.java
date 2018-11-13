@@ -1,5 +1,7 @@
 package com.chrtc.excelTest.excelTest.domain.kettle;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1225,7 +1227,9 @@ protected List<Criteria> oredCriteria;
                             }
 
                             public Criteria andTransNameEqualTo(String value) {
-                            addCriterion("trans_name =", value, "transName");
+                            if (StringUtils.isNotBlank(value)) {
+                                addCriterion("trans_name =", value, "transName");
+                            }
                             return (Criteria) this;
                             }
 
