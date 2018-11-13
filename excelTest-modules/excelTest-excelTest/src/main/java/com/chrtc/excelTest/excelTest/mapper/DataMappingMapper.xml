@@ -3,34 +3,20 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.chrtc.excelTest.excelTest.mapper.DataMappingMapper">
-    <!-- <resultMap id="BaseResultMap" type="com.chrtc.excelTest.excelTest.domain.BcpMessage" >
-         <id column="id" property="id" jdbcType="VARCHAR" />
-         <result column="create_name" property="createName" jdbcType="VARCHAR" />
-         <result column="create_by" property="createBy" jdbcType="VARCHAR" />
-         <result column="update_name" property="updateName" jdbcType="VARCHAR" />
-         <result column="update_by" property="updateBy" jdbcType="VARCHAR" />
-         <result column="version_num" property="versionNum" jdbcType="INTEGER" />
-         <result column="sys_org_code" property="sysOrgCode" jdbcType="VARCHAR" />
-         <result column="del_flag" property="delFlag" jdbcType="VARCHAR" />
-         <result column="obligate_a" property="obligateA" jdbcType="VARCHAR" />
-         <result column="obligate_b" property="obligateB" jdbcType="VARCHAR" />
-         <result column="obligate_c" property="obligateC" jdbcType="VARCHAR" />
-         <result column="obligate_d" property="obligateD" jdbcType="VARCHAR" />
-         <result column="obligate_e" property="obligateE" jdbcType="VARCHAR" />
-         <result column="create_date" property="createDate" jdbcType="DATE" />
-         <result column="update_date" property="updateDate" jdbcType="DATE" />
-         <result column="path" property="path" jdbcType="VARCHAR" />
-         <result column="name" property="name" jdbcType="VARCHAR" />
-         <result column="count" property="count" jdbcType="INTEGER" />
-     </resultMap>-->
 
     <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
         insert into datamapping (
-                id,key1,eng, d_date_set,s_data_set)  values
+                id,key1,eng, d_data_set,s_data_set)  values
                  (#{id}, #{key1,jdbcType=VARCHAR},#{eng,jdbcType=VARCHAR}, #{DDataSet,jdbcType=VARCHAR},#{SDataSet,jdbcType=VARCHAR})
     </insert>
     <select id="selectBySDateSet"  parameterType="java.lang.String" resultType="com.chrtc.excelTest.excelTest.domain.DataMapping">
         select key1 ,eng from datamapping where s_data_set=#{sDataSet}
     </select>
+    <select id="selectByCondition"  resultType="java.lang.Integer" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
+        select count(*) from datamapping where  d_data_set=#{DDataSet} and s_data_set=#{SDataSet} and key1=#{key1}
+    </select>
+    <update id="update" parameterType="com.chrtc.excelTest.excelTest.domain.DataMapping">
+        update datamapping set eng=#{eng},version_num=#{versionNum}  where d_data_set=#{DDataSet} and s_data_set=#{SDataSet} and key1=#{key1}
+    </update>
 
 </mapper>
