@@ -1,14 +1,9 @@
 <!-- Content Header (Page header) -->
 <style>
-    .content{
-        height:500px;
+    .webuploader-pick{
+        width: 80px;
     }
-    .box-header{
-        height: 25%;
-    }
-    .col-sm-4{
-      background-color: white;
-    }
+
 </style>
 <section class="content-header">
     <h1>
@@ -20,7 +15,7 @@
 <!-- Main content -->
 <section class="content" >
 
-    <div class="row" style="height:100%">
+    <div class="row" style="height:800px;background-color: white">
 
         <form id="{{mcid}}_searchForm" style="height:100%">
             <div class="col-xs-12"  style="height:100%" >
@@ -33,17 +28,17 @@
                         <div class="Tables_wrapper form-inline dt-bootstrap">
 
                             <div class="row">
-                               <div class="col-sm-1">
+                                <div class="col-sm-1">
                                     <div class="Tables_length">
                                     </div>
                                 </div>
-                                    <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
-                                    <div class="col-sm-1">
+                                <input type="hidden" name="sort" id="{{mcid}}_sort" value="">
+                                <div class="col-sm-1">
                                 </div>
 
-                                <div class="col-sm-1"   >
-                                        &nbsp;<a class="fa fa-plus btn btn-success"
-                                                 href="/attach/download/{{data.downloadId}}" target="_blank">下载模板</a>
+                                <div class="col-sm-1"  >
+                                    <a class="fa fa-plus btn btn-success" style="height: 33px"
+                                       href="/attach/download/{{data.downloadId}}" target="_blank" >下载模板</a>
                                 </div>
 
                                 <div class="col-sm-4">
@@ -55,7 +50,7 @@
 
                                 <div class="col-sm-1">
                                     <button id="{{mcid}}_confire" type="button" class="btn btn-block btn-success"
-                                            style="min-width:55px;" e-permission="exceltest_bcpmessage_add"
+                                            style="min-width:100px;" e-permission="exceltest_bcpmessage_add"
                                             e-router="href:/{{path}}/upfileExcel?url=/excelTest/exceltest/bcpmessage/upfile&tpl=upSuccess&contentType=application/x-www-form-urlencoded;charset=UTF-8">
                                         <li class="fa fa-plus"></li>
                                         &nbsp;确定上传
@@ -65,9 +60,9 @@
                             </div>
 
                         </div>
-                    <div id="{{mcid}}_list" class="row">
+                        <div id="{{mcid}}_list" class="row">
 
-                    </div>
+                        </div>
                     </div>
                 </div>
             </div>
