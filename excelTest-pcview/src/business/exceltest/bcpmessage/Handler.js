@@ -331,10 +331,12 @@ export default class extends BaseHandler{
 
         $this.ajaxResource(args).then((data) => {
             args.url=undefined;
-            data.data.forEach(function (value) {
+            /*data.data.forEach(function (value) {
                 $("input[name='fieldHeadName']").val(value.fieldHeadName)
                 $this.addModifyFieldRow(value);
-            })
+            })*/
+            $("input[name='fieldHeadName']").val(data.data[0].fieldHeadName)
+            $this.addModifyFieldRow(data.data);
         }, (data) => {
             eventUtils.getCurrentEventTarget().removeAttr("disabled");
             reject(data);
