@@ -398,9 +398,9 @@ public class KjobController {
      * @return void
      */
     @RequestMapping("/jobLogDetail")
-    public Result jobLogDetail(String transPath, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+    public Result jobLogDetail(String jobPath, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
         Map<String, Object> searchParams = new HashMap();
-        searchParams.put("record_trans",transPath);
+        searchParams.put("record_job",jobPath);
         //分页返回
         Paging<KJobRecord> allByPage = kJobRecordService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
         return ResultFactory.create(allByPage);
