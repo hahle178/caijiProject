@@ -529,7 +529,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         try {
             List<FileAttachment> list = attachService.list(excelId);
             TxtUtil txtUtil = new TxtUtil();
-            LinkedList<String> titleList = new LinkedList<>();
+            LinkedList<Object> titleList = new LinkedList<>();
             for (FileAttachment fileAttachment : list) {
                 String c = fileAttachment.getAttachmentPathStore();
                 String[] split = c.split("/");
@@ -544,6 +544,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 //进行title文件判断
                 if (names[lastIndex].equals("title.txt") | names[lastIndex].equals("TITLE.TXT")) {
                     titlelist = txtUtil.readTitle(file);
+                    titleList.addAll(titlelist.get(0));
 //                    for (Map.Entry<String, Object> entry : titleMap.entrySet()) {
 //                        titleList.add((String) entry.getKey());
 //                    }
@@ -561,10 +562,10 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String attachmentName = fileAttachment.getAttachmentName();
                 String[] names = attachmentName.split("_");
                 int lastIndex = names.length - 1;
-                Map titleMap = ListByFile.get(0);
+//                Map titleMap = ListByFile.get(0);
                 //进行title文件判断
                 if (!names[lastIndex].equals("title.txt")) {
-                    List<Map<String, Object>> maps = txtUtil.readFile(file, titleMap.size());
+                    List<Map<String, Object>> maps = txtUtil.readFile(file, titlelist.size());
                     BcpMessage bcpMessage = new BcpMessage();
                     HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
                     //生成bcp文件
@@ -587,9 +588,9 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
                     for (Map<String, Object> dataMap : maps) {
                         StringBuilder stringBuilder = new StringBuilder();
-                        for (String key : titleList) {
+                        for (Object key : titleList) {
                             //for (Map.Entry<String, Object> entry : dataMap.entrySet()) {
-                            Object o = dataMap.get(key);
+                            Object o = dataMap.get(key.toString());
                             if (o != null && o != "") {
                                 stringBuilder.append(o + "\t");
                             } else {
