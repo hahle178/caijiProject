@@ -561,10 +561,10 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 String attachmentName = fileAttachment.getAttachmentName();
                 String[] names = attachmentName.split("_");
                 int lastIndex = names.length - 1;
-                Map titleMap = ListByFile.get(0);
+//                Map titleMap = ListByFile.get(0);
                 //进行title文件判断
                 if (!names[lastIndex].equals("title.txt")) {
-                    List<Map<String, Object>> maps = txtUtil.readFile(file, titleMap.size());
+                    List<Map<String, Object>> maps = txtUtil.readFile(file, titlelist.size());
                     BcpMessage bcpMessage = new BcpMessage();
                     HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
                     //生成bcp文件
