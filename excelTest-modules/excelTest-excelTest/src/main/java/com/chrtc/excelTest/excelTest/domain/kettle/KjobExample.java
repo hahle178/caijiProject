@@ -1,5 +1,7 @@
 package com.chrtc.excelTest.excelTest.domain.kettle;
 
+import org.apache.commons.lang.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -1225,7 +1227,9 @@ protected List<Criteria> oredCriteria;
                             }
 
                             public Criteria andJobNameEqualTo(String value) {
-                            addCriterion("job_name =", value, "jobName");
+                            if(StringUtils.isNotBlank(value)) {
+                                addCriterion("job_name =", value, "jobName");
+                            }
                             return (Criteria) this;
                             }
 

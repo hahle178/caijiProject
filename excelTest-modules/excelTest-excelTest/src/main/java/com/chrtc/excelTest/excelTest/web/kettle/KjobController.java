@@ -335,7 +335,7 @@ public class KjobController {
         kJobRecord.setRecordJob(jobId);
 
         // 拼接logfilepath
-        String allLogFilePath = "F:"+ File.separator+"log"+File.separator+"job"+File.separator+new Date().getTime()+".txt";
+        String allLogFilePath = File.separator+"home"+File.separator+"caiji"+File.separator+"log"+File.separator+"job"+File.separator+new Date().getTime()+".txt";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String start =formatter.format(startTime);
@@ -348,6 +348,9 @@ public class KjobController {
 
         // 将日志信息写入文件
         File file = new File(allLogFilePath);
+        if(!file.getParentFile().exists()){
+            file.getParentFile().mkdirs();
+        }
         if(!file.exists()){//如果文件夹不存在
             file.createNewFile();
         }
