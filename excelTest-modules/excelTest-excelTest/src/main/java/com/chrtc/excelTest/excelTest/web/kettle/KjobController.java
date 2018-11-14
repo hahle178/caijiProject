@@ -157,14 +157,16 @@ public class KjobController {
      * @return
      */
     @RequestMapping("/jobList")
-    public Result jobList(Kjob kTrans, HttpServletRequest request){
-        List<Kjob> kjobs = KjobService.findAllList();
-        Map all = new LinkedHashMap();
-        all.put("kjobs",kjobs);
-        for (Kjob k : kjobs) {
-            String jobPath = k.getJobPath();
-        }
-        return ResultFactory.create(all);
+        public Result jobLogDetail(Kjob kTrans, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+           // List<Kjob> kjobs = KjobService.findAllByPage();
+            Map<String, Object> searchParams = new HashMap();
+            Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
+            Map all = new LinkedHashMap();
+            all.put("kjobs",allByPage);
+            for (Kjob k : allByPage.getContent()) {
+                String jobPath = k.getJobPath();
+            }
+            return ResultFactory.create(all);
     }
 
     /**
@@ -174,9 +176,14 @@ public class KjobController {
      * @throws IOException
      */
     @RequestMapping("/findByJobName")
-    public Result findByJobName(String findByJobName) throws IOException {
-        List<Kjob> byJobName = KjobService.findByJobName(findByJobName);
-        return ResultFactory.create(byJobName);
+        public Result findByJobName(String findByJobName, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+        // List<Kjob> byJobName = KjobService.findByJobName(findByJobName);
+        Map<String, Object> searchParams = new HashMap();
+        searchParams.put("findByJobName",findByJobName);
+        Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
+        Map all = new LinkedHashMap();
+        all.put("kjobs",allByPage);
+        return ResultFactory.create(all);
     }
 
     /**

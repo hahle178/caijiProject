@@ -32,7 +32,9 @@ public class KJobRecordServiceImpl implements KJobRecordService {
         KJobRecordExample example = new KJobRecordExample();
         KJobRecordExample.Criteria c = example.createCriteria();
         c.andDelFlagEqualTo("0");
-        c.andRecordJobEqualTo(searchParams.get("record_job")+"");
+        if(!searchParams.isEmpty()){
+            c.andRecordJobEqualTo(searchParams.get("record_job")+"");
+        }
         return kJobRecordMapper.findAllByPage(example, pageNumber, pageSize, sort);
     }
 

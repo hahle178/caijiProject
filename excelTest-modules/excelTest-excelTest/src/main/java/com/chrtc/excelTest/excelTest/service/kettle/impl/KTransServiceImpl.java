@@ -32,9 +32,10 @@ public class KTransServiceImpl implements KTransService {
     public Paging findAllByPage(Map<String, Object> searchParams, int pageNumber, int pageSize, String sort){
         KTransExample example = new KTransExample();
         KTransExample.Criteria c = example.createCriteria();
-        c.andDelFlagEqualTo("0");
-
-
+        //c.andDelFlagEqualTo("0");
+        if(!searchParams.isEmpty()){
+            c.andTransPathEqualTo(searchParams.get("findBytransName")+"");
+        }
         return kTransMapper.findAllByPage(example, pageNumber, pageSize, sort);
     }
 

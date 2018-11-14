@@ -33,9 +33,10 @@ public class KjobServiceImpl implements KjobService {
     public Paging findAllByPage(Map<String, Object> searchParams, int pageNumber, int pageSize, String sort){
         KjobExample example = new KjobExample();
         KjobExample.Criteria c = example.createCriteria();
-        c.andDelFlagEqualTo("0");
-
-
+        /*c.andDelFlagEqualTo("0");*/
+        if(!searchParams.isEmpty()){
+            c.andJobNameEqualTo(searchParams.get("findByJobName")+"");
+        }
         return kjobMapper.findAllByPage(example, pageNumber, pageSize, sort);
     }
 
