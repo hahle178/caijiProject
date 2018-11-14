@@ -98,6 +98,17 @@ export default class extends BaseHandler{
         }
 
     }
+    txtTitle(args) {
+        args.tpl = args.tpl || "txtTitle";
+        if (args.tpl) {
+            args.type = args.type || 'get';
+            return this.render(args);
+        } else {
+            throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
+        }
+
+    }
+
 
 
 

@@ -1436,8 +1436,10 @@ protected List<Criteria> oredCriteria;
                             }
 
                             public Criteria andTransPathEqualTo(String value) {
-                            addCriterion("trans_path =", value, "transPath");
-                            return (Criteria) this;
+                                if(StringUtils.isNotBlank(value)){
+                                    addCriterion("trans_path =", value, "transPath");
+                                }
+                                return (Criteria) this;
                             }
 
                             public Criteria andTransPathNotEqualTo(String value) {
