@@ -519,8 +519,9 @@ export default class extends BaseHandler{
                 return;
             }
             if(data.code == "0"){
-                layer.msg("启动成功！");
                 $(".start"+args.id).attr("disabled",false);
+                layer.msg("启动成功！");
+
             }else{
                 layer.msg("请求失败！重新操作");
             }
@@ -535,11 +536,13 @@ export default class extends BaseHandler{
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
             if(data.data.result == "1"){
+                $(".start"+args.id).attr("disabled",false);
                 layer.msg("成功停止！");
-                $(".start"+args.id).attr("disabled",false);
+
             }else if(data.data.result == "0"){
-                layer.msg("没有运行此作业！")
                 $(".start"+args.id).attr("disabled",false);
+                layer.msg("没有运行此作业！")
+
             }else{
                 layer.msg("请求失败！重新操作");
             }
