@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.chrtc.attach.common.domain.FileAttachment;
 import com.chrtc.common.base.domain.Paging;
 import com.chrtc.excelTest.excelTest.domain.BcpMessage;
 import com.chrtc.excelTest.excelTest.domain.ExcelEntity;
@@ -58,13 +59,13 @@ public interface BcpMessageService {
      * @param
      * @return List
      */
-    public LinkedList readExcelAndOut(String excelId);
+    public LinkedList readExcelAndOut(FileAttachment fileAttachment);
     /**
      * 读取csv文件且生成bcp文件
      * @param
      * @return List
      */
-    public LinkedList readCSVAndOut(String excelId)  throws IOException;
+    public LinkedList readCSVAndOut(FileAttachment fileAttachment)  throws IOException;
     /**
      * 生成索引文件
      * @param
@@ -101,11 +102,11 @@ public interface BcpMessageService {
      * @param excelId
      * @return
      */
-    LinkedList readTXTAndOut(String excelId);
+    LinkedList readTXTAndOut(FileAttachment fileAttachment);
 
     void createIndexXml1(String xmlPath, LinkedList bcpMessages) throws IOException;
 
     void createZIP1(String txt)throws Exception;
 
-    LinkedList readXMLAndOut(String excelId);
+    LinkedList readXMLAndOut(FileAttachment fileAttachment);
 }
