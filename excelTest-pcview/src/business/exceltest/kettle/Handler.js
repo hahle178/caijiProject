@@ -199,7 +199,6 @@ export default class extends BaseHandler{
                     //$this.transList(data.data);
 
                     args.contentId = $('.addRow');
-                    args.position="append";
                     args.tpl = "transList";
                     args.url="/excelTest/exceltest/ktrans/transList";
                     args.type = args.type || 'get';
@@ -209,10 +208,10 @@ export default class extends BaseHandler{
                         new Table({
                             pageID: this.getContainerId('pager'),
                             sortID:this.getContainerId('sort'),
-                            pageNum: data.data.ktrans.pageNum,
-                            totalPages: data.data.ktrans.totalPages,
-                            totalSize: data.data.ktrans.totalSize,
-                            pageSize: data.data.ktrans.pageSize,
+                            pageNum: data.data.pageNum,
+                            totalPages: data.data.totalPages,
+                            totalSize: data.data.totalSize,
+                            pageSize: data.data.pageSize,
                             buttonClickCallback: this.search.bind(this, args)
                         });
                     }.bind(this));
@@ -235,13 +234,34 @@ export default class extends BaseHandler{
             args.data = data;
 
             this.render(args).then(()=>{
-                args.url="/excelTest/exceltest/ktrans/findBytransName";
-                this.ajaxResource(args).then((data) => {
+                //args.url="/excelTest/exceltest/ktrans/findBytransName";
+                //this.ajaxResource(args).then((data) => {
                     /*data.data.forEach(function (value) {
                         $this.transList(value);
                     })*/
-                    $this.transList(data.data);
-                })
+                    //$this.transList(data.data);
+
+                    args.contentId = $('.addRow');
+                    args.tpl = "transList";
+                    args.url="/excelTest/exceltest/ktrans/findBytransName";
+                    args.type = args.type || 'get';
+                    args.contentType="application/x-www-form-urlencoded;charset=UTF-8";
+                    //获取预览数据行
+                    this.render(args).then(function (data) {
+                        new Table({
+                            pageID: this.getContainerId('pager'),
+                            sortID:this.getContainerId('sort'),
+                            pageNum: data.data.pageNum,
+                            totalPages: data.data.totalPages,
+                            totalSize: data.data.totalSize,
+                            pageSize: data.data.pageSize,
+                            buttonClickCallback: this.search.bind(this, args)
+                        });
+                    }.bind(this));
+
+
+
+               // })
             });
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
@@ -349,7 +369,6 @@ export default class extends BaseHandler{
                    // $this.jobList(data.data.kjobs);
 
                     args.contentId = $('.addRow');
-                    args.position="append";
                     args.tpl = "jobList";
                     args.url="/excelTest/exceltest/kjob/jobList";
                     args.type = args.type || 'get';
@@ -359,10 +378,10 @@ export default class extends BaseHandler{
                         new Table({
                             pageID: this.getContainerId('pager'),
                             sortID:this.getContainerId('sort'),
-                            pageNum: data.data.kjobs.pageNum,
-                            totalPages: data.data.kjobs.totalPages,
-                            totalSize: data.data.kjobs.totalSize,
-                            pageSize: data.data.kjobs.pageSize,
+                            pageNum: data.data.pageNum,
+                            totalPages: data.data.totalPages,
+                            totalSize: data.data.totalSize,
+                            pageSize: data.data.pageSize,
                             buttonClickCallback: this.search.bind(this, args)
                         });
                     }.bind(this));
@@ -397,7 +416,6 @@ export default class extends BaseHandler{
                     $this.jobList(data.data);
                 })*/
                 args.contentId = $('.addRow');
-                args.position="append";
                 args.tpl = "jobList";
                 args.url="/excelTest/exceltest/kjob/findByJobName";
                 args.type = args.type || 'get';
@@ -407,10 +425,10 @@ export default class extends BaseHandler{
                     new Table({
                         pageID: this.getContainerId('pager'),
                         sortID:this.getContainerId('sort'),
-                        pageNum: data.data.kjobs.pageNum,
-                        totalPages: data.data.kjobs.totalPages,
-                        totalSize: data.data.kjobs.totalSize,
-                        pageSize: data.data.kjobs.pageSize,
+                        pageNum: data.data.pageNum,
+                        totalPages: data.data.totalPages,
+                        totalSize: data.data.totalSize,
+                        pageSize: data.data.pageSize,
                         buttonClickCallback: this.search.bind(this, args)
                     });
                 }.bind(this));
@@ -514,14 +532,13 @@ export default class extends BaseHandler{
         zidingyiData.jobPath = args.jobPath;
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
-            if(data.data.result == "0"){
+            if(data.data.result == "1"){
                 $(".start"+args.id).attr("disabled",false);
-                return;
+                return true;
             }
             if(data.code == "0"){
                 $(".start"+args.id).attr("disabled",false);
                 layer.msg("启动成功！");
-
             }else{
                 layer.msg("请求失败！重新操作");
             }

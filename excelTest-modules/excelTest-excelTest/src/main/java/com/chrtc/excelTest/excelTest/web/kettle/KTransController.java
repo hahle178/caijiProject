@@ -153,9 +153,9 @@ public class KTransController {
         // List all = KTransService.findAllList();
         Map<String, Object> searchParams = new HashMap();
         Paging<KTrans> allByPage = KTransService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-        Map all = new LinkedHashMap();
-        all.put("ktrans",allByPage);
-        return ResultFactory.create(all);
+        /*Map all = new LinkedHashMap();
+        all.put("ktrans",allByPage);*/
+        return ResultFactory.create(allByPage);
     }
 
     /**
@@ -169,9 +169,9 @@ public class KTransController {
         Map<String, Object> searchParams = new HashMap();
         searchParams.put("findBytransName",findBytransName);
         Paging<KTrans> allByPage = KTransService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-        Map all = new LinkedHashMap();
-        all.put("ktrans",allByPage);
-        return ResultFactory.create(all);
+       /* Map all = new LinkedHashMap();
+        all.put("ktrans",allByPage);*/
+        return ResultFactory.create(allByPage);
     }
 
 

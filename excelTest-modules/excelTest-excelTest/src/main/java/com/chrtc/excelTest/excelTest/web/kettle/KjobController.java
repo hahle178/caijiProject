@@ -161,12 +161,12 @@ public class KjobController {
            // List<Kjob> kjobs = KjobService.findAllByPage();
             Map<String, Object> searchParams = new HashMap();
             Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-            Map all = new LinkedHashMap();
-            all.put("kjobs",allByPage);
+           // Map all = new LinkedHashMap();
+           // all.put("kjobs",allByPage);
             for (Kjob k : allByPage.getContent()) {
                 String jobPath = k.getJobPath();
             }
-            return ResultFactory.create(all);
+            return ResultFactory.create(allByPage);
     }
 
     /**
@@ -181,9 +181,9 @@ public class KjobController {
         Map<String, Object> searchParams = new HashMap();
         searchParams.put("findByJobName",findByJobName);
         Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-        Map all = new LinkedHashMap();
-        all.put("kjobs",allByPage);
-        return ResultFactory.create(all);
+       // Map all = new LinkedHashMap();
+        //all.put("kjobs",allByPage);
+        return ResultFactory.create(allByPage);
     }
 
     /**
@@ -266,11 +266,12 @@ public class KjobController {
             return ResultFactory.create(CodeMsgBase.FAILURE);
         }
         if(jobMap.containsKey(jobPath)){
+            jobMap.remove(jobPath);
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
             return ResultFactory.create(CodeMsgBase.SUCCESS);
         }else{
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("result","0");
+            jsonObject.put("result","1");
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
             return ResultFactory.create(jsonObject);
         }
