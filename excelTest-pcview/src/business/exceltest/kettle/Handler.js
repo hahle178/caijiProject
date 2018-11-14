@@ -506,6 +506,8 @@ export default class extends BaseHandler{
 
     //启动作业
     startJob(args){
+        //锁定启动按钮
+        $(".start"+args.id).attr("disabled",true);
         args.data = {};
         let $this = this;
         let zidingyiData  = {};
@@ -513,11 +515,12 @@ export default class extends BaseHandler{
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
             if(data.data.result == "0"){
+                $(".start"+args.id).attr("disabled",false);
                 return;
             }
-
             if(data.code == "0"){
                 layer.msg("启动成功！");
+                $(".start"+args.id).attr("disabled",false);
             }else{
                 layer.msg("请求失败！重新操作");
             }
@@ -533,8 +536,10 @@ export default class extends BaseHandler{
         this.ajaxResource(args).then((data) => {
             if(data.data.result == "1"){
                 layer.msg("成功停止！");
+                $(".start"+args.id).attr("disabled",false);
             }else if(data.data.result == "0"){
                 layer.msg("没有运行此作业！")
+                $(".start"+args.id).attr("disabled",false);
             }else{
                 layer.msg("请求失败！重新操作");
             }
