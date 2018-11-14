@@ -536,7 +536,7 @@ export default class extends BaseHandler{
                 $(".start"+args.id).attr("disabled",false);
                 return true;
             }
-            if(data.code == "0"){
+            if(data.data.result == "0"){
                 $(".start"+args.id).attr("disabled",false);
                 layer.msg("启动成功！");
             }else{

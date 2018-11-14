@@ -243,9 +243,8 @@ public class KjobController {
             //选择作业
             JobMeta jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
             Job job = new Job(repository, jobMeta);
-            jobMap.put(jobPath,job);
-
-        Job ss = jobMap.get(jobPath);
+/*            jobMap.put(jobPath,job);
+        Job ss = jobMap.get(jobPath);*/
         //添加监控
         Date jobStopDate = null;
         Date jobStartDate = null;
@@ -256,6 +255,8 @@ public class KjobController {
             String exception = null;
             jobStartDate = new  Date();
             job.start();
+            jobMap.put(jobPath,job);
+            Job ss = jobMap.get(jobPath);
             job.waitUntilFinished();//等待直到数据结束
             jobStopDate = new Date();
             logText = appender.getBuffer(logChannelId, true).toString();
@@ -267,8 +268,10 @@ public class KjobController {
         }
         if(jobMap.containsKey(jobPath)){
             jobMap.remove(jobPath);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result","0");
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
-            return ResultFactory.create(CodeMsgBase.SUCCESS);
+            return ResultFactory.create(jsonObject);
         }else{
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("result","1");
