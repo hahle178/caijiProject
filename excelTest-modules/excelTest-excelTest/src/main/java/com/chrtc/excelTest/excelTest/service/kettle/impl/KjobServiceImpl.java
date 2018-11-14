@@ -34,6 +34,9 @@ public class KjobServiceImpl implements KjobService {
         KjobExample example = new KjobExample();
         KjobExample.Criteria c = example.createCriteria();
         /*c.andDelFlagEqualTo("0");*/
+        if(!searchParams.isEmpty()){
+            c.andJobNameEqualTo(searchParams.get("findByJobName")+"");
+        }
         return kjobMapper.findAllByPage(example, pageNumber, pageSize, sort);
     }
 

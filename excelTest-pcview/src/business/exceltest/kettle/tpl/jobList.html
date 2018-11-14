@@ -1,6 +1,6 @@
 
 {{each  data.kjobs.content value i}}
-    <tr  id="{{id}}">
+    <tr  id="{{value.id}}">
         <td >{{value.jobId}}</td>
         <td >{{value.jobName}}</td>
         <td >{{value.jobPath}}</td>
@@ -10,7 +10,7 @@
         <button e-event="href:/{{path}}/stopJob?jobPath={{value.jobPath}}&url=/excelTest/exceltest/kjob/stopJob" class="btn  btn-xs form-delete" type="button"  title="停止">
             <i class="fa fa-trash"></i>&nbsp;停止
         </button>
-         <button e-event="href:/{{path}}/deleteRow?id={{id}}&name={{value.jobPath}}" class="btn  btn-xs form-delete" type="button"  title="删除">
+         <button e-event="href:/{{path}}/deleteRow?id={{value.id}}&name={{value.jobPath}}" class="btn  btn-xs form-delete" type="button"  title="删除">
             <i class="fa fa-trash"></i>&nbsp;删除
         </button>
         <button e-event="href:/{{path}}/scheduler?id={{value.jobId}}" class="btn  btn-xs form-delete" type="button"  title="编辑定时时间">

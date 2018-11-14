@@ -151,8 +151,12 @@ public class KTransController {
      * @return
      */
     @RequestMapping("/transList")
-    public Result transList(KTrans kTrans, HttpServletRequest request){
-        List all = KTransService.findAllList();
+        public Result jobLogDetail(KTrans kTrans, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+        // List all = KTransService.findAllList();
+        Map<String, Object> searchParams = new HashMap();
+        Paging<KTrans> allByPage = KTransService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
+        Map all = new LinkedHashMap();
+        all.put("ktrans",allByPage);
         return ResultFactory.create(all);
     }
 
@@ -163,11 +167,14 @@ public class KTransController {
      * @throws IOException
      */
     @RequestMapping("/findBytransName")
-    public Result findBytransName(String findBytransName) throws IOException {
-        List<KTrans> bytransName = KTransService.findBytransName(findBytransName);
-        return ResultFactory.create(bytransName);
+        public Result findByJobName(String findBytransName, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+        Map<String, Object> searchParams = new HashMap();
+        searchParams.put("findBytransName",findBytransName);
+        Paging<KTrans> allByPage = KTransService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
+        Map all = new LinkedHashMap();
+        all.put("ktrans",allByPage);
+        return ResultFactory.create(all);
     }
-
 
 
     /**
