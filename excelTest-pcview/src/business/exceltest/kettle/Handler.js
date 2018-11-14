@@ -323,14 +323,33 @@ export default class extends BaseHandler{
         if (args.tpl) {
             args.type = args.type || 'get';
             this.render(args).then(()=>{
-                args.url="/excelTest/exceltest/kjob/jobList";
-                this.ajaxResource(args).then((data) => {
+                //args.url="/excelTest/exceltest/kjob/jobList";
+               // this.ajaxResource(args).then((data) => {
                     /*data.data.forEach(function (value) {
                         $this.jobList(value);
                     })*/
-                    $this.jobList(data.data.kjobs);
+                   // $this.jobList(data.data.kjobs);
 
-                })
+                    args.contentId = $('.addRow');
+                    args.position="append";
+                    args.tpl = "jobList";
+                    args.url="/excelTest/exceltest/kjob/jobList";
+                    args.type = args.type || 'get';
+                    args.contentType="application/x-www-form-urlencoded;charset=UTF-8";
+                    //获取预览数据行
+                    this.render(args).then(function (data) {
+                        new Table({
+                            pageID: this.getContainerId('pager'),
+                            sortID:this.getContainerId('sort'),
+                            pageNum: data.data.kjobs.pageNum,
+                            totalPages: data.data.kjobs.totalPages,
+                            totalSize: data.data.kjobs.totalSize,
+                            pageSize: data.data.kjobs.pageSize,
+                            buttonClickCallback: this.search.bind(this, args)
+                        });
+                    }.bind(this));
+
+                //})
             });
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
