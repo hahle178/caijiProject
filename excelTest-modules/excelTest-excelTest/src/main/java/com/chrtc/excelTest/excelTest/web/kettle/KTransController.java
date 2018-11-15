@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import com.alibaba.fastjson.JSONObject;
 import com.chrtc.common.base.domain.Paging;
 import com.chrtc.excelTest.excelTest.domain.FieldRowMessage;
 import com.chrtc.excelTest.excelTest.domain.kettle.*;
@@ -20,6 +21,7 @@ import org.pentaho.di.core.KettleEnvironment;
 import org.pentaho.di.core.database.DatabaseMeta;
 import org.pentaho.di.core.logging.KettleLogStore;
 import org.pentaho.di.core.logging.LoggingBuffer;
+import org.pentaho.di.job.Job;
 import org.pentaho.di.repository.RepositoryDirectoryInterface;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepository;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepositoryMeta;
@@ -62,6 +64,8 @@ public class KTransController {
     private KTransMonitorService kTransMonitorService;
     @Autowired
     private KTransRecordService kTransRecordService;
+
+    private LinkedHashMap<String,Trans> transMap= new LinkedHashMap();
     /**
     * 根据ID查询
     * @param id
@@ -214,6 +218,7 @@ public class KTransController {
 
             transStartDate = new  Date();
             trans.execute(null);
+            transMap.put(transPath,trans);
             trans.waitUntilFinished();//等待直到数据结束
             transStopDate = new Date();
             logText = appender.getBuffer(logChannelId, true).toString();
@@ -223,8 +228,38 @@ public class KTransController {
             addRecord(transPath,transStartDate,transStopDate,logText,"2");
             return ResultFactory.create(CodeMsgBase.FAILURE);
         }
-        addRecord(transPath,transStartDate,transStopDate,logText,"1");
-        return ResultFactory.create(CodeMsgBase.SUCCESS);
+
+        if(transMap.containsKey(transPath)){
+            transMap.remove(transPath);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result","0");
+            addRecord(transPath,transStartDate,transStopDate,logText,"1");
+            return ResultFactory.create(jsonObject);
+        }else{
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("result","1");
+            addRecord(transPath,transStartDate,transStopDate,logText,"1");
+            return ResultFactory.create(jsonObject);
+        }
+    }
+
+    /**
+     * 停止转换
+     * @param jobPath
+     * @return
+     */
+    @RequestMapping("/stopTrans")
+    public Result stopJob(String transPath){
+        JSONObject jsonObject = new JSONObject();
+        if (!transMap.containsKey(transPath)){
+            jsonObject.put("result",0);
+            return ResultFactory.create(jsonObject);
+        }else{
+            transMap.get(transPath).stopAll();
+            transMap.remove(transPath);
+            jsonObject.put("result",1);
+            return ResultFactory.create(jsonObject);
+        }
     }
 
     /**
