@@ -27,6 +27,7 @@ import com.chrtc.excelTest.excelTest.service.FieldRowMessageService;
 import com.chrtc.excelTest.excelTest.service.impl.DataMappingXmlServiceImpl;
 import com.chrtc.excelTest.excelTest.utils.BcpUtil;
 import com.chrtc.excelTest.excelTest.utils.CompressedFileUtil;
+import com.chrtc.excelTest.excelTest.utils.DeleteFileUtil;
 import com.chrtc.excelTest.excelTest.utils.ExcelUtil;
 import com.chrtc.excelTest.excelTest.utils.kettle.JDBCUtils;
 import com.google.common.base.Joiner;
@@ -81,9 +82,9 @@ public class BcpMessageController {
     private FieldRowMessageService fieldRowMessageService;
 
     @Value("${ezdev.attach.config.local.dir}")
-    private  String dir;
+    private String dir;
     @Value("${ezdev.attach.config.local.dumpdir}")
-    private  String dumpdir;
+    private String dumpdir;
 
     @Value("${scheduler.jdbc.dbdriver}")
     private   String DBDRIVER;// 驱动类类名
@@ -97,21 +98,24 @@ public class BcpMessageController {
     private  String DBPASSWORD; // 数据库密码
 
     /**
-     *五位自增序列号
+     * 五位自增序列号
      */
     private static int sn = 10001;
+
     public synchronized int getNextSN() {
         return ++sn;
     }
+
     public int getCurrentSN() {
         return sn;
     }
 
     /**
-    * 根据ID查询
-    * @param id
-    * @return Result
-    */
+     * 根据ID查询
+     *
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @EzdevOperation(name = "获取bcpMessage")
     public Result findOneById(@PathVariable @EzdevParam(name = "bcpMessageID") String id) {
@@ -121,27 +125,29 @@ public class BcpMessageController {
     }
 
     /**
-    * 多参数分页查询
-    * @param request
-    * @param pageNumber
-    * @param pageSize
-    * @param sort
-    * @return Result
-    */
+     * 多参数分页查询
+     *
+     * @param request
+     * @param pageNumber
+     * @param pageSize
+     * @param sort
+     * @return Result
+     */
     @RequestMapping(value = "/pages", method = RequestMethod.POST)
     @EzdevOperation(name = "分页获取bcpMessage")
-	public Result findAllByPage(ServletRequest request,@RequestParam(defaultValue = "0") @EzdevParam(name = "页码")  int pageNumber,
-            @RequestParam(defaultValue = "10") @EzdevParam(name = "条数")  int pageSize,@RequestParam(defaultValue = "create_date")  @EzdevParam(name = "排序字段")  String sort) {
-		Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
-		return ResultFactory.create(BcpMessageService.findAllByPage(searchParams, pageNumber, pageSize,
-                    UtilWord.getDatabaseNameFromBeanName(sort)));
-	}
+    public Result findAllByPage(ServletRequest request, @RequestParam(defaultValue = "0") @EzdevParam(name = "页码") int pageNumber,
+                                @RequestParam(defaultValue = "10") @EzdevParam(name = "条数") int pageSize, @RequestParam(defaultValue = "create_date") @EzdevParam(name = "排序字段") String sort) {
+        Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
+        return ResultFactory.create(BcpMessageService.findAllByPage(searchParams, pageNumber, pageSize,
+                UtilWord.getDatabaseNameFromBeanName(sort)));
+    }
 
     /**
-    * 插入bcpMessage
-    * @param entity
-    * @return Result
-    */
+     * 插入bcpMessage
+     *
+     * @param entity
+     * @return Result
+     */
     @RequestMapping(method = RequestMethod.POST)
     @EzdevOperation(name = "插入bcpMessage")
     public Result add(@Valid @RequestBody @EzdevParam(name = "bcpMessage") ExcelEntity entity) {
@@ -154,188 +160,212 @@ public class BcpMessageController {
     }
 
     /**
-    * 根据ID更新bcpMessage
-    * @param id
-    * @param entity
-    * @return Result
-    */
-    @RequestMapping(value = "{id}",method = RequestMethod.PUT)
+     * 根据ID更新bcpMessage
+     *
+     * @param id
+     * @param entity
+     * @return Result
+     */
+    @RequestMapping(value = "{id}", method = RequestMethod.PUT)
     @EzdevOperation(name = "更新bcpMessage")
-    public Result update(@PathVariable @EzdevParam(name = "bcpMessageID") String id,@RequestBody @EzdevParam(name = "bcpMessage") BcpMessage entity) {
+    public Result update(@PathVariable @EzdevParam(name = "bcpMessageID") String id, @RequestBody @EzdevParam(name = "bcpMessage") BcpMessage entity) {
         entity.setId(id);
         return ResultFactory.create(BcpMessageService.update(entity));
     }
+
     /**
-    * 根据ID删除bcpMessage
-    * @param id
-    * @return Result
-    */
+     * 根据ID删除bcpMessage
+     *
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @EzdevOperation(name = "删除bcpMessage")
-	public Result delete(@PathVariable @EzdevParam(name = "bcpMessageID") String id) {
-		BcpMessageService.delete(id);
-		return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
-	}
+    public Result delete(@PathVariable @EzdevParam(name = "bcpMessageID") String id) {
+        BcpMessageService.delete(id);
+        return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
+    }
+
     /**
      * 动态获取文件名
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/ajaxGetBcpName")
-    public Result  ajaxGetBcpName() throws Exception {
+    public Result ajaxGetBcpName() throws Exception {
         List<JSONObject> list = new ArrayList();
 
         List<String> fileName = BcpUtil.getFileName("E:\\EXCEL");
-        for (String fn:fileName) {
+        for (String fn : fileName) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("value",fn);
-            jsonObject.put("code",fn);
+            jsonObject.put("value", fn);
+            jsonObject.put("code", fn);
             list.add(jsonObject);
         }
         return ResultFactory.create(list);
     }
+
     /**
      * 动态获取表头
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/ajaxGetHeadName")
-    public Result  ajaxGetHeadName() throws Exception {
+    public Result ajaxGetHeadName() throws Exception {
         List<JSONObject> list = new ArrayList();
 
         List<FieldRowMessage> byGroup = fieldRowMessageService.findByGroup();
 
-        for (FieldRowMessage fn:byGroup) {
+        for (FieldRowMessage fn : byGroup) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("value",fn.getFieldheadname());
-            jsonObject.put("code",fn.getFieldheadname());
+            jsonObject.put("value", fn.getFieldheadname());
+            jsonObject.put("code", fn.getFieldheadname());
             list.add(jsonObject);
         }
         return ResultFactory.create(list);
     }
+
     /**
      * 动态获取表头所属的行
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/ajaxGetRow")
-    public Result  ajaxGetRow(String selectHead) throws Exception {
+    public Result ajaxGetRow(String selectHead) throws Exception {
         JSONObject jsonObject = new JSONObject();
 
         List<FieldRowMessage> list = fieldRowMessageService.findByHead(selectHead);
         LinkedList<DefineHead2> defineHeads = new LinkedList<DefineHead2>();
-            String fieldname = list.get(0).getFieldname();
-            String fieldeng = list.get(0).getFieldeng();
-            String fieldremark = list.get(0).getFieldremark();
-            String fieldlength = list.get(0).getFieldlength();
-            String fieldheadname = list.get(0).getFieldheadname();
+        String fieldname = list.get(0).getFieldname();
+        String fieldeng = list.get(0).getFieldeng();
+        String fieldremark = list.get(0).getFieldremark();
+        String fieldlength = list.get(0).getFieldlength();
+        String fieldheadname = list.get(0).getFieldheadname();
 
-            String[] fn = fieldname.split(",");
-            String[] fe = fieldeng.split(",");
-            String[] fr = fieldremark.split(",");
-            String[] fl = fieldlength.split(",");
+        String[] fn = fieldname.split(",");
+        String[] fe = fieldeng.split(",");
+        String[] fr = fieldremark.split(",");
+        String[] fl = fieldlength.split(",");
 
-            for(int i=0; i<fn.length;i++){
-                DefineHead2 defineHead = new DefineHead2();
-                defineHead.setFieldName(fn[i]);
-                defineHead.setFieldEng(fe[i]);
-                defineHead.setFieldRemark(fr[i]);
-                defineHead.setFieldLength(fl[i]);
-                defineHead.setFieldHeadName(fieldheadname);
-                defineHeads.add(defineHead);
-            }
+        for (int i = 0; i < fn.length; i++) {
+            DefineHead2 defineHead = new DefineHead2();
+            defineHead.setFieldName(fn[i]);
+            defineHead.setFieldEng(fe[i]);
+            defineHead.setFieldRemark(fr[i]);
+            defineHead.setFieldLength(fl[i]);
+            defineHead.setFieldHeadName(fieldheadname);
+            defineHeads.add(defineHead);
+        }
 
         return ResultFactory.create(defineHeads);
     }
+
     /**
      * 上传excel生成bcp文件和索引文件
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/upfile")
-    public Result  readExcel(String excelId, @Valid  ExcelEntity excelEntity,HttpServletResponse responese) throws Exception {
+    public Result readExcel(String excelId, @Valid ExcelEntity excelEntity, HttpServletResponse responese) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        try{
-        LinkedList bcpMessages = null;
-        BcpMessage bcpMessage = null;
-        if (excelId != null && excelId != "" ){
-            //判断上传的文件是什么格式
-            List<FileAttachment> list = attachService.list(excelId);
-            String c = list.get(0).getAttachmentPathStore();
-            String attachmentName = list.get(0).getAttachmentName();
-            HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
-            //截取字符串，获取本地存储文件名
-            String[] split = c.split("/");
-            String s = split[1];
-            //获取文件后缀名，判断是什么文件
-            String houzui = s.split("\\.")[1];
+        DeleteFileUtil deleteFileUtil = new DeleteFileUtil();
+        try {
+            LinkedList bcpMessages = null;
+            BcpMessage bcpMessage = null;
+            if (excelId != null && excelId != "") {
+                //判断上传的文件是什么格式
+                List<FileAttachment> list = attachService.list(excelId);
 
-            if(houzui.equals("xls") | houzui.equals("xlsx")){
-                //读取excel文件，生成bcp文件
-                bcpMessages = BcpMessageService.readExcelAndOut(excelId);
-                //生成xml文件
-//                String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
-                //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
-                //生成压缩文件
-                BcpMessageService.createZIP("EXCEL");
-            }else if(houzui.equals("csv") | houzui.equals("CSV")){
-                //读取csv文件，生成bcp文件
-                bcpMessages = BcpMessageService.readCSVAndOut(excelId);
-                //生成xml文件
+
+                for (int i = 0; i < list.size(); i++) {
+                    FileAttachment fileAttachment = list.get(i);
+                    String c = list.get(i).getAttachmentPathStore();
+                    String attachmentName = list.get(i).getAttachmentName();
+                    HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
+                    //截取字符串，获取本地存储文件名
+                    String[] split = c.split("/");
+                    String s = split[1];
+                    //获取文件后缀名，判断是什么文件
+                    String houzui = s.split("\\.")[1];
+
+                    if (houzui.equals("xls") | houzui.equals("xlsx")) {
+                        //读取excel文件，生成bcp文件
+                        bcpMessage= BcpMessageService.readExcelAndOut(fileAttachment);
+
+                        //生成xml文件
+                        // String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+                        //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+                        //生成压缩文件
+                        BcpMessageService.createZIP("EXCEL");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
+                     } else if (houzui.equals("csv") | houzui.equals("CSV")) {
+                        //读取csv文件，生成bcp文件
+                        bcpMessage = BcpMessageService.readCSVAndOut(fileAttachment);
+                        //生成xml文件
 //                String xmlPath = "E:"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
-                //生成压缩文件
-                BcpMessageService.createZIP("CSV");
-            }else if(houzui.equals("dmp") | houzui.equals("DMP")){
-                //解析dmp文件
-                String code1 = "cmd"+" /k start "+ dumpdir +"/dmp.bat " + attachmentName;
-                Process exec = Runtime.getRuntime().exec(code1);
-                Process process = exec;
-            }else if(houzui.equals("txt")|houzui.equals("TXT")){
-                //读取txt文件,生成bcp文件
-                bcpMessages = BcpMessageService.readTXTAndOut(excelId);
+                        //生成压缩文件
+                        BcpMessageService.createZIP("CSV");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
+                    } else if (houzui.equals("dmp") | houzui.equals("DMP")) {
+                        //解析dmp文件
+                        String code1 = "cmd" + " /k start " + dumpdir + "/dmp.bat " + attachmentName;
+                        Process exec = Runtime.getRuntime().exec(code1);
+                        Process process = exec;
+                    } else if (houzui.equals("txt") | houzui.equals("TXT")) {
+                        //读取txt文件,生成bcp文件
+                        bcpMessages = BcpMessageService.readTXTAndOut(fileAttachment);
 //                String xmlPath = "E:"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
-                BcpMessageService.createZIP("TXT");
-            }else if(houzui.equals("xml")|houzui.equals("XML")){
-                bcpMessages = BcpMessageService.readXMLAndOut(excelId);
+                        BcpMessageService.createZIP("TXT");
+                    } else if (houzui.equals("xml") | houzui.equals("XML")) {
+                        bcpMessage = BcpMessageService.readXMLAndOut(fileAttachment);
 //                String xmlPath = "E:"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
-                BcpMessageService.createZIP("XML");
-            }
-        }else{
-            //接收表单数据，生成bcp文件
-            bcpMessage = BcpMessageService.getEntityCreateBcp(excelEntity);
-            //生成xml文件
-            String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
-            BcpMessageService.createIndexXml(xmlPath,bcpMessages);
-            //生成压缩文件
-            BcpMessageService.createZIP("FIELD");
-        }
+                        BcpMessageService.createZIP("XML");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
+                    }
+                }
 
-        jsonObject.put("SUCCESS",true);
-        }catch(Exception  e){
-            jsonObject.put("SUCCESS",false);
+            } else {
+                //接收表单数据，生成bcp文件
+                bcpMessage = BcpMessageService.getEntityCreateBcp(excelEntity);
+                //生成xml文件
+                String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+                BcpMessageService.createIndexXml(xmlPath, bcpMessages);
+                //生成压缩文件
+                BcpMessageService.createZIP("FIELD");
+            }
+
+
+            jsonObject.put("SUCCESS", true);
+        } catch (Exception e) {
+            jsonObject.put("SUCCESS", false);
             e.printStackTrace();
         }
         return ResultFactory.create(jsonObject);
     }
+
     @RequestMapping(value = "/testtest")
-    public Result  testtest(@Valid Test test, HttpServletResponse responese) throws Exception {
+    public Result testtest(@Valid Test test, HttpServletResponse responese) throws Exception {
         JSONObject jsonObject = new JSONObject();
         LinkedList bcpMessages = null;
         BcpMessage bcpMessage = null;
         //接收表单数据，生成bcp文件
         bcpMessages = BcpMessageService.getEntityCreateBcp1(test);
         //生成xml文件
-        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
-        BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+        String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        BcpMessageService.createIndexXml(xmlPath, bcpMessages);
         //生成压缩文件
-        try{
-        BcpMessageService.createZIP("FIELD");
-        jsonObject.put("SUCCESS",true);
-        }catch(Exception  e){
-            jsonObject.put("SUCCESS",false);
+        try {
+            BcpMessageService.createZIP("FIELD");
+            jsonObject.put("SUCCESS", true);
+        } catch (Exception e) {
+            jsonObject.put("SUCCESS", false);
             e.printStackTrace();
         }
         return ResultFactory.create(jsonObject);
@@ -343,6 +373,7 @@ public class BcpMessageController {
 
     /**
      * 模板下载
+     *
      * @param
      * @return Result
      */
@@ -359,8 +390,8 @@ public class BcpMessageController {
         //结果集处理，
         StringBuilder stringBuilder = new StringBuilder();
 
-        while(rs.next()){
-            stringBuilder.append(rs.getString("attachment_id")+",");
+        while (rs.next()) {
+            stringBuilder.append(rs.getString("attachment_id") + ",");
         }
         //释放资源
         rs.close();
@@ -368,11 +399,13 @@ public class BcpMessageController {
         con.close();
         if (stringBuilder.length() > 0)
             stringBuilder.deleteCharAt(stringBuilder.length() - 1); //调用 字符串的deleteCharAt() 方法,删除最后一个多余的逗号
-        jsonObject.put("downloadId",stringBuilder);
+        jsonObject.put("downloadId", stringBuilder);
         return ResultFactory.create(jsonObject);
     }
+
     /**
      * 接收字段属性
+     *
      * @param
      * @return Result
      */
@@ -385,13 +418,13 @@ public class BcpMessageController {
         String[] fieldRemark = defineHead.getFieldRemark();
         String[] fieldHeadName = defineHead.getFieldHeadName();
         String[] fieldOption = null;
-        if (defineHead.getFieldOption() != null){
-             fieldOption = defineHead.getFieldOption();
+        if (defineHead.getFieldOption() != null) {
+            fieldOption = defineHead.getFieldOption();
         }
 
         LinkedList<InputValue> list = new LinkedList<>();
-        
-        for (int j = 0; j<fieldName.length; j++){
+
+        for (int j = 0; j < fieldName.length; j++) {
             InputValue inputValue = new InputValue();
             inputValue.setFieldName(fieldName[j]);
             inputValue.setFieldEng(fieldEng[j]);
@@ -399,16 +432,18 @@ public class BcpMessageController {
             inputValue.setFieldLength(fieldLength[j]);
             inputValue.setFieldHeadName(fieldHeadName[0]);
 
-            if (defineHead.getFieldOption() != null){
+            if (defineHead.getFieldOption() != null) {
                 inputValue.setFieldOption(fieldOption[0]);
             }
             list.add(inputValue);
         }
-        jsonObject.put("list",list);
+        jsonObject.put("list", list);
         return ResultFactory.create(jsonObject);
     }
+
     /**
      * 处理提交的自定义行数据
+     *
      * @param
      * @return Result
      */
@@ -421,17 +456,17 @@ public class BcpMessageController {
         storRow(fieldVO);
 
         //接收表单数据，生成bcp文件
-        if(fieldVO.getFieldOption().length >0){
-            if(fieldVO.getFieldOption()[0].equals("1") ){
+        if (fieldVO.getFieldOption().length > 0) {
+            if (fieldVO.getFieldOption()[0].equals("1")) {
                 //追加
-                bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO,1);
-            }else{
+                bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO, 1);
+            } else {
                 //新建
-                bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO,0);
+                bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO, 0);
             }
-        }else{
+        } else {
             //新建
-            bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO,0);
+            bcpMessages = BcpMessageService.getEntityCreateBcp2(fieldVO, 0);
         }
         /*if(fieldVO.getFieldOption()[0].equals("1") ){
             //追加
@@ -442,26 +477,27 @@ public class BcpMessageController {
         }*/
 
         //生成xml文件
-        String xmlPath = "E:"+File.separator +"FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
-        BcpMessageService.createIndexXml(xmlPath,bcpMessages);
+        String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        BcpMessageService.createIndexXml(xmlPath, bcpMessages);
 
         //生成压缩文件
-        try{
+        try {
             BcpMessageService.createZIP("FIELD");
-            jsonObject.put("SUCCESS",true);
-        }catch(Exception  e){
-            jsonObject.put("SUCCESS",false);
+            jsonObject.put("SUCCESS", true);
+        } catch (Exception e) {
+            jsonObject.put("SUCCESS", false);
             e.printStackTrace();
         }
-        return ResultFactory.create(CodeMsgBase.SUCCESS,jsonObject);
+        return ResultFactory.create(CodeMsgBase.SUCCESS, jsonObject);
     }
 
     /**
      * 数据行存储
+     *
      * @param
      * @return void
      */
-    public void  storRow(FieldVO fieldVO) throws Exception {
+    public void storRow(FieldVO fieldVO) throws Exception {
         JSONObject jsonObject = new JSONObject();
         Integer count = 0;
         StringBuilder sFieldName = new StringBuilder();
@@ -474,33 +510,33 @@ public class BcpMessageController {
         //表头
         sFieldHeadName.append(fieldVO.getFieldHeadName()[0]);
         //追加还是覆盖 0:追加  1:覆盖
-        if(fieldVO.getFieldOption().length >0){
+        if (fieldVO.getFieldOption().length > 0) {
             String option = fieldVO.getFieldOption()[0];
             //删除同名表头数据
-            if(option.equals("")  || Integer.parseInt(option) == 0){
+            if (option.equals("") || Integer.parseInt(option) == 0) {
                 fieldRowMessageService.deleteByFieldName(sFieldHeadName.toString());
             }
         }
 
-        for(int j = 0;j<fieldVO.getFieldValue().length;j++ ){
+        for (int j = 0; j < fieldVO.getFieldValue().length; j++) {
             count++;
-            sFieldName.append(fieldVO.getFieldName()[j]+",");
-            sFieldEng.append(fieldVO.getFieldEng()[j]+",");
-            sFieldRemark.append(fieldVO.getFieldRemark()[j]+",");
-            sFieldLength.append(fieldVO.getFieldLength()[j]+",");
-            sFieldValue.append(fieldVO.getFieldValue()[j]+",");
-            sFieldSize.append(fieldVO.getFieldSize()[0]+",");
+            sFieldName.append(fieldVO.getFieldName()[j] + ",");
+            sFieldEng.append(fieldVO.getFieldEng()[j] + ",");
+            sFieldRemark.append(fieldVO.getFieldRemark()[j] + ",");
+            sFieldLength.append(fieldVO.getFieldLength()[j] + ",");
+            sFieldValue.append(fieldVO.getFieldValue()[j] + ",");
+            sFieldSize.append(fieldVO.getFieldSize()[0] + ",");
 
-            if(count >= Integer.parseInt(fieldVO.getFieldSize()[0])){
+            if (count >= Integer.parseInt(fieldVO.getFieldSize()[0])) {
                 count = 0;
                 FieldRowMessage fieldRowMessage = new FieldRowMessage();
 
-                fieldRowMessage.setFieldname(sFieldName.toString().substring(0,sFieldName.toString().lastIndexOf(",")));
-                fieldRowMessage.setFieldeng(sFieldEng.toString().substring(0,sFieldEng.toString().lastIndexOf(",")));
-                fieldRowMessage.setFieldremark(sFieldRemark.toString().substring(0,sFieldRemark.toString().lastIndexOf(",")));
-                fieldRowMessage.setFieldlength(sFieldLength.toString().substring(0,sFieldLength.toString().lastIndexOf(",")));
-                fieldRowMessage.setFieldvalue(sFieldValue.toString().substring(0,sFieldValue.toString().lastIndexOf(",")));
-                fieldRowMessage.setFieldsize(sFieldSize.toString().substring(0,sFieldSize.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldname(sFieldName.toString().substring(0, sFieldName.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldeng(sFieldEng.toString().substring(0, sFieldEng.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldremark(sFieldRemark.toString().substring(0, sFieldRemark.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldlength(sFieldLength.toString().substring(0, sFieldLength.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldvalue(sFieldValue.toString().substring(0, sFieldValue.toString().lastIndexOf(",")));
+                fieldRowMessage.setFieldsize(sFieldSize.toString().substring(0, sFieldSize.toString().lastIndexOf(",")));
                 fieldRowMessage.setFieldheadname(sFieldHeadName.toString());
 
                 //插入数据库
@@ -518,21 +554,22 @@ public class BcpMessageController {
 
     /**
      * 预览数据处理
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/previewHead")
-    public Result previewHead( String  fieldHeadName, ServletRequest request,@RequestParam(defaultValue = "0")   int pageNumber,
-                  @RequestParam(defaultValue = "10")   int pageSize,HttpServletResponse responese,@RequestParam(defaultValue = "create_date")    String sort) throws Exception {
+    public Result previewHead(String fieldHeadName, ServletRequest request, @RequestParam(defaultValue = "0") int pageNumber,
+                              @RequestParam(defaultValue = "10") int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date") String sort) throws Exception {
 
         Map<String, Object> searchParams = new HashMap();
-        searchParams.put("fieldHeadName",fieldHeadName);
+        searchParams.put("fieldHeadName", fieldHeadName);
         //分页返回
         Paging<FieldRowMessage> allByPage = fieldRowMessageService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
 
         //自定义返回content
         LinkedList linkedList = new LinkedList();
-        for (FieldRowMessage fieldRowMessage:allByPage.getContent()) {
+        for (FieldRowMessage fieldRowMessage : allByPage.getContent()) {
             String fieldvalue = fieldRowMessage.getFieldvalue();
             String[] split = fieldvalue.split(",");
             String fieldname = fieldRowMessage.getFieldname();
@@ -549,13 +586,15 @@ public class BcpMessageController {
         allByPage.setContent(linkedList);
         return ResultFactory.create(allByPage);
     }
+
     /**
      * 获取浏览表头
+     *
      * @param
      * @return Result
      */
     @RequestMapping(value = "/getPreViewHead")
-    public Result getPreViewHead( @Valid DefineHead defineHead,String  fieldHeadName, ServletRequest request, HttpServletResponse responese ) throws Exception {
+    public Result getPreViewHead(@Valid DefineHead defineHead, String fieldHeadName, ServletRequest request, HttpServletResponse responese) throws Exception {
         JSONObject jsonObject = new JSONObject();
         LinkedList<InputValue> list = new LinkedList<>();
 
@@ -573,10 +612,10 @@ public class BcpMessageController {
         String[] fieldheadname = fh.split(",");
 
         String[] fieldOption = null;
-        if (defineHead.getFieldOption() != null){
+        if (defineHead.getFieldOption() != null) {
             fieldOption = defineHead.getFieldOption();
         }
-        for (int j = 0; j<fieldName.length; j++){
+        for (int j = 0; j < fieldName.length; j++) {
             InputValue inputValue = new InputValue();
             inputValue.setFieldName(fieldName[j]);
             inputValue.setFieldEng(fieldEng[j]);
@@ -584,12 +623,12 @@ public class BcpMessageController {
             inputValue.setFieldLength(fieldLength[j]);
             inputValue.setFieldHeadName(fieldHeadName);
 
-            if (defineHead.getFieldOption() != null){
+            if (defineHead.getFieldOption() != null) {
                 inputValue.setFieldOption(fieldOption[0]);
             }
             list.add(inputValue);
         }
-        jsonObject.put("list",list);
+        jsonObject.put("list", list);
         return ResultFactory.create(jsonObject);
     }
 }
