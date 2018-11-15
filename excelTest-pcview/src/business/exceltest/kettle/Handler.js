@@ -328,6 +328,9 @@ export default class extends BaseHandler{
                 var transNode = data.node;
                 layer.close(index);
                 $("#transPath").val(transNode.text);
+                var split = transNode.id.split("_");
+
+                $("#transId").val(split[1]);
             })
 
         }else if($transRepositoryId != null && treeData == null){
@@ -339,20 +342,46 @@ export default class extends BaseHandler{
 
     //启动转换
     startTrans(args){
+        $(".start"+args.id).attr("disabled",true);
         args.data = {};
         let $this = this;
         let zidingyiData  = {};
         zidingyiData.transPath = args.transPath;
         args.data = zidingyiData;
-            this.ajaxResource(args).then((data) => {
-                if(data.code == "0"){
-                    layer.msg("启动成功！");
-                }else{
-                    layer.msg("请求失败！重新操作");
-                }
-            })
+        this.ajaxResource(args).then((data) => {
+            if(data.data.result == "1"){
+                $(".start"+args.id).attr("disabled",false);
+                return true;
+            }
+            if(data.data.result == "0"){
+                $(".start"+args.id).attr("disabled",false);
+                layer.msg("启动成功！");
+            }else{
+                layer.msg("请求失败！重新操作");
+            }
+        })
     }
+    //停止转换
+    stopTrans(args){
+        args.data = {};
+        let $this = this;
+        let zidingyiData  = {};
+        zidingyiData.transPath = args.transPath;
+        args.data = zidingyiData;
+        this.ajaxResource(args).then((data) => {
+            if(data.data.result == "1"){
+                $(".start"+args.id).attr("disabled",false);
+                layer.msg("成功停止！");
 
+            }else if(data.data.result == "0"){
+                $(".start"+args.id).attr("disabled",false);
+                layer.msg("没有运行此转换！")
+
+            }else{
+                layer.msg("请求失败！重新操作");
+            }
+        })
+    }
 
     //作业列表首页
     job(args) {
