@@ -28,6 +28,7 @@ import com.chrtc.excelTest.excelTest.service.impl.DataMappingXmlServiceImpl;
 import com.chrtc.excelTest.excelTest.utils.BcpUtil;
 import com.chrtc.excelTest.excelTest.utils.CompressedFileUtil;
 import com.chrtc.excelTest.excelTest.utils.ExcelUtil;
+import com.chrtc.excelTest.excelTest.utils.kettle.JDBCUtils;
 import com.google.common.base.Joiner;
 import com.sun.xml.internal.ws.streaming.XMLStreamReaderUtil;
 import org.dom4j.Document;
@@ -84,6 +85,16 @@ public class BcpMessageController {
     @Value("${ezdev.attach.config.local.dumpdir}")
     private  String dumpdir;
 
+    @Value("${scheduler.jdbc.dbdriver}")
+    private   String DBDRIVER;// 驱动类类名
+    @Value("${scheduler.jdbc.file_attachment}")
+    private   String TABLE;// 表名
+    @Value("${scheduler.jdbc.dburl}")
+    private   String DBURL;// 连接URL
+    @Value("${scheduler.jdbc.dbuser}")
+    private   String DBUSER; // 数据库用户名
+    @Value("${scheduler.jdbc.dbpassword}")
+    private  String DBPASSWORD; // 数据库密码
 
     /**
      *五位自增序列号
@@ -338,18 +349,10 @@ public class BcpMessageController {
     @RequestMapping(value = "/downLoad")
     public Result downLoad(HttpServletResponse response) throws Exception {
         JSONObject jsonObject = new JSONObject();
-        //注册驱动，反射方式加载
-        Class.forName("com.mysql.jdbc.Driver");
-        //设置url
-        String url = "jdbc:mysql://192.168.1.90:3306/test-demo?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true";
-        //设置用户名
-        String username = "root";
-        //设置密码
-        String password = "123";
-        //获得连接对象
-        Connection con = DriverManager.getConnection(url, username, password);
+        //获取连接
+        Connection con = JDBCUtils.getConnection(DBDRIVER, DBURL, DBUSER, DBPASSWORD);
         //获得执行者对象
-        String sql = "select attachment_id from file_attachment where attachment_name like '%模板%'";
+        String sql = "select attachment_id from "+ TABLE + " where attachment_name like '%模板%'";
         PreparedStatement ps = con.prepareStatement(sql);
         //获得结果集
         ResultSet rs = ps.executeQuery();
