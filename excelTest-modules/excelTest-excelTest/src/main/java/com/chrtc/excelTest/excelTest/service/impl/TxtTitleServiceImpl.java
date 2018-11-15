@@ -33,10 +33,6 @@ public class TxtTitleServiceImpl implements TxtTitleService {
 
             File file = new File(dir + "/" + s);
             List<List<Object>> lists = txtUtil.readTitle(file);
-            List<String> dataCodeList=txtTitleMapper.selectByFileName(fileName);
-            for(String l:dataCodeList){
-                System.out.println(l);
-            }
             txtTitleMapper.deleteByFileName(fileName);
             if (lists.size() > 0) {
                 for (Object dataCode : lists.get(0)) {
