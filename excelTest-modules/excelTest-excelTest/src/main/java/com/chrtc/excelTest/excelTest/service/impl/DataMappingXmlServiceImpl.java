@@ -34,11 +34,10 @@ public class DataMappingXmlServiceImpl implements DataMappingXmlService {
     private String dir;
 
     @Override
-    public void readXML(String fileId)  {
+    public void readXML(List<FileAttachment> xmlList)  {
         XmlUtil xmlUtil = new XmlUtil();
         try {
-            List<FileAttachment> list = attachService.list(fileId);
-            for (FileAttachment fileAttachment : list) {
+            for (FileAttachment fileAttachment : xmlList) {
                 String c = fileAttachment.getAttachmentPathStore();
                 //截取字符串，获取本地存储文件名
                 String[] split = c.split("/");
