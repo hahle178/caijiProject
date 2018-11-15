@@ -7,13 +7,14 @@ import java.util.List;
 public class BcpUtil {
     private static String filenameTemp;
 
-
+    private static FileNameUtil fileNameUtil = new FileNameUtil();
     /**
      * 创建文件
      *
      * @throws IOException
      */
     public static boolean creatBCPFile(String name,String path) throws IOException {
+        fileNameUtil.mkDirs(path);
         boolean flag = false;
         filenameTemp = path + name + ".bcp";
         File filename = new File(filenameTemp);
