@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TxtTitleService {
     public void readTxtTitle(List<FileAttachment> list);
+    public List<String> selectByFileName(String fileName);
 }

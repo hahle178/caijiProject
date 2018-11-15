@@ -48,4 +48,9 @@ public class TxtTitleServiceImpl implements TxtTitleService {
 
 
     }
+
+    @Override
+    public List<String> selectByFileName(String fileName) {
+        return txtTitleMapper.selectByFileName(fileName);
+    }
 }
