@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.chrtc.excelTest.excelTest.mapper.TxtTitleMapper">
+
+    <insert id="insert" parameterType="com.chrtc.excelTest.excelTest.domain.TxtTitle">
+        insert into txttitle ( fileName,dataCode,version_num)  values
+                 ( #{fileName,jdbcType=VARCHAR},#{dataCode,jdbcType=VARCHAR}, #{versionNum})
+    </insert>
+    <select id="selectByFileName"  parameterType="java.lang.String" resultType="java.lang.String">
+        select dataCode from txttitle where fileName=#{fileName} order by id
+    </select>
+    <delete id="deleteByFileName" parameterType="java.lang.String">
+        delete from txttitle where fileName=#{fileName}
+    </delete>
+</mapper>
