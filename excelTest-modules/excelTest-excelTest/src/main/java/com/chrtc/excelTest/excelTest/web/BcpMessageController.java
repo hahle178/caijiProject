@@ -27,6 +27,7 @@ import com.chrtc.excelTest.excelTest.service.FieldRowMessageService;
 import com.chrtc.excelTest.excelTest.service.impl.DataMappingXmlServiceImpl;
 import com.chrtc.excelTest.excelTest.utils.BcpUtil;
 import com.chrtc.excelTest.excelTest.utils.CompressedFileUtil;
+import com.chrtc.excelTest.excelTest.utils.DeleteFileUtil;
 import com.chrtc.excelTest.excelTest.utils.ExcelUtil;
 import com.google.common.base.Joiner;
 import com.sun.xml.internal.ws.streaming.XMLStreamReaderUtil;
@@ -260,6 +261,7 @@ public class BcpMessageController {
     @RequestMapping(value = "/upfile")
     public Result readExcel(String excelId, @Valid ExcelEntity excelEntity, HttpServletResponse responese) throws Exception {
         JSONObject jsonObject = new JSONObject();
+        DeleteFileUtil deleteFileUtil = new DeleteFileUtil();
         try {
             LinkedList bcpMessages = null;
             BcpMessage bcpMessage = null;
@@ -283,10 +285,11 @@ public class BcpMessageController {
                         //读取excel文件，生成bcp文件
                         bcpMessages = BcpMessageService.readExcelAndOut(fileAttachment);
                         //生成xml文件
-//                String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+                        // String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
                         //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                         //生成压缩文件
                         BcpMessageService.createZIP("EXCEL");
+                        deleteFileUtil.delFolder("E:"+File.separator+"EXCEL");
                     } else if (houzui.equals("csv") | houzui.equals("CSV")) {
                         //读取csv文件，生成bcp文件
                         bcpMessages = BcpMessageService.readCSVAndOut(fileAttachment);

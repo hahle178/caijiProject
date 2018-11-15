@@ -106,8 +106,9 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     public LinkedList readExcelAndOut(FileAttachment fileAttachment) {
         LinkedList bcpMessages = new LinkedList<>();
         FileMessage fileMessage = new FileMessage();
-        String xmlPath = "E:" + File.separator + "EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = "E:" + File.separator + "EXCEL"+File.separator+sn+ File.separator + "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
+        md
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
 //            for (FileAttachment fileAttachment : list) {
@@ -350,8 +351,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         long currentTimeMillisZIP = System.currentTimeMillis();//绝对秒数
 
         int nextSNZIP = getNextSN();//五位自增序列号,避重序列号
-
-        String zipName = dataSendSysIden + "_" + dataSendDevIden + "_" + dataReceSysIden + "_" + dataReceDevIden + "_" + currentTimeMillisZIP + "_" + nextSNZIP + ".zip";
+        FileNameUtil fileNameUtil= new FileNameUtil();
+        String zipName =fileNameUtil.ZipFileName();
         CompressedFileUtil.compressedFile("E:\\" + path + "\\", "E:\\zip\\", zipName);
 
     }
