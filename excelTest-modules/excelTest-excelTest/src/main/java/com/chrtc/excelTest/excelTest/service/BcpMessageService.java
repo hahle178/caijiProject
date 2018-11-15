@@ -59,13 +59,13 @@ public interface BcpMessageService {
      * @param
      * @return List
      */
-    public LinkedList readExcelAndOut(FileAttachment fileAttachment);
+    public BcpMessage readExcelAndOut(FileAttachment fileAttachment);
     /**
      * 读取csv文件且生成bcp文件
      * @param
      * @return List
      */
-    public LinkedList readCSVAndOut(FileAttachment fileAttachment)  throws IOException;
+    public BcpMessage readCSVAndOut(FileAttachment fileAttachment)  throws IOException;
     /**
      * 生成索引文件
      * @param
@@ -108,5 +108,5 @@ public interface BcpMessageService {
 
     void createZIP1(String txt)throws Exception;
 
-    LinkedList readXMLAndOut(FileAttachment fileAttachment);
+    BcpMessage readXMLAndOut(FileAttachment fileAttachment);
 }

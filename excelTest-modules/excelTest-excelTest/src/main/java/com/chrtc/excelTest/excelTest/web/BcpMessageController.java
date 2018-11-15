@@ -283,21 +283,23 @@ public class BcpMessageController {
 
                     if (houzui.equals("xls") | houzui.equals("xlsx")) {
                         //读取excel文件，生成bcp文件
-                        bcpMessages = BcpMessageService.readExcelAndOut(fileAttachment);
+                        bcpMessage= BcpMessageService.readExcelAndOut(fileAttachment);
+
                         //生成xml文件
                         // String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
                         //BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                         //生成压缩文件
                         BcpMessageService.createZIP("EXCEL");
-                        deleteFileUtil.delFolder("E:"+File.separator+"EXCEL");
-                    } else if (houzui.equals("csv") | houzui.equals("CSV")) {
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
+                     } else if (houzui.equals("csv") | houzui.equals("CSV")) {
                         //读取csv文件，生成bcp文件
-                        bcpMessages = BcpMessageService.readCSVAndOut(fileAttachment);
+                        bcpMessage = BcpMessageService.readCSVAndOut(fileAttachment);
                         //生成xml文件
 //                String xmlPath = "E:"+File.separator +"CSV" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                         //生成压缩文件
                         BcpMessageService.createZIP("CSV");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
                     } else if (houzui.equals("dmp") | houzui.equals("DMP")) {
                         //解析dmp文件
                         String code1 = "cmd" + " /k start " + dumpdir + "/dmp.bat " + attachmentName;
@@ -310,10 +312,11 @@ public class BcpMessageController {
 //                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
                         BcpMessageService.createZIP("TXT");
                     } else if (houzui.equals("xml") | houzui.equals("XML")) {
-                        bcpMessages = BcpMessageService.readXMLAndOut(fileAttachment);
+                        bcpMessage = BcpMessageService.readXMLAndOut(fileAttachment);
 //                String xmlPath = "E:"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml(xmlPath,bcpMessages);
                         BcpMessageService.createZIP("XML");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
                     }
                 }
 
