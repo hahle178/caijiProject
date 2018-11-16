@@ -354,7 +354,7 @@ public class KjobController {
         kJobRecord.setRecordJob(jobId);
 
         // 拼接logfilepath
-        String allLogFilePath = "E:"+ File.separator+"log"+File.separator+"job"+File.separator+new Date().getTime()+".txt";
+        String allLogFilePath = File.separator+ "home"+ File.separator+"log"+File.separator+"job"+File.separator+new Date().getTime()+".txt";
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String start =formatter.format(startTime);
