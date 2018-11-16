@@ -353,7 +353,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         int nextSNZIP = getNextSN();//五位自增序列号,避重序列号
         FileNameUtil fileNameUtil = new FileNameUtil();
         String zipName = fileNameUtil.ZipFileName();
-        CompressedFileUtil.compressedFile(File.separator + "home" + path + File.separator, File.separator + "home" + File.separator + "zip" + File.separator, zipName);
+        CompressedFileUtil.compressedFile(File.separator + "home" +File.separator+path+File.separator, File.separator + "home" + File.separator + "zip" + File.separator, zipName);
 
     }
 
@@ -369,7 +369,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String dataType = "0";//结构化非结构化标识
 
         String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
-        String path = File.separator + "home" + File.separator + "FIELD\\";
+        String path = File.separator + "home" + File.separator + "FIELD"+File.separator;
         BcpUtil.creatBCPFile(name, path);
 
 
@@ -411,7 +411,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String dataType = "0";//结构化非结构化标识
 
         String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
-        String path = File.separator + "home" + File.separator + "FIELD\\";
+        String path = File.separator + "home" + File.separator + "FIELD"+File.separator;
         BcpUtil.creatBCPFile(name, path);
 
 
@@ -461,7 +461,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         if (option == 1) {
             name = fieldBcpMessageService.findByFieldName(fieldVO.getFieldHeadName()[0]);
         }
-        String path = File.separator + "home" + File.separator + "FIELD\\";
+        String path = File.separator + "home" + File.separator + "FIELD"+File.separator;
         BcpUtil.creatBCPFile(name, path);
 
         String[] split = fieldVO.getFieldValue();
