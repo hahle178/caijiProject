@@ -87,15 +87,15 @@ public class BcpMessageController {
     private String dumpdir;
 
     @Value("${scheduler.jdbc.dbdriver}")
-    private   String DBDRIVER;// 驱动类类名
+    private String DBDRIVER;// 驱动类类名
     @Value("${scheduler.jdbc.file_attachment}")
-    private   String TABLE;// 表名
+    private String TABLE;// 表名
     @Value("${scheduler.jdbc.dburl}")
-    private   String DBURL;// 连接URL
+    private String DBURL;// 连接URL
     @Value("${scheduler.jdbc.dbuser}")
-    private   String DBUSER; // 数据库用户名
+    private String DBUSER; // 数据库用户名
     @Value("${scheduler.jdbc.dbpassword}")
-    private  String DBPASSWORD; // 数据库密码
+    private String DBPASSWORD; // 数据库密码
 
     /**
      * 五位自增序列号
@@ -294,7 +294,7 @@ public class BcpMessageController {
 
                     if (houzui.equals("xls") | houzui.equals("xlsx")) {
                         //读取excel文件，生成bcp文件
-                        bcpMessage= BcpMessageService.readExcelAndOut(fileAttachment);
+                        bcpMessage = BcpMessageService.readExcelAndOut(fileAttachment);
 
                         //生成xml文件
                         // String xmlPath = "E:"+File.separator +"EXCEL" + File.separator + "AQ_ZIP_INDEX.xml";
@@ -302,7 +302,7 @@ public class BcpMessageController {
                         //生成压缩文件
                         BcpMessageService.createZIP("EXCEL");
                         deleteFileUtil.delFolder(bcpMessage.getPath());
-                     } else if (houzui.equals("csv") | houzui.equals("CSV")) {
+                    } else if (houzui.equals("csv") | houzui.equals("CSV")) {
                         //读取csv文件，生成bcp文件
                         bcpMessage = BcpMessageService.readCSVAndOut(fileAttachment);
                         //生成xml文件
@@ -318,10 +318,17 @@ public class BcpMessageController {
                         Process process = exec;
                     } else if (houzui.equals("txt") | houzui.equals("TXT")) {
                         //读取txt文件,生成bcp文件
-                        bcpMessages = BcpMessageService.readTXTAndOut(fileAttachment);
+                        bcpMessage = BcpMessageService.readTXTAndOut(fileAttachment);
 //                String xmlPath = "E:"+File.separator +"TXT" + File.separator + "AQ_ZIP_INDEX.xml";
 //                BcpMessageService.createIndexXml1(xmlPath,bcpMessages);
+                        if (bcpMessage==null||bcpMessage.equals("")) {
+                            jsonObject.put("SUCCESS", false);
+                            jsonObject.put("MSG","该文件的title文件未上传请确定上传后上传");
+                            deleteFileUtil.delFolder(bcpMessage.getPath());
+                            return ResultFactory.create(jsonObject);
+                        }
                         BcpMessageService.createZIP("TXT");
+                        deleteFileUtil.delFolder(bcpMessage.getPath());
                     } else if (houzui.equals("xml") | houzui.equals("XML")) {
                         bcpMessage = BcpMessageService.readXMLAndOut(fileAttachment);
 //                String xmlPath = "E:"+File.separator +"XML" + File.separator + "AQ_ZIP_INDEX.xml";
@@ -383,7 +390,7 @@ public class BcpMessageController {
         //获取连接
         Connection con = JDBCUtils.getConnection(DBDRIVER, DBURL, DBUSER, DBPASSWORD);
         //获得执行者对象
-        String sql = "select attachment_id from "+ TABLE + " where attachment_name like '%模板%'";
+        String sql = "select attachment_id from " + TABLE + " where attachment_name like '%模板%'";
         PreparedStatement ps = con.prepareStatement(sql);
         //获得结果集
         ResultSet rs = ps.executeQuery();

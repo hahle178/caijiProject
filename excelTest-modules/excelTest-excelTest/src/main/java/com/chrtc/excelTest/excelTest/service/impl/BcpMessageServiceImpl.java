@@ -6,9 +6,7 @@ import java.util.*;
 import com.chrtc.attach.common.domain.FileAttachment;
 import com.chrtc.attach.common.service.AttachService;
 import com.chrtc.excelTest.excelTest.domain.*;
-import com.chrtc.excelTest.excelTest.service.CreateXmlService;
-import com.chrtc.excelTest.excelTest.service.FieldBcpMessageService;
-import com.chrtc.excelTest.excelTest.service.XmlFILEService;
+import com.chrtc.excelTest.excelTest.service.*;
 import com.chrtc.excelTest.excelTest.utils.*;
 import com.csvreader.CsvReader;
 import org.apache.log4j.Logger;
@@ -23,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.chrtc.common.base.domain.Paging;
 import com.chrtc.excelTest.excelTest.mapper.BcpMessageMapper;
-import com.chrtc.excelTest.excelTest.service.BcpMessageService;
 
 /**
  * Created by AUTO on 2018-06-08 14:03:31.
@@ -42,7 +39,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     private FieldBcpMessageService fieldBcpMessageService;
     @Autowired
     private CreateXmlService createXmlService;
-
+    @Autowired
+    private TxtTitleService txtTitleService;
 
     @Value("${ezdev.attach.config.local.dir}")
     private String dir;
@@ -519,66 +517,39 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     /**
      * 读取txt文件写出bcp文件
      *
-     * @param excelId
+     * @param
      * @return
      */
     @Override
-    public LinkedList readTXTAndOut(FileAttachment fileAttachment) {
+    public BcpMessage readTXTAndOut(FileAttachment fileAttachment) {
         LinkedList bcpMessages = new LinkedList<>();
         List<List<Object>> titlelist = new LinkedList<>();
         String xmlPath = "E:" + File.separator + "TXT" + File.separator + "AQ_ZIP_INDEX.xml";
         int Column = 0;
+        BcpMessage bcpMessage = new BcpMessage();
         ListByFile.clear();
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
             TxtUtil txtUtil = new TxtUtil();
-            LinkedList<Object> titleList = new LinkedList<>();
 //            for (FileAttachment fileAttachment : list) {
-                String c = fileAttachment.getAttachmentPathStore();
-                String[] split = c.split("/");
-                String s = split[1];
-                //获取文件file
-                File file = new File(dir + "/" + s);
-                File newFile = file;
-                InputStream in = new FileInputStream(file);
-                String attachmentName = fileAttachment.getAttachmentName();
-                String[] names = attachmentName.split("_");
-                int lastIndex = names.length - 1;
+            String c = fileAttachment.getAttachmentPathStore();
+            String attachmentName = fileAttachment.getAttachmentName();
+            HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
+            //截取字符串，获取本地存储文件名
+            String[] split = c.split("/");
+            String s = split[1];
+
+            File file = new File(dir + "/" + s);
+            List<String> titleList = new LinkedList<>();
+            String filename = fileAttachment.getAttachmentName();
+            filename = filename.substring(0,filename.indexOf("."));
+                titleList=txtTitleService.selectByFileName(filename+"_title");
                 //进行title文件判断
-                if (names[lastIndex].equals("title.txt") | names[lastIndex].equals("TITLE.TXT")) {
-                    titlelist = txtUtil.readTitle(file);
-                    titleList.addAll(titlelist.get(0));
-//                    for (Map.Entry<String, Object> entry : titleMap.entrySet()) {
-//                        titleList.add((String) entry.getKey());
-//                    }
-//                    ListByFile.add(titleMap);
-                }
-//            }
-            //获取数据文件
-//            for (FileAttachment fileAttachment : list) {
-//                String c = fileAttachment.getAttachmentPathStore();
-//                String[] split = c.split("/");
-//                String s = split[1];
-//                //获取文件file
-//                File file = new File(dir + "/" + s);
-//                InputStream in = new FileInputStream(file);
-//                String attachmentName = fileAttachment.getAttachmentName();
-//                String[] names = attachmentName.split("_");
-//                int lastIndex = names.length - 1;
-//                Map titleMap = ListByFile.get(0);
-                //进行title文件判断
-                if (!names[lastIndex].equals("title.txt")) {
-                    List<Map<String, Object>> maps = txtUtil.readFile(file, titlelist.size());
-                    BcpMessage bcpMessage = new BcpMessage();
-                    HashMap<String, Object> objectObjectHashMap = new LinkedHashMap<>();
+                if (titleList.size()>0) {
+                    List<Map<String, Object>> maps = txtUtil.readFile(file, titleList.size());
+
                     //生成bcp文件
-                    String sysCode = "101";//数据发送方系统标识
-                    String depCode = "202";//数据发送方机构标识
-                    long currentTimeMillis = System.currentTimeMillis();//绝对秒数
-                    int nextSN = getNextSN();//五位自增序列号
-                    String dataCode = "303";//数据集代码
-                    String dataType = "0";//结构化非结构化标识
-                    String path = "E:" + File.separator + "TXT\\";
+                    String path = "E:" + File.separator + "TXT"+File.separator;
 //                    String name = sysCode + "_" + depCode + "_" + currentTimeMillis + "_" + nextSN + "_" + dataCode + "_" + dataType;
                     String name = fileNameUtil.BcpFileName();
                     //String path = "E:" + File.separator + "FILE\\";
@@ -604,6 +575,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                         }
                         BcpUtil.writeTxtFile(stringBuilder.toString());
                     }
+                }else{
+                    return null;
                 }
 //            }
             //暂时使用空数据来代替SDate
@@ -611,7 +584,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return bcpMessages;
+        return bcpMessage;
     }
 
     /**
@@ -703,7 +676,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
     /**
      * 读取XML文件
      *
-     * @param excelId
+     * @param
      * @return
      */
     @Override

@@ -102,7 +102,7 @@ public interface BcpMessageService {
      * @param excelId
      * @return
      */
-    LinkedList readTXTAndOut(FileAttachment fileAttachment);
+    BcpMessage readTXTAndOut(FileAttachment fileAttachment);
 
     void createIndexXml1(String xmlPath, LinkedList bcpMessages) throws IOException;
 
