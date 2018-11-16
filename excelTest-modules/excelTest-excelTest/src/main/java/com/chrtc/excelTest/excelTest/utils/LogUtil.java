@@ -15,7 +15,7 @@ public class LogUtil {
                 //Whatever the file path is.
 
 
-                String path="E://ExcelLogs/"+fileName+".log";
+                String path=File.separator+ "home"+File.separator+"ExcelLogs"+File.separator+fileName+".log";
                 File statText = new File(path);
                 FileOutputStream is = new FileOutputStream(statText,true);
                 OutputStreamWriter osw = new OutputStreamWriter(is);
@@ -41,7 +41,7 @@ public class LogUtil {
 
         public void CountLog(String fileName,String key){
         try {
-            String path = "E://CountLogs/" + fileName + ".log";
+            String path = File.separator+ "home"+File.separator+"CountLogs"+File.separator + fileName + ".log";
             File statText = new File(path);
             FileOutputStream is = new FileOutputStream(statText, true);
             OutputStreamWriter osw = new OutputStreamWriter(is);

@@ -196,7 +196,7 @@ public class BcpMessageController {
     public Result ajaxGetBcpName() throws Exception {
         List<JSONObject> list = new ArrayList();
 
-        List<String> fileName = BcpUtil.getFileName("E:\\EXCEL");
+        List<String> fileName = BcpUtil.getFileName(File.separator+ "home"+File.separator+"EXCEL");
         for (String fn : fileName) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("value", fn);
@@ -342,7 +342,7 @@ public class BcpMessageController {
                 //接收表单数据，生成bcp文件
                 bcpMessage = BcpMessageService.getEntityCreateBcp(excelEntity);
                 //生成xml文件
-                String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+                String xmlPath =File.separator+ "home"+ File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
                 BcpMessageService.createIndexXml(xmlPath, bcpMessages);
                 //生成压缩文件
                 BcpMessageService.createZIP("FIELD");
@@ -365,7 +365,7 @@ public class BcpMessageController {
         //接收表单数据，生成bcp文件
         bcpMessages = BcpMessageService.getEntityCreateBcp1(test);
         //生成xml文件
-        String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath = File.separator+ "home" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         BcpMessageService.createIndexXml(xmlPath, bcpMessages);
         //生成压缩文件
         try {
@@ -484,7 +484,7 @@ public class BcpMessageController {
         }*/
 
         //生成xml文件
-        String xmlPath = "E:" + File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
+        String xmlPath =File.separator+ "home"+ File.separator + "FIELD" + File.separator + "AQ_ZIP_INDEX.xml";
         BcpMessageService.createIndexXml(xmlPath, bcpMessages);
 
         //生成压缩文件

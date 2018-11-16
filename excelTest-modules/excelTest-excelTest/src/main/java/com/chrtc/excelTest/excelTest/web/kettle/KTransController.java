@@ -355,7 +355,7 @@ public class KTransController {
         kTransRecord.setRecordTrans(transId);
 
         // 拼接logfilepath
-        String allLogFilePath = "E:"+ File.separator+"log"+File.separator+"trans"+File.separator+new Date().getTime()+".txt";
+        String allLogFilePath = File.separator+ "home"+ File.separator+"log"+File.separator+"trans"+File.separator+new Date().getTime()+".txt";
 
         kTransRecord.setLogFilePath(allLogFilePath);
         kTransRecord.setRecordStatus(status);
