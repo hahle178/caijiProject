@@ -108,6 +108,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String xmlPath = "E:" + File.separator + "EXCEL"+File.separator+ "AQ_ZIP_INDEX.xml";
         bankListByExcel1.clear();
         fileNameUtil.mkDirs("E:" + File.separator + "EXCEL"+File.separator);
+        String filename = fileAttachment.getAttachmentName();
+        filename = filename.substring(0,filename.indexOf("."));
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
 //            for (FileAttachment fileAttachment : list) {
@@ -168,7 +170,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 }
 //            }
             List<List<Object>> titlelist = fileMessage.getTitleList();
-            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, "");
+            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, filename);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -185,6 +187,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String xmlPath = "E:" + File.separator + "CSV" + File.separator + "AQ_ZIP_INDEX.xml";
         fileNameUtil.mkDirs("E:" + File.separator + "CSV" + File.separator );
         bankListByExcel1.clear();
+        String filename = fileAttachment.getAttachmentName();
+        filename = filename.substring(0,filename.indexOf("."));
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
 //            for (FileAttachment fileAttachment : list) {
@@ -280,7 +284,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 //            }
 
 
-            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, "");
+            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, filename);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -528,6 +532,8 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         int Column = 0;
         BcpMessage bcpMessage = new BcpMessage();
         ListByFile.clear();
+        String filename = fileAttachment.getAttachmentName();
+        filename = filename.substring(0,filename.indexOf("."));
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
             TxtUtil txtUtil = new TxtUtil();
@@ -541,8 +547,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
 
             File file = new File(dir + "/" + s);
             List<String> titleList = new LinkedList<>();
-            String filename = fileAttachment.getAttachmentName();
-            filename = filename.substring(0,filename.indexOf("."));
+
                 titleList=txtTitleService.selectByFileName(filename+"_title");
                 //进行title文件判断
                 if (titleList.size()>0) {
@@ -580,7 +585,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 }
 //            }
             //暂时使用空数据来代替SDate
-            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, "");
+            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, filename);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -687,7 +692,10 @@ public class BcpMessageServiceImpl implements BcpMessageService {
         String xmlPath = "E:" + File.separator + "XML" + File.separator + "AQ_ZIP_INDEX.xml";
         fileNameUtil.mkDirs("E:" + File.separator + "XML" + File.separator );
         bankListByExcel1.clear();
+        String filename = fileAttachment.getAttachmentName();
+        filename = filename.substring(0,filename.indexOf("."));
         BcpMessage bcpMessage = new BcpMessage();
+        List<List<Object>> titlelist = new LinkedList<>();
         try {
 //            List<FileAttachment> list = attachService.list(excelId);
 //            for (FileAttachment fileAttachment : list)
@@ -705,6 +713,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                 //读取excel中的内容
                 String extString = attachmentName.substring(attachmentName.lastIndexOf("."));
                 fileMessage = xmlUtil.ReadFile(file);
+                titlelist.addAll(fileMessage.getTitleList());
                 //生成bcp文件
 //                String sysCode = "101";//数据发送方系统标识
 //                String depCode = "202";//数据发送方机构标识
@@ -743,7 +752,7 @@ public class BcpMessageServiceImpl implements BcpMessageService {
                     objectObjectHashMap.put(entry.getKey(), entry.getValue());
                 }
                 bankListByExcel1.add(objectObjectHashMap);
-
+            createXmlService.createIndexXml(xmlPath, bcpMessages, titlelist, filename);
 //                Map<String, Object> stringObjectMap = new LinkedHashMap<>();
 //                List<List<Object>> titleList = fileMessage.getTitleList();
 //                for (List<Object> list2 : titleList) {
