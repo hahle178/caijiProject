@@ -444,7 +444,7 @@ public class KjobController {
         }
         //读取磁盘文件
         String content = FileUtils.readFileToString(loginFile, Constant.DEFAULT_ENCODING);
-        String[] split = content.split("\\r\\n");
+        String[] split = content.split("\\n");
         return ResultFactory.create(split);
     }
 
