@@ -309,6 +309,8 @@ export default class extends BaseHandler{
                 type: 1,
                 title: '请选择转换',
                 skin: 'layui-layer-rim',
+                scrollbar:true,
+                area:["300px","500px"],
                 content: '<div id="repositoryTree"><ul id="repositoryTreeUl"></ul></div>'
             });
 
@@ -520,6 +522,8 @@ export default class extends BaseHandler{
                 type: 1,
                 title: '请选择转换',
                 skin: 'layui-layer-rim',
+                scrollbar:true,
+                area:["300px","500px"],
                 content: '<div id="repositoryTree"><ul id="repositoryTreeUl"></ul></div>'
             });
 
