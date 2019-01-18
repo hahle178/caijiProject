@@ -313,15 +313,16 @@ export default class extends BaseHandler{
             });
 
 
-            treeData.forEach(function (value) {
+            /*treeData.forEach(function (value) {
                 if(value.id.startsWith("trans") ){
                     $("#repositoryTreeUl").append("<li>"+value.text+"</li>")
                 }
-            })
+            })*/
 
             $('#repositoryTree').jstree({
                 "core" : {
                     "check_callback" : true, // enable all modifications
+                    "data":treeData
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
@@ -523,15 +524,16 @@ export default class extends BaseHandler{
             });
 
 
-            treeData.forEach(function (value) {
+            /*treeData.forEach(function (value) {
                 if(value.id.startsWith("job") ){
                     $("#repositoryTreeUl").append("<li>"+value.text+"</li>")
                 }
-            })
+            })*/
 
             $('#repositoryTree').jstree({
                 "core" : {
                     "check_callback" : true, // enable all modifications
+                    "data" :treeData
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
