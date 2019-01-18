@@ -10,10 +10,11 @@
     <description></description>
 
     <parent>
+
         <groupId>com.chrtc.ezdev</groupId>
         <artifactId>ezdev-common-parent</artifactId>
         <version>2.2.2-SNAPSHOT</version>
-        <relativePath />
+        <relativePath/>
     </parent>
 
     <url>http://www.chrhc.com/</url>
@@ -60,6 +61,34 @@
 
     <!-- 依赖项定义 -->
     <dependencies>
+
+        <!--<dependency>-->
+        <!--<groupId>com.chrtc.ezdev</groupId>-->
+        <!--<artifactId>ezdev-system-starter-microservices</artifactId>-->
+        <!--<version>2.0.0-SNAPSHOT</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-starter-feign</artifactId>-->
+        <!--<version>1.4.4.RELEASE</version>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--<groupId>org.springframework.cloud</groupId>-->
+        <!--<artifactId>spring-cloud-netflix-core</artifactId>-->
+        <!--<version>1.4.4.RELEASE</version>-->
+        <!--</dependency>-->
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-attach-common</artifactId>
+            <version>2.2.2-SNAPSHOT</version>
+        </dependency>
+       <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+
+
+
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
@@ -79,10 +108,20 @@
         <dependency>
             <groupId>com.chrtc.ezdev</groupId>
             <artifactId>ezdev-common-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>ezdev-metadata-core</artifactId>
+                    <groupId>com.chrtc.ezdev</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.chrtc.ezdev</groupId>
             <artifactId>ezdev-common-mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.chrtc.ezdev</groupId>
+            <artifactId>ezdev-common-jpa</artifactId>
         </dependency>
 
 
@@ -90,17 +129,30 @@
             <groupId>com.chrtc.ezdev</groupId>
             <artifactId>ezdev-system-starter-monolithic</artifactId>
             <version>${ezdev.system.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>ezdev-metadata-core</artifactId>
+                    <groupId>com.chrtc.ezdev</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <dependency>
+            <artifactId>ezdev-metadata-core</artifactId>
+            <groupId>com.chrtc.ezdev</groupId>
+            <version>2.0.0-SNAPSHOT</version>
+        </dependency>
+
 
         <dependency>
             <groupId>com.chrtc.ezdev</groupId>
             <artifactId>ezdev-common-log</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>com.chrtc.ezdev</groupId>
             <artifactId>ezdev-attach-common</artifactId>
             <version>2.2.2-SNAPSHOT</version>
-        </dependency>
+        </dependency>-->
 
         <!-- java poi -->
         <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->

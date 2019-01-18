@@ -221,7 +221,10 @@ public class KRepositoryController {
                     stateMap.put("disabled", "false");
                     repositoryTree.setState(stateMap);
                 }
-                newRepositoryTreeList.add(repositoryTree);
+
+                if(!repositoryTree.getId().startsWith("job")){
+                    newRepositoryTreeList.add(repositoryTree);
+                }
             }
             return ResultFactory.create(newRepositoryTreeList);
         } catch (KettleException e) {
@@ -247,7 +250,9 @@ public class KRepositoryController {
                     stateMap.put("disabled", "false");
                     repositoryTree.setState(stateMap);
                 }
-                newRepositoryTreeList.add(repositoryTree);
+                if(!repositoryTree.getId().startsWith("trans")){
+                    newRepositoryTreeList.add(repositoryTree);
+                }
             }
             return ResultFactory.create(newRepositoryTreeList);
         } catch (KettleException e) {

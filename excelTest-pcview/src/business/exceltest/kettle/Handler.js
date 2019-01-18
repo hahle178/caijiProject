@@ -10,11 +10,11 @@ import eventUtils from "ezdev-pcview/utils/EvenUtils";
 import  "./css/style.min.css";
 import  "./css/my.css";
 import  "./js/jstree";
+
 //import  "./js/main";
 import   "./js/echarts-all";
 import ajaxRequest from "ezdev-pcview/ajax/AjaxRequest";
 import Table from "ezdev-pcview/components/table/Table";
-
 
 let treeData = [];
 let layerId = null;
@@ -39,7 +39,6 @@ export default class extends BaseHandler{
                      data.data.forEach(function (value) {
                            $this.respositoryList(value);
                      })
-
                  })
             });
         } else {
@@ -309,19 +308,22 @@ export default class extends BaseHandler{
                 type: 1,
                 title: '请选择转换',
                 skin: 'layui-layer-rim',
+                scrollbar:true,
+                area:["300px","500px"],
                 content: '<div id="repositoryTree"><ul id="repositoryTreeUl"></ul></div>'
             });
 
 
-            treeData.forEach(function (value) {
+           /* treeData.forEach(function (value) {
                 if(value.id.startsWith("trans") ){
                     $("#repositoryTreeUl").append("<li>"+value.text+"</li>")
                 }
-            })
+            })*/
 
             $('#repositoryTree').jstree({
                 "core" : {
                     "check_callback" : true, // enable all modifications
+                    "data":treeData
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
@@ -484,7 +486,18 @@ export default class extends BaseHandler{
             args.type = args.type || 'get';
             this.render(args).then(()=>{
                 treeData = null;
+                /*$('#jstree_demo_div').jstree({//'plugins':["checkbox"],
+                    'core' : {
+                        'data' : [
+                            { "id" : "id_1", "parent" : "#", "text" : "山东省",'state' : {  'selected' : false }, },
+                            { "id" : "id_1_1", "parent" : "id_1", "text" : "济南市" ,'state' : {  'selected' : false },},
+                            { "id" : "id_2", "parent" : "#", "text" : "河北省" ,'state' : {  'selected' : false },},
+                            { "id" : "id_2_1", "parent" : "id_2", "text" : "石家庄" ,'state' : {  'selected' : false },},
+                            { "id" : "id_2_2", "parent" : "id_2", "text" : "北京" ,'state' : {  'selected' : false },},
+                        ]
+                    } });*/
             });
+
         } else {
             throw new Error("参数无效，请传递如{tpl:add-(默认),contentId:list-(默认)}的JS对象");
         }
@@ -496,7 +509,6 @@ export default class extends BaseHandler{
         let repository = args.data || {};
         repository.repositoryId = repositoryId;
         args.data = repository;
-
         if (repositoryId != null && repositoryId != ""){
             this.ajaxResource(args).then((data) => {
                 if(data.code == "0"){
@@ -519,19 +531,39 @@ export default class extends BaseHandler{
                 type: 1,
                 title: '请选择转换',
                 skin: 'layui-layer-rim',
+                scrollbar:true,
+                area:["300px","500px"],
+
                 content: '<div id="repositoryTree"><ul id="repositoryTreeUl"></ul></div>'
             });
 
 
-            treeData.forEach(function (value) {
+          /*  treeData.forEach(function (value) {
                 if(value.id.startsWith("job") ){
                     $("#repositoryTreeUl").append("<li>"+value.text+"</li>")
                 }
-            })
-
+            })*/
+           /* $('#repositoryTree').jstree({//'plugins':["checkbox"],
+                'core' : {
+                    'data' : [
+                        { "id" : "id_1", "parent" : "#", "text" : "山东省",'state' : {  'selected' : false }, },
+                        { "id" : "id_1_1", "parent" : "id_1", "text" : "济南市" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2", "parent" : "#", "text" : "河北省" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2_1", "parent" : "id_2", "text" : "石家庄" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2_2", "parent" : "id_2", "text" : "北京" ,'state' : {  'selected' : false },},
+                    ]
+                } });*/
             $('#repositoryTree').jstree({
                 "core" : {
                     "check_callback" : true, // enable all modifications
+                    "data" :treeData
+                        /*[
+                        { "id" : "id_1", "parent" : "#", "text" : "山东省",'state' : {  'selected' : false }, },
+                        { "id" : "id_1_1", "parent" : "id_1", "text" : "济南市" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2", "parent" : "#", "text" : "河北省" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2_1", "parent" : "id_2", "text" : "石家庄" ,'state' : {  'selected' : false },},
+                        { "id" : "id_2_2", "parent" : "id_2", "text" : "北京" ,'state' : {  'selected' : false },},
+                    ]*/
                 },
                 "plugins" : ["dnd","contextmenu"]
             }).bind('select_node.jstree', function (event,data) {
