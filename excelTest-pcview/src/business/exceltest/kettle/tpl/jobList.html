@@ -4,18 +4,25 @@
         <td >{{value.jobId}}</td>
         <td >{{value.jobName}}</td>
         <td >{{value.jobPath}}</td>
-        <td> <button e-event="href:/{{path}}/startJob?id={{value.jobId}}&jobPath={{value.jobPath}}&url=/excelTest/exceltest/kjob/runJob" class="start{{value.jobId}} btn  btn-xs form-delete" type="button"  title="启动">
-            <i class="fa fa-play"></i>&nbsp;启动
-        </button>
-        <button e-event="href:/{{path}}/stopJob?id={{value.jobId}}&jobPath={{value.jobPath}}&url=/excelTest/exceltest/kjob/stopJob" class="btn  btn-xs form-delete" type="button"  title="停止">
-            <i class="fa fa-stop"></i>&nbsp;停止
-        </button>
-         <button e-event="href:/{{path}}/deleteRow?id={{value.id}}&name={{value.jobPath}}" class="btn  btn-xs form-delete" type="button"  title="删除">
-            <i class="fa fa-trash"></i>&nbsp;删除
-        </button>
-        <button e-event="href:/{{path}}/scheduler?id={{value.jobId}}" class="btn  btn-xs form-delete" type="button"  title="编辑定时时间">
-            <i class="fa fa-edit"></i>&nbsp;编辑定时时间
-        </button>
+        <td>
+            <button e-event="href:/{{path}}/remoteJob?id={{value.jobId}}&jobPath={{value.jobPath}}&jobId1={{value.jobDescription}}&url=/excelTest/exceltest/kjob/remoterunJob" class="btn  btn-xs form-delete remote" type="button"  title="远程启动">
+                <i class="fa fa-play"></i>&nbsp;远程启动
+            </button>
+            <button e-event="href:/{{path}}/remotestatus?url=/excelTest/exceltest/kjob/remotestatus" class="btn  btn-xs form-delete status" type="button"  title="查看状态">
+                <i class="fa fa-eye"></i>&nbsp;查看状态
+            </button>
+            <button e-event="href:/{{path}}/startJob?id={{value.jobId}}&jobPath={{value.jobPath}}&jobId1={{value.jobDescription}}&url=/excelTest/exceltest/kjob/runJob" disabled class="start{{value.jobId}} btn  btn-xs form-delete local" type="button"  title="本地启动">
+             <i class="fa fa-play"></i>&nbsp;本地启动
+            </button>
+            <button e-event="href:/{{path}}/stopJob?id={{value.jobId}}&jobPath={{value.jobPath}}&url=/excelTest/exceltest/kjob/stopJob"  disabled class="btn  btn-xs form-delete stop" type="button"  title="本地停止">
+               <i class="fa fa-stop"></i>&nbsp;本地停止
+             </button>
+             <button e-event="href:/{{path}}/deleteRow?id={{value.id}}&name={{value.jobPath}}&jobId1={{value.jobDescription}}" class="btn  btn-xs form-delete delete" type="button"  title="删除">
+                <i class="fa fa-trash"></i>&nbsp;删除
+            </button>
+            <button e-event="href:/{{path}}/scheduler?id={{value.jobId}}" class="btn  btn-xs form-delete editTime" type="button"  title="编辑定时时间">
+                <i class="fa fa-edit"></i>&nbsp;编辑定时时间
+          </button>
         </td>
     </tr>
 {{/each}}

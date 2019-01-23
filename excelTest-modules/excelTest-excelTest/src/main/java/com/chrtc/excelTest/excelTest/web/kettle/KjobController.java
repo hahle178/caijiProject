@@ -29,6 +29,8 @@ import org.pentaho.di.core.logging.KettleLogStore;
 import org.pentaho.di.core.logging.LoggingBuffer;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.job.JobMeta;
+import org.pentaho.di.repository.ObjectId;
+import org.pentaho.di.repository.RepositoryDirectory;
 import org.pentaho.di.repository.RepositoryDirectoryInterface;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepository;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepositoryMeta;
@@ -85,6 +87,8 @@ public class KjobController {
     private   String DBUSER; // 数据库用户名
     @Value("${scheduler.jdbc.dbpassword}")
     private  String DBPASSWORD; // 数据库密码
+    @Value("${kettle.ip}")
+    private  String  KETTLEIP; // kettle服务器远程配置
 
 
     /**
@@ -193,8 +197,9 @@ public class KjobController {
      * @return
      */
     @RequestMapping("/jobAdd")
-    public Result insert(Kjob kjob, HttpServletRequest request){
-        KjobService.deleteByJobName(kjob.getJobPath());
+    public Result insert(Kjob kjob,String jobId1, HttpServletRequest request){
+        KjobService.deleteByJobName(kjob.getJobPath(),jobId1);
+        kjob.setJobDescription(jobId1);
         int flag = KjobService.insertJob(kjob);
         if (flag > 0) {
             return ResultFactory.create(CodeMsgBase.SUCCESS);
@@ -222,9 +227,9 @@ public class KjobController {
      * @throws Exception
      */
     @RequestMapping("/runJob")
-    public  Result repositoryName(String jobPath) throws Exception {
+    public  Result repositoryName(String jobPath,String jobId1) throws Exception {
             //根据repositoryName得到转换信息
-            Kjob kjob  =  KjobService.findByJobPath(jobPath);
+            Kjob kjob  =  KjobService.findByJobPath(jobPath,jobId1);
             String transRepositoryId = kjob.getJobRepositoryId();
             KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
             //初始化环境
@@ -240,8 +245,35 @@ public class KjobController {
             //连接资源库
             repository.connect("admin","admin");
             RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree();
-            //选择作业
-            JobMeta jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
+        RepositoryDirectoryInterface d = null;
+            JobMeta jobMeta = null;
+            if (!jobId1.equals("0")){
+                    List<RepositoryDirectoryInterface> children = directoryInterface.getChildren();
+                    if(children.size() >0 ){
+                        for (RepositoryDirectoryInterface  r :children) {
+                            ObjectId objectId = r.getObjectId();
+                            if(r.getObjectId().getId().equals(jobId1)){
+                                d = r;
+                                break;
+                            }else{
+                                List<RepositoryDirectoryInterface> children1 = r.getChildren();
+                                if(children1.size() >0){
+                                    for (RepositoryDirectoryInterface  r1 :children1) {
+                                        if(r1.getObjectId().getId().equals(jobId1)){
+                                            d = r1;
+                                            break;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                //选择作业
+                jobMeta = repository.loadJob(jobPath, d, null, null);
+                }else{
+                //选择作业
+                jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
+            }
             Job job = new Job(repository, jobMeta);
 /*            jobMap.put(jobPath,job);
         Job ss = jobMap.get(jobPath);*/
@@ -278,6 +310,65 @@ public class KjobController {
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
             return ResultFactory.create(jsonObject);
         }
+    }
+    //远程执行作业
+    @RequestMapping("/remoterunJob")
+    public  Result remoterunJob(String jobPath,String jobId1) throws Exception {
+//根据repositoryName得到转换信息
+        Kjob kjob = KjobService.findByJobPath(jobPath, jobId1);
+        String transRepositoryId = kjob.getJobRepositoryId();
+        KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
+        //初始化环境
+        KettleEnvironment.init();
+        //创建DB资源库
+        KettleDatabaseRepository repository = new KettleDatabaseRepository();
+        DatabaseMeta databaseMeta = new DatabaseMeta(KRepository.getRepositoryName(), KRepository.getRepositoryType(), KRepository.getDatabaseAccess(), KRepository.getDatabaseHost(), KRepository.getDatabaseName(), KRepository.getDatabasePort(), KRepository.getDatabaseUsername(), KRepository.getDatabasePassword());
+        //选择资源库
+        //资源库元对象
+        KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
+        repositoryInfo.setConnection(databaseMeta);
+        repository.init(repositoryInfo);
+        //连接资源库
+        repository.connect("admin", "admin");
+        RepositoryDirectoryInterface directoryInterface = repository.loadRepositoryDirectoryTree();
+        RepositoryDirectoryInterface d = null;
+        String path = null;
+        JobMeta jobMeta = null;
+        if (!jobId1.equals("0")) {
+            List<RepositoryDirectoryInterface> children = directoryInterface.getChildren();
+            if (children.size() > 0) {
+                for (RepositoryDirectoryInterface r : children) {
+                    ObjectId objectId = r.getObjectId();
+                    if (r.getObjectId().getId().equals(jobId1)) {
+                        path = r.getPath();
+                        break;
+                    } else {
+                        List<RepositoryDirectoryInterface> children1 = r.getChildren();
+                        if (children1.size() > 0) {
+                            for (RepositoryDirectoryInterface r1 : children1) {
+                                if (r1.getObjectId().getId().equals(jobId1)) {
+                                    path = r1.getPath();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            path = directoryInterface.getPath();
+        }
+        LinkedHashMap<Object, Object> objectObjectLinkedHashMap = new LinkedHashMap<>();
+        objectObjectLinkedHashMap.put("ip",KETTLEIP);
+        objectObjectLinkedHashMap.put("path",path);
+
+        return ResultFactory.create(objectObjectLinkedHashMap);
+    }
+
+    //远程执行作业
+    @RequestMapping("/remotestatus")
+    public  Result remotestatus() throws Exception {
+        return ResultFactory.create(KETTLEIP);
     }
 
     /**

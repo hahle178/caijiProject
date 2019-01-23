@@ -69,9 +69,9 @@ public class KjobServiceImpl implements KjobService {
         return kjobMapper.findAllList();
     }
 
-    public void deleteByJobName(String path){
+    public void deleteByJobName(String path,String jobId1){
         KjobExample example = new KjobExample();
-        example.createCriteria().andJobPathEqualTo(path);
+        example.createCriteria().andJobPathEqualTo(path).andJobDescriptionEqualTo(jobId1);
         kjobMapper.deleteByExample(example);
     }
     public Integer  insertJob(Kjob kjob){
@@ -86,9 +86,9 @@ public class KjobServiceImpl implements KjobService {
     }
 
     @Override
-    public Kjob findByJobPath(String repositoryName) {
+    public Kjob findByJobPath(String repositoryName,String jobId1) {
         KjobExample example = new KjobExample();
-        example.createCriteria().andJobPathEqualTo(repositoryName);
+        example.createCriteria().andJobPathEqualTo(repositoryName).andJobDescriptionEqualTo(jobId1);
         return kjobMapper.selectByExample(example).get(0);
     }
 

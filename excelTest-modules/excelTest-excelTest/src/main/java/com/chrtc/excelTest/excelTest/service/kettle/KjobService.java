@@ -52,9 +52,9 @@ public interface KjobService {
     public void delete(String id);
     public List findAllList();
 
-    public void deleteByJobName(String path);
+    public void deleteByJobName(String path,String jobId1);
     public Integer  insertJob(Kjob kjob);
-    public Kjob findByJobPath(String repositoryName);
+    public Kjob findByJobPath(String repositoryName,String jobId1);
     public List<Kjob> findByJobName(String findByJobName);
 
 }

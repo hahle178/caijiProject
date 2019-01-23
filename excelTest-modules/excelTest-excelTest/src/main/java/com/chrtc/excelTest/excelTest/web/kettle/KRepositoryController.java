@@ -1,8 +1,10 @@
 package com.chrtc.excelTest.excelTest.web.kettle;
 
+import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSONObject;
@@ -176,9 +178,9 @@ public class KRepositoryController {
      * @return
      */
     @RequestMapping("/deleteByReposityName")
-    public void deleteByReposityName(String repositoryName ,HttpServletRequest request){
+    public void deleteByReposityName(String repositoryName ,String jobId1,HttpServletRequest request){
         ktransService.deleteByTransName(repositoryName);
-        kjobService.deleteByJobName(repositoryName);
+        kjobService.deleteByJobName(repositoryName,jobId1);
         KRepositoryService.deleteByReposityName(repositoryName);
     }
     /**
@@ -234,7 +236,7 @@ public class KRepositoryController {
     }
 
     @RequestMapping("/getJobTree")
-    public Result getJobTree(String repositoryId){
+    public Result getJobTree(String repositoryId) throws IOException {
         try {
             List<RepositoryTree> repositoryTreeList = KRepositoryService.getTreeList(repositoryId);
             List<RepositoryTree> newRepositoryTreeList = new ArrayList<RepositoryTree>();
