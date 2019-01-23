@@ -1,8 +1,10 @@
 package com.chrtc.excelTest.excelTest.web.kettle;
 
+import java.io.IOException;
 import java.util.*;
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import com.alibaba.fastjson.JSONObject;
@@ -49,10 +51,10 @@ public class KRepositoryController {
     private KjobService kjobService;
 
     /**
-    * 根据ID查询
-    * @param id
-    * @return Result
-    */
+     * 根据ID查询
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @EzdevOperation(name = "获取k_repository")
     public Result findOneById(@PathVariable @EzdevParam(name = "k_repositoryID") String id) {
@@ -60,27 +62,27 @@ public class KRepositoryController {
     }
 
     /**
-    * 多参数分页查询
-    * @param request
-    * @param pageNumber
-    * @param pageSize
-    * @param sort
-    * @return Result
-    */
+     * 多参数分页查询
+     * @param request
+     * @param pageNumber
+     * @param pageSize
+     * @param sort
+     * @return Result
+     */
     @RequestMapping(value = "/pages", method = RequestMethod.POST)
     @EzdevOperation(name = "分页获取k_repository")
-	public Result findAllByPage(ServletRequest request,@RequestParam(defaultValue = "0") @EzdevParam(name = "页码")  int pageNumber,
-            @RequestParam(defaultValue = "10") @EzdevParam(name = "条数")  int pageSize,@RequestParam(defaultValue = "create_date")  @EzdevParam(name = "排序字段")  String sort) {
-		Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
-		return ResultFactory.create(KRepositoryService.findAllByPage(searchParams, pageNumber, pageSize,
-                    UtilWord.getDatabaseNameFromBeanName(sort)));
-	}
+    public Result findAllByPage(ServletRequest request,@RequestParam(defaultValue = "0") @EzdevParam(name = "页码")  int pageNumber,
+                                @RequestParam(defaultValue = "10") @EzdevParam(name = "条数")  int pageSize,@RequestParam(defaultValue = "create_date")  @EzdevParam(name = "排序字段")  String sort) {
+        Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
+        return ResultFactory.create(KRepositoryService.findAllByPage(searchParams, pageNumber, pageSize,
+                UtilWord.getDatabaseNameFromBeanName(sort)));
+    }
 
     /**
-    * 插入k_repository
-    * @param entity
-    * @return Result
-    */
+     * 插入k_repository
+     * @param entity
+     * @return Result
+     */
     @RequestMapping(method = RequestMethod.POST)
     @EzdevOperation(name = "插入k_repository")
     public Result add(@Valid @RequestBody @EzdevParam(name = "k_repository") KRepository entity) {
@@ -88,11 +90,11 @@ public class KRepositoryController {
     }
 
     /**
-    * 根据ID更新k_repository
-    * @param id
-    * @param entity
-    * @return Result
-    */
+     * 根据ID更新k_repository
+     * @param id
+     * @param entity
+     * @return Result
+     */
     @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     @EzdevOperation(name = "更新k_repository")
     public Result update(@PathVariable @EzdevParam(name = "k_repositoryID") String id,@RequestBody @EzdevParam(name = "k_repository") KRepository entity) {
@@ -100,24 +102,24 @@ public class KRepositoryController {
         return ResultFactory.create(KRepositoryService.update(entity));
     }
     /**
-    * 根据ID删除k_repository
-    * @param id
-    * @return Result
-    */
+     * 根据ID删除k_repository
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @EzdevOperation(name = "删除k_repository")
-	public Result delete(@PathVariable @EzdevParam(name = "k_repositoryID") String id) {
-		KRepositoryService.delete(id);
-		return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
-	}
+    public Result delete(@PathVariable @EzdevParam(name = "k_repositoryID") String id) {
+        KRepositoryService.delete(id);
+        return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
+    }
 
     /**
-    * 连接测试
-    * @param id
-    * @return Result
-    */
+     * 连接测试
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "/repositoryCheck")
-	public Result repositoryCheck(KRepositoryDto kRepositoryDto) {
+    public Result repositoryCheck(KRepositoryDto kRepositoryDto) {
         if (DataValidate.AllNotEmpty(kRepositoryDto)){
             try {
                 KRepository kRepository = new KRepository();
@@ -176,9 +178,9 @@ public class KRepositoryController {
      * @return
      */
     @RequestMapping("/deleteByReposityName")
-    public void deleteByReposityName(String repositoryName ,HttpServletRequest request){
+    public void deleteByReposityName(String repositoryName ,String jobId1,HttpServletRequest request){
         ktransService.deleteByTransName(repositoryName);
-        kjobService.deleteByJobName(repositoryName);
+        kjobService.deleteByJobName(repositoryName,jobId1);
         KRepositoryService.deleteByReposityName(repositoryName);
     }
     /**
@@ -233,7 +235,7 @@ public class KRepositoryController {
     }
 
     @RequestMapping("/getJobTree")
-    public Result getJobTree(String repositoryId){
+    public Result getJobTree(String repositoryId) throws IOException {
         try {
             List<RepositoryTree> repositoryTreeList = KRepositoryService.getTreeList(repositoryId);
             List<RepositoryTree> newRepositoryTreeList = new ArrayList<RepositoryTree>();

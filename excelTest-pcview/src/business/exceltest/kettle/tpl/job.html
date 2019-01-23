@@ -48,6 +48,14 @@
                                                     e-permission="exceltest_bcpmessage_submit1">
                                                 <i class="fa fa-search-plus"></i>&nbsp;新增资源库作业
                                             </button>
+                                            <div class="form-group" e-event="event:change,href:/{{path}}/remoteOrlocal">
+                                                <label class="btn btn-primary" >
+                                                    <input type="radio" class="radioBTN radioBTN1"   value="0"    checked="checked" name="fieldOption">远程
+                                                </label>
+                                                <label class="btn btn-primary ">
+                                                    <input type="radio"  class="radioBTN radioBTN2" value="1"  name="fieldOption">本地
+                                                </label>
+                                            </div>
                                         </div>
                                         <table id="{{mcid}}_example2" class="table table-bordered table-hover no-footer" style="margin-left:15px;margin-top:50px"
                                                role="grid" aria-describedby="example2_info">

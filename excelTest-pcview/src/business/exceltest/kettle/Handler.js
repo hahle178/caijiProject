@@ -545,9 +545,10 @@ export default class extends BaseHandler{
                 layer.close(index);
 
                 $("#jobPath").val(transNode.text);
-                var split = transNode.id.split("_");
-
+                var split = transNode.id.split("@");
+                var split1 = transNode.id. substr(3,1);
                 $("#jobId").val(split[1]);
+                $("#jobId1").val(split1);
             })
 
         }else if($jobRepositoryId != null && treeData == null){
@@ -564,6 +565,7 @@ export default class extends BaseHandler{
         args.data = {};
         let $this = this;
         let zidingyiData  = {};
+        zidingyiData.jobId1 = args.jobId1;
         zidingyiData.jobPath = args.jobPath;
         args.data = zidingyiData;
         this.ajaxResource(args).then((data) => {
@@ -599,6 +601,56 @@ export default class extends BaseHandler{
                 layer.msg("请求失败！重新操作");
             }
         })
+    }
+    //启动远程作业
+    remoteJob(args){
+        args.data = {};
+        let $this = this;
+        let zidingyiData  = {};
+        zidingyiData.jobPath = args.jobPath;
+        zidingyiData.jobId1 = args.jobId1;
+        args.data = zidingyiData;
+        let address = null;
+        this.ajaxResource(args).then((data) => {
+            //启动按钮
+            if(data.data.path == "/"){
+                address = "http://"+   data.data.ip+"/kettle/runJob/?job="+data.data.path+args.jobPath+"&level=DebugLevel";
+            }else{
+                address = "http://"+  data.data.ip+"/kettle/runJob/?job="+data.data.path+"/"+args.jobPath+"&level=DebugLevel";
+            }
+
+            //alert(address)
+            // window.open("www.baidu.com");
+            // http://192.168.1.108:8080/kettle/runJob/?job=/ceshi_job&level=DebugLevel
+        })
+        layer.msg("正在启动");
+        setTimeout(function(){window.open(address);layer.msg("启动成功！");},1000)
+    }
+
+    //查看远程作业状态
+    remotestatus(args){
+        let a = null;
+        this.ajaxResource(args).then((data) => {
+            a = data.data
+        })
+        layer.msg("正在启动");
+        setTimeout(function(){window.open("http://"+a+"/kettle/status/");layer.msg("启动成功！");},1000)
+    }
+    //选择本地或者远程执行
+    remoteOrlocal(){
+        if($("input[name='fieldOption']:checked").val() == 1){
+            //本地
+            $(".remote").attr("disabled",true);
+            $(".status").attr("disabled",true);
+            $(".local").attr("disabled",false);
+            $(".stop").attr("disabled",false);
+        }else{
+            //远程
+            $(".remote").attr("disabled",false);
+            $(".status").attr("disabled",false);
+            $(".local").attr("disabled",true);
+            $(".stop").attr("disabled",true);
+        }
     }
 
     //编辑定时时间

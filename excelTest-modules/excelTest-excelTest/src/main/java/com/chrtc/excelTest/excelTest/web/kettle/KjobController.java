@@ -29,6 +29,8 @@ import org.pentaho.di.core.logging.KettleLogStore;
 import org.pentaho.di.core.logging.LoggingBuffer;
 import org.pentaho.di.job.Job;
 import org.pentaho.di.job.JobMeta;
+import org.pentaho.di.repository.ObjectId;
+import org.pentaho.di.repository.RepositoryDirectory;
 import org.pentaho.di.repository.RepositoryDirectoryInterface;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepository;
 import org.pentaho.di.repository.kdr.KettleDatabaseRepositoryMeta;
@@ -85,13 +87,15 @@ public class KjobController {
     private   String DBUSER; // 数据库用户名
     @Value("${scheduler.jdbc.dbpassword}")
     private  String DBPASSWORD; // 数据库密码
+    @Value("${kettle.ip}")
+    private  String  KETTLEIP; // kettle服务器远程配置
 
 
     /**
-    * 根据ID查询
-    * @param id
-    * @return Result
-    */
+     * 根据ID查询
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     @EzdevOperation(name = "获取k_job")
     public Result findOneById(@PathVariable @EzdevParam(name = "k_jobID") String id) {
@@ -99,27 +103,27 @@ public class KjobController {
     }
 
     /**
-    * 多参数分页查询
-    * @param request
-    * @param pageNumber
-    * @param pageSize
-    * @param sort
-    * @return Result
-    */
+     * 多参数分页查询
+     * @param request
+     * @param pageNumber
+     * @param pageSize
+     * @param sort
+     * @return Result
+     */
     @RequestMapping(value = "/pages", method = RequestMethod.POST)
     @EzdevOperation(name = "分页获取k_job")
-	public Result findAllByPage(ServletRequest request,@RequestParam(defaultValue = "0") @EzdevParam(name = "页码")  int pageNumber,
-            @RequestParam(defaultValue = "10") @EzdevParam(name = "条数")  int pageSize,@RequestParam(defaultValue = "create_date")  @EzdevParam(name = "排序字段")  String sort) {
-		Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
-		return ResultFactory.create(KjobService.findAllByPage(searchParams, pageNumber, pageSize,
-                    UtilWord.getDatabaseNameFromBeanName(sort)));
-	}
+    public Result findAllByPage(ServletRequest request,@RequestParam(defaultValue = "0") @EzdevParam(name = "页码")  int pageNumber,
+                                @RequestParam(defaultValue = "10") @EzdevParam(name = "条数")  int pageSize,@RequestParam(defaultValue = "create_date")  @EzdevParam(name = "排序字段")  String sort) {
+        Map<String, Object> searchParams = UtilServlet.getParametersStartingWith(request);
+        return ResultFactory.create(KjobService.findAllByPage(searchParams, pageNumber, pageSize,
+                UtilWord.getDatabaseNameFromBeanName(sort)));
+    }
 
     /**
-    * 插入k_job
-    * @param entity
-    * @return Result
-    */
+     * 插入k_job
+     * @param entity
+     * @return Result
+     */
     @RequestMapping(method = RequestMethod.POST)
     @EzdevOperation(name = "插入k_job")
     public Result add(@Valid @RequestBody @EzdevParam(name = "k_job") Kjob entity) {
@@ -127,11 +131,11 @@ public class KjobController {
     }
 
     /**
-    * 根据ID更新k_job
-    * @param id
-    * @param entity
-    * @return Result
-    */
+     * 根据ID更新k_job
+     * @param id
+     * @param entity
+     * @return Result
+     */
     @RequestMapping(value = "{id}",method = RequestMethod.PUT)
     @EzdevOperation(name = "更新k_job")
     public Result update(@PathVariable @EzdevParam(name = "k_jobID") String id,@RequestBody @EzdevParam(name = "k_job") Kjob entity) {
@@ -139,16 +143,16 @@ public class KjobController {
         return ResultFactory.create(KjobService.update(entity));
     }
     /**
-    * 根据ID删除k_job
-    * @param id
-    * @return Result
-    */
+     * 根据ID删除k_job
+     * @param id
+     * @return Result
+     */
     @RequestMapping(value = "{id}", method = RequestMethod.DELETE)
     @EzdevOperation(name = "删除k_job")
-	public Result delete(@PathVariable @EzdevParam(name = "k_jobID") String id) {
-		KjobService.delete(id);
-		return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
-	}
+    public Result delete(@PathVariable @EzdevParam(name = "k_jobID") String id) {
+        KjobService.delete(id);
+        return ResultFactory.create(CodeMsgBase.SUCCESS_DELETE);
+    }
 
     /**
      *作业列表
@@ -157,16 +161,16 @@ public class KjobController {
      * @return
      */
     @RequestMapping("/jobList")
-        public Result jobLogDetail(Kjob kTrans, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
-           // List<Kjob> kjobs = KjobService.findAllByPage();
-            Map<String, Object> searchParams = new HashMap();
-            Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-           // Map all = new LinkedHashMap();
-           // all.put("kjobs",allByPage);
-            for (Kjob k : allByPage.getContent()) {
-                String jobPath = k.getJobPath();
-            }
-            return ResultFactory.create(allByPage);
+    public Result jobLogDetail(Kjob kTrans, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+        // List<Kjob> kjobs = KjobService.findAllByPage();
+        Map<String, Object> searchParams = new HashMap();
+        Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
+        // Map all = new LinkedHashMap();
+        // all.put("kjobs",allByPage);
+        for (Kjob k : allByPage.getContent()) {
+            String jobPath = k.getJobPath();
+        }
+        return ResultFactory.create(allByPage);
     }
 
     /**
@@ -176,12 +180,12 @@ public class KjobController {
      * @throws IOException
      */
     @RequestMapping("/findByJobName")
-        public Result findByJobName(String findByJobName, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
+    public Result findByJobName(String findByJobName, ServletRequest request, @RequestParam(defaultValue = "0")   int pageNumber, @RequestParam(defaultValue = "10")   int pageSize, HttpServletResponse responese, @RequestParam(defaultValue = "create_date")    String sort){
         // List<Kjob> byJobName = KjobService.findByJobName(findByJobName);
         Map<String, Object> searchParams = new HashMap();
         searchParams.put("findByJobName",findByJobName);
         Paging<Kjob> allByPage = KjobService.findAllByPage(searchParams, pageNumber, pageSize, UtilWord.getDatabaseNameFromBeanName(sort));
-       // Map all = new LinkedHashMap();
+        // Map all = new LinkedHashMap();
         //all.put("kjobs",allByPage);
         return ResultFactory.create(allByPage);
     }
@@ -193,8 +197,9 @@ public class KjobController {
      * @return
      */
     @RequestMapping("/jobAdd")
-    public Result insert(Kjob kjob, HttpServletRequest request){
-        KjobService.deleteByJobName(kjob.getJobPath());
+    public Result insert(Kjob kjob,String jobId1, HttpServletRequest request){
+        KjobService.deleteByJobName(kjob.getJobPath(),jobId1);
+        kjob.setJobDescription(jobId1);
         int flag = KjobService.insertJob(kjob);
         if (flag > 0) {
             return ResultFactory.create(CodeMsgBase.SUCCESS);
@@ -222,27 +227,54 @@ public class KjobController {
      * @throws Exception
      */
     @RequestMapping("/runJob")
-    public  Result repositoryName(String jobPath) throws Exception {
-            //根据repositoryName得到转换信息
-            Kjob kjob  =  KjobService.findByJobPath(jobPath);
-            String transRepositoryId = kjob.getJobRepositoryId();
-            KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
-            //初始化环境
-            KettleEnvironment.init();
-            //创建DB资源库
-            KettleDatabaseRepository repository=new KettleDatabaseRepository();
-            DatabaseMeta databaseMeta=new DatabaseMeta(KRepository.getRepositoryName(),KRepository.getRepositoryType(),KRepository.getDatabaseAccess(),KRepository.getDatabaseHost(),KRepository.getDatabaseName(),KRepository.getDatabasePort(),KRepository.getDatabaseUsername(),KRepository.getDatabasePassword());
-            //选择资源库
-            //资源库元对象
-            KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
-            repositoryInfo.setConnection(databaseMeta);
-            repository.init(repositoryInfo);
-            //连接资源库
-            repository.connect("admin","admin");
-            RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree();
+    public  Result repositoryName(String jobPath,String jobId1) throws Exception {
+        //根据repositoryName得到转换信息
+        Kjob kjob  =  KjobService.findByJobPath(jobPath,jobId1);
+        String transRepositoryId = kjob.getJobRepositoryId();
+        KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
+        //初始化环境
+        KettleEnvironment.init();
+        //创建DB资源库
+        KettleDatabaseRepository repository=new KettleDatabaseRepository();
+        DatabaseMeta databaseMeta=new DatabaseMeta(KRepository.getRepositoryName(),KRepository.getRepositoryType(),KRepository.getDatabaseAccess(),KRepository.getDatabaseHost(),KRepository.getDatabaseName(),KRepository.getDatabasePort(),KRepository.getDatabaseUsername(),KRepository.getDatabasePassword());
+        //选择资源库
+        //资源库元对象
+        KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
+        repositoryInfo.setConnection(databaseMeta);
+        repository.init(repositoryInfo);
+        //连接资源库
+        repository.connect("admin","admin");
+        RepositoryDirectoryInterface directoryInterface=repository.loadRepositoryDirectoryTree();
+        RepositoryDirectoryInterface d = null;
+        JobMeta jobMeta = null;
+        if (!jobId1.equals("0")){
+            List<RepositoryDirectoryInterface> children = directoryInterface.getChildren();
+            if(children.size() >0 ){
+                for (RepositoryDirectoryInterface  r :children) {
+                    ObjectId objectId = r.getObjectId();
+                    if(r.getObjectId().getId().equals(jobId1)){
+                        d = r;
+                        break;
+                    }else{
+                        List<RepositoryDirectoryInterface> children1 = r.getChildren();
+                        if(children1.size() >0){
+                            for (RepositoryDirectoryInterface  r1 :children1) {
+                                if(r1.getObjectId().getId().equals(jobId1)){
+                                    d = r1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             //选择作业
-            JobMeta jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
-            Job job = new Job(repository, jobMeta);
+            jobMeta = repository.loadJob(jobPath, d, null, null);
+        }else{
+            //选择作业
+            jobMeta = repository.loadJob(jobPath, directoryInterface, null, null);
+        }
+        Job job = new Job(repository, jobMeta);
 /*            jobMap.put(jobPath,job);
         Job ss = jobMap.get(jobPath);*/
         //添加监控
@@ -278,6 +310,65 @@ public class KjobController {
             addRecord(jobPath,jobStartDate,jobStopDate,logText,"1");
             return ResultFactory.create(jsonObject);
         }
+    }
+    //远程执行作业
+    @RequestMapping("/remoterunJob")
+    public  Result remoterunJob(String jobPath,String jobId1) throws Exception {
+//根据repositoryName得到转换信息
+        Kjob kjob = KjobService.findByJobPath(jobPath, jobId1);
+        String transRepositoryId = kjob.getJobRepositoryId();
+        KRepository KRepository = KRepositoryService.findOneById(transRepositoryId);
+        //初始化环境
+        KettleEnvironment.init();
+        //创建DB资源库
+        KettleDatabaseRepository repository = new KettleDatabaseRepository();
+        DatabaseMeta databaseMeta = new DatabaseMeta(KRepository.getRepositoryName(), KRepository.getRepositoryType(), KRepository.getDatabaseAccess(), KRepository.getDatabaseHost(), KRepository.getDatabaseName(), KRepository.getDatabasePort(), KRepository.getDatabaseUsername(), KRepository.getDatabasePassword());
+        //选择资源库
+        //资源库元对象
+        KettleDatabaseRepositoryMeta repositoryInfo = new KettleDatabaseRepositoryMeta();
+        repositoryInfo.setConnection(databaseMeta);
+        repository.init(repositoryInfo);
+        //连接资源库
+        repository.connect("admin", "admin");
+        RepositoryDirectoryInterface directoryInterface = repository.loadRepositoryDirectoryTree();
+        RepositoryDirectoryInterface d = null;
+        String path = null;
+        JobMeta jobMeta = null;
+        if (!jobId1.equals("0")) {
+            List<RepositoryDirectoryInterface> children = directoryInterface.getChildren();
+            if (children.size() > 0) {
+                for (RepositoryDirectoryInterface r : children) {
+                    ObjectId objectId = r.getObjectId();
+                    if (r.getObjectId().getId().equals(jobId1)) {
+                        path = r.getPath();
+                        break;
+                    } else {
+                        List<RepositoryDirectoryInterface> children1 = r.getChildren();
+                        if (children1.size() > 0) {
+                            for (RepositoryDirectoryInterface r1 : children1) {
+                                if (r1.getObjectId().getId().equals(jobId1)) {
+                                    path = r1.getPath();
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            path = directoryInterface.getPath();
+        }
+        LinkedHashMap<Object, Object> objectObjectLinkedHashMap = new LinkedHashMap<>();
+        objectObjectLinkedHashMap.put("ip",KETTLEIP);
+        objectObjectLinkedHashMap.put("path",path);
+
+        return ResultFactory.create(objectObjectLinkedHashMap);
+    }
+
+    //远程执行作业
+    @RequestMapping("/remotestatus")
+    public  Result remotestatus() throws Exception {
+        return ResultFactory.create(KETTLEIP);
     }
 
     /**
@@ -512,7 +603,7 @@ public class KjobController {
             PreparedStatement psREPEAT = con.prepareStatement(r);
 
             //设置占位符值
-           // psREPEAT.setString(1,TABLE);
+            // psREPEAT.setString(1,TABLE);
             psREPEAT.setString(1,repeat);
             psREPEAT.setString(2,schedulerid);
             //获得结果集
@@ -525,7 +616,7 @@ public class KjobController {
             PreparedStatement psschedulerType = con.prepareStatement(s);
 
             //设置占位符值
-           // psschedulerType.setString(1,TABLE);
+            // psschedulerType.setString(1,TABLE);
             psschedulerType.setString(1,schedulerType);
             psschedulerType.setString(2,schedulerid);
             //获得结果集
